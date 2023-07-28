@@ -12,7 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 
-class TurnOnNotificationModel extends FlutterFlowModel {
+class HeightEntryModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

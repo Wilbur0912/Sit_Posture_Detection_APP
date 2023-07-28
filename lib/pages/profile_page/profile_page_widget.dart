@@ -1053,7 +1053,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget>
                                                   0.0, 24.0, 0.0, 0.0),
                                           child: FFButtonWidget(
                                             onPressed: () async {
-                                              context.pushNamed('Subscription');
+                                              context.pushNamed('HomePage');
                                             },
                                             text: 'Unlock now',
                                             options: FFButtonOptions(

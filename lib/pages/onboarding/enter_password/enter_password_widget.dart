@@ -331,7 +331,7 @@ class _EnterPasswordWidgetState extends State<EnterPasswordWidget>
                 child: FFButtonWidget(
                   onPressed: () async {
                     context.pushNamed(
-                      'EnableFingerprint',
+                      'GenderSelection',
                       extra: <String, dynamic>{
                         kTransitionInfoKey: TransitionInfo(
                           hasTransition: true,

@@ -11,19 +11,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
-import 'weight_entry_model.dart';
-export 'weight_entry_model.dart';
+import 'height_entry_model.dart';
+export 'height_entry_model.dart';
 
-class WeightEntryWidget extends StatefulWidget {
-  const WeightEntryWidget({Key? key}) : super(key: key);
+class HeightEntryWidget extends StatefulWidget {
+  const HeightEntryWidget({Key? key}) : super(key: key);
 
   @override
-  _WeightEntryWidgetState createState() => _WeightEntryWidgetState();
+  _HeightEntryWidgetState createState() => _HeightEntryWidgetState();
 }
 
-class _WeightEntryWidgetState extends State<WeightEntryWidget>
+class _HeightEntryWidgetState extends State<HeightEntryWidget>
     with TickerProviderStateMixin {
-  late WeightEntryModel _model;
+  late HeightEntryModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -52,7 +52,7 @@ class _WeightEntryWidgetState extends State<WeightEntryWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => WeightEntryModel());
+    _model = createModel(context, () => HeightEntryModel());
   }
 
   @override
@@ -178,7 +178,7 @@ class _WeightEntryWidgetState extends State<WeightEntryWidget>
                       padding:
                           EdgeInsetsDirectional.fromSTEB(84.0, 12.0, 84.0, 0.0),
                       child: Text(
-                        'What is your weight?',
+                        'What is your height?',
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Rubik',
@@ -209,75 +209,7 @@ class _WeightEntryWidgetState extends State<WeightEntryWidget>
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 12.0, 0.0),
-                              child: FFButtonWidget(
-                                onPressed: () {
-                                  print('Button pressed ...');
-                                },
-                                text: 'lbs',
-                                options: FFButtonOptions(
-                                  width: 96.0,
-                                  height: 48.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context).secondary,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: 'Rubik',
-                                        color: Colors.white,
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                  elevation: 0.0,
-                                  borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  12.0, 0.0, 0.0, 0.0),
-                              child: FFButtonWidget(
-                                onPressed: () {
-                                  print('Button pressed ...');
-                                },
-                                text: 'kg',
-                                options: FFButtonOptions(
-                                  width: 96.0,
-                                  height: 48.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: Colors.white,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: 'Rubik',
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                  elevation: 2.0,
-                                  borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                              ),
-                            ),
-                          ],
+                          children: [],
                         ),
                       ),
                       Padding(
@@ -295,7 +227,7 @@ class _WeightEntryWidgetState extends State<WeightEntryWidget>
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Text(
-                                    '120',
+                                    '180',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -307,7 +239,7 @@ class _WeightEntryWidgetState extends State<WeightEntryWidget>
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 6.0),
                                     child: Text(
-                                      'lbs',
+                                      'cm',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -969,7 +901,7 @@ class _WeightEntryWidgetState extends State<WeightEntryWidget>
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text(
-                                  '110',
+                                  '170',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -986,7 +918,7 @@ class _WeightEntryWidgetState extends State<WeightEntryWidget>
                                   size: 24.0,
                                 ),
                                 Text(
-                                  '130',
+                                  '190',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -1011,7 +943,7 @@ class _WeightEntryWidgetState extends State<WeightEntryWidget>
                 child: FFButtonWidget(
                   onPressed: () async {
                     context.pushNamed(
-                      'HeightEntry',
+                      'HomePage',
                       extra: <String, dynamic>{
                         kTransitionInfoKey: TransitionInfo(
                           hasTransition: true,

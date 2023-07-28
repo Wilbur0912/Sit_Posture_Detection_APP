@@ -8,18 +8,12 @@ export '/pages/onboarding/verify_mobile/verify_mobile_widget.dart'
     show VerifyMobileWidget;
 export '/pages/onboarding/enter_password/enter_password_widget.dart'
     show EnterPasswordWidget;
-export '/pages/onboarding/enable_fingerprint/enable_fingerprint_widget.dart'
-    show EnableFingerprintWidget;
-export '/pages/onboarding/turn_on_notification/turn_on_notification_widget.dart'
-    show TurnOnNotificationWidget;
 export '/pages/onboarding/gender_selection/gender_selection_widget.dart'
     show GenderSelectionWidget;
 export '/pages/onboarding/profile_picture/profile_picture_widget.dart'
     show ProfilePictureWidget;
 export '/pages/onboarding/weight_entry/weight_entry_widget.dart'
     show WeightEntryWidget;
-export '/pages/onboarding/user_interest/user_interest_widget.dart'
-    show UserInterestWidget;
 export '/pages/onboarding/get_started/get_started_widget.dart'
     show GetStartedWidget;
 export '/pages/trackers/weight_tracker/weight_tracker_widget.dart'
@@ -36,4 +30,5 @@ export '/pages/trackers/calorie_tracker/calorie_tracker_widget.dart'
     show CalorieTrackerWidget;
 export '/pages/food_nutrients/food_nutrients_widget.dart'
     show FoodNutrientsWidget;
-export '/pages/subscription/subscription_widget.dart' show SubscriptionWidget;
+export '/pages/onboarding/height_entry/height_entry_widget.dart'
+    show HeightEntryWidget;

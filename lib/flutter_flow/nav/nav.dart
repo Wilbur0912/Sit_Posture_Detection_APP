@@ -94,16 +94,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => EnterPasswordWidget(),
             ),
             FFRoute(
-              name: 'EnableFingerprint',
-              path: 'enableFingerprint',
-              builder: (context, params) => EnableFingerprintWidget(),
-            ),
-            FFRoute(
-              name: 'TurnOnNotification',
-              path: 'turnOnNotification',
-              builder: (context, params) => TurnOnNotificationWidget(),
-            ),
-            FFRoute(
               name: 'GenderSelection',
               path: 'genderSelection',
               builder: (context, params) => GenderSelectionWidget(),
@@ -117,11 +107,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'WeightEntry',
               path: 'weightEntry',
               builder: (context, params) => WeightEntryWidget(),
-            ),
-            FFRoute(
-              name: 'UserInterest',
-              path: 'userInterest',
-              builder: (context, params) => UserInterestWidget(),
             ),
             FFRoute(
               name: 'GetStarted',
@@ -174,9 +159,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => FoodNutrientsWidget(),
             ),
             FFRoute(
-              name: 'Subscription',
-              path: 'subscription',
-              builder: (context, params) => SubscriptionWidget(),
+              name: 'HeightEntry',
+              path: 'HeightEntry',
+              builder: (context, params) => HeightEntryWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
