@@ -24,16 +24,19 @@ few codes of file need to be changed
 1. nav.dart
 
 ex:
-            FFRoute(
-              name: 'HeightEntry',
-              path: 'HeightEntry',
-              builder: (context, params) => HeightEntryWidget(),
-            ),
-            FFRoute( // if add weightEntryCopy page
-              name: 'WeightEntryCopy',
-              path: 'weightEntryCopy',
-              builder: (context, params) => WeightEntryCopyWidget(),
-            )
+
+'''
+FFRoute(
+  name: 'HeightEntry',
+  path: 'HeightEntry',
+  builder: (context, params) => HeightEntryWidget(),
+),
+FFRoute( // if add weightEntryCopy page
+  name: 'WeightEntryCopy',
+  path: 'weightEntryCopy',
+  builder: (context, params) => WeightEntryCopyWidget(),
+)
+'''
 2. index.dart
 
 ex:
