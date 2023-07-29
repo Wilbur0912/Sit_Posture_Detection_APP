@@ -73,7 +73,7 @@ class _WelcomePageWidgetState extends State<WelcomePageWidget> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
-                                '歡迎使用S',
+                                '歡迎使用Snotleo',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
