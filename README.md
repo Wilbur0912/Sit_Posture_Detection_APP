@@ -1,4 +1,4 @@
-# APPP3
+# Sit_Posture_Detection_APP
 
 ### If you want to add pages without flutterflow
 few codes of file need to be changed
