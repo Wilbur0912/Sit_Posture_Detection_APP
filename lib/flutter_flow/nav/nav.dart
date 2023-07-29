@@ -162,11 +162,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'HeightEntry',
               path: 'HeightEntry',
               builder: (context, params) => HeightEntryWidget(),
-            ),
-            FFRoute(
-              name: 'WeightEntryCopy',
-              path: 'weightEntryCopy',
-              builder: (context, params) => WeightEntryCopyWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

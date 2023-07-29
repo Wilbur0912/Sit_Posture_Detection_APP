@@ -32,5 +32,3 @@ export '/pages/food_nutrients/food_nutrients_widget.dart'
     show FoodNutrientsWidget;
 export '/pages/onboarding/height_entry/height_entry_widget.dart'
     show HeightEntryWidget;
-export '/pages/onboarding/weight_entry_copy/weight_entry_copy_widget.dart'
-    show WeightEntryCopyWidget;
