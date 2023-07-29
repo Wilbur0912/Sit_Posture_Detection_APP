@@ -1,6 +1,6 @@
 # Sit_Posture_Detection_APP
 
-### 如果要增加頁面，那些code需要改?
+### 如果要增加頁面，哪些code需要改?
 
 1. flutterflow/nav/nav.dart
 
