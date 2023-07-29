@@ -21,7 +21,9 @@ samples, guidance on mobile development, and a full API reference.
 
 ### If adding page without flutterflow
 few codes of file need to be changed
-1. nav.dart ex:
+1. nav.dart
+
+ex:
             FFRoute(
               name: 'HeightEntry',
               path: 'HeightEntry',
@@ -32,8 +34,10 @@ few codes of file need to be changed
               path: 'weightEntryCopy',
               builder: (context, params) => WeightEntryCopyWidget(),
             )
-2. index.dart ex:
-export '/pages/onboarding/height_entry/height_entry_widget.dart'
-    show HeightEntryWidget;
-export '/pages/onboarding/weight_entry_copy/weight_entry_copy_widget.dart' // if add weightEntryCopy page
-    show WeightEntryCopyWidget;
+2. index.dart
+
+ex:
+            export '/pages/onboarding/height_entry/height_entry_widget.dart'
+                show HeightEntryWidget;
+            export '/pages/onboarding/weight_entry_copy/weight_entry_copy_widget.dart' // if add weightEntryCopy page
+                show WeightEntryCopyWidget;
