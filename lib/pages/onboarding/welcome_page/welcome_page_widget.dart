@@ -154,7 +154,7 @@ class _WelcomePageWidgetState extends State<WelcomePageWidget> {
                 child: FFButtonWidget(
                   onPressed: () async {
                     context.pushNamed(
-                      'MobileSignIn',
+                      'WeightEntryCopy',
                       extra: <String, dynamic>{
                         kTransitionInfoKey: TransitionInfo(
                           hasTransition: true,
