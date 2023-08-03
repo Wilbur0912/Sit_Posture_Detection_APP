@@ -18,20 +18,20 @@ export '/pages/starting_pages/get_started/get_started_widget.dart'
     show GetStartedWidget;
 export '/pages/main_pages/analyzation/analyzation_widget.dart'
     show AnalyzationWidget;
-export '/extra_template/steps_tracker/steps_tracker_widget.dart'
+export '/pages/extra_template/steps_tracker/steps_tracker_widget.dart'
     show StepsTrackerWidget;
-export '/extra_template/food_journal/food_journal_widget.dart'
+export '/pages/extra_template/food_journal/food_journal_widget.dart'
     show FoodJournalWidget;
-export '/extra_template/events_page/events_page_widget.dart'
+export '/pages/extra_template/events_page/events_page_widget.dart'
     show EventsPageWidget;
-export '/extra_template/event_details/event_details_widget.dart'
+export '/pages/extra_template/event_details/event_details_widget.dart'
     show EventDetailsWidget;
-export '/extra_template/profile_page/profile_page_widget.dart'
+export '/pages/extra_template/profile_page/profile_page_widget.dart'
     show ProfilePageWidget;
-export '/extra_template/water_tracker/water_tracker_widget.dart'
+export '/pages/extra_template/water_tracker/water_tracker_widget.dart'
     show WaterTrackerWidget;
 export '/pages/main_pages/detection/detection_widget.dart' show DetectionWidget;
-export '/extra_template/food_nutrients/food_nutrients_widget.dart'
+export '/pages/extra_template/food_nutrients/food_nutrients_widget.dart'
     show FoodNutrientsWidget;
 export '/pages/starting_pages/height_entry/height_entry_widget.dart'
     show HeightEntryWidget;
