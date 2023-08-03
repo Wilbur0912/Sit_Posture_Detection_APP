@@ -719,7 +719,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget>
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
                                         context.pushNamed(
-                                          'WeightTracker',
+                                          'analyzation',
                                           extra: <String, dynamic>{
                                             kTransitionInfoKey: TransitionInfo(
                                               hasTransition: true,

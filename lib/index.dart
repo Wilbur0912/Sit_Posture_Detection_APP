@@ -16,8 +16,8 @@ export '/pages/onboarding/weight_entry/weight_entry_widget.dart'
     show WeightEntryWidget;
 export '/pages/onboarding/get_started/get_started_widget.dart'
     show GetStartedWidget;
-export '/pages/trackers/weight_tracker/weight_tracker_widget.dart'
-    show WeightTrackerWidget;
+export '/pages/trackers/analyzation/analyzation_widget.dart'
+    show AnalyzationWidget;
 export '/pages/trackers/steps_tracker/steps_tracker_widget.dart'
     show StepsTrackerWidget;
 export '/pages/food_journal/food_journal_widget.dart' show FoodJournalWidget;
@@ -26,9 +26,10 @@ export '/pages/event_details/event_details_widget.dart' show EventDetailsWidget;
 export '/pages/profile_page/profile_page_widget.dart' show ProfilePageWidget;
 export '/pages/trackers/water_tracker/water_tracker_widget.dart'
     show WaterTrackerWidget;
-export '/pages/trackers/calorie_tracker/calorie_tracker_widget.dart'
-    show CalorieTrackerWidget;
+export '/pages/trackers/detection/detection_widget.dart' show DetectionWidget;
 export '/pages/food_nutrients/food_nutrients_widget.dart'
     show FoodNutrientsWidget;
 export '/pages/onboarding/height_entry/height_entry_widget.dart'
     show HeightEntryWidget;
+export '/pages/settings/settings_widget.dart' show SettingsWidget;
+export '/pages/connect/connect_widget.dart' show ConnectWidget;
