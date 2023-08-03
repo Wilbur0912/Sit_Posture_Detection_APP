@@ -1,4 +1,6 @@
 # Sit_Posture_Detection_APP
+### APP主要頁面
+![image](https://github.com/Wilbur0912/Sit_Posture_Detection_APP/assets/89004015/ee9deae8-6b0b-49e8-bcf9-5c3f220ee52c)
 
 ### 如果要增加頁面，哪些code需要改?
 
