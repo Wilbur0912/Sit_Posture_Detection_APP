@@ -497,7 +497,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   context.pushNamed(
-                                    'CalorieTracker',
+                                    'detection',
                                     extra: <String, dynamic>{
                                       kTransitionInfoKey: TransitionInfo(
                                         hasTransition: true,
@@ -528,7 +528,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Text(
-                                              '開始監測',
+                                              '即時監測',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -544,14 +544,14 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           ],
                                         ),
                                         CircularPercentIndicator(
-                                          percent: 0.4,
+                                          percent: 0.75,
                                           radius: 48.0,
                                           lineWidth: 18.0,
                                           animation: true,
                                           progressColor: Color(0xFF7EE4F0),
                                           backgroundColor: Color(0x32000000),
                                           center: Text(
-                                            '40%',
+                                            '75%',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -560,60 +560,49 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 ),
                                           ),
                                         ),
+                                        Text(
+                                          '翹腳',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Rubik',
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                        ),
                                         Column(
                                           mainAxisSize: MainAxisSize.max,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  '10',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Rubik',
-                                                        color: Colors.white,
-                                                        fontSize: 24.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
+                                            Align(
+                                              alignment: AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: SingleChildScrollView(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  children: [
+                                                    Text(
+                                                      '已連續坐了32分鐘',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Rubik',
+                                                            color: Colors.white,
+                                                            fontSize: 12.0,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
+                                                    ),
+                                                  ],
                                                 ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          2.0, 0.0, 0.0, 2.0),
-                                                  child: Text(
-                                                    'hr',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Rubik',
-                                                          color: Colors.white,
-                                                          fontSize: 14.0,
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Text(
-                                              '最近一周監測時數',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Rubik',
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -630,7 +619,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   context.pushNamed(
-                                    'WeightTracker',
+                                    'analyzation',
                                     extra: <String, dynamic>{
                                       kTransitionInfoKey: TransitionInfo(
                                         hasTransition: true,
@@ -679,20 +668,22 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         Container(
                                           width: double.infinity,
                                           height: 72.0,
-                                          child: FlutterFlowLineChart(
-                                            data: [
-                                              FFLineChartData(
-                                                xData: FFAppState().xAxis,
+                                          child: FlutterFlowBarChart(
+                                            barData: [
+                                              FFBarChartData(
                                                 yData: FFAppState().yAxis,
-                                                settings: LineChartBarData(
-                                                  color: Color(0xFF7165E3),
-                                                  barWidth: 2.0,
-                                                  isCurved: true,
-                                                  dotData:
-                                                      FlDotData(show: false),
-                                                ),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBtnText,
                                               )
                                             ],
+                                            xLabels: FFAppState().xAxis,
+                                            barWidth: 10.0,
+                                            barBorderRadius:
+                                                BorderRadius.circular(10.0),
+                                            groupSpace: 5.0,
+                                            alignment:
+                                                BarChartAlignment.spaceEvenly,
                                             chartStylingInfo: ChartStylingInfo(
                                               backgroundColor:
                                                   Color(0x00FFFFFF),
@@ -773,7 +764,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   context.pushNamed(
-                                    'WaterTracker',
+                                    'Connect',
                                     extra: <String, dynamic>{
                                       kTransitionInfoKey: TransitionInfo(
                                         hasTransition: true,
@@ -820,7 +811,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           ],
                                         ),
                                         Icon(
-                                          Icons.wifi_sharp,
+                                          Icons.link,
                                           color: FlutterFlowTheme.of(context)
                                               .primaryBtnText,
                                           size: 72.0,
@@ -836,7 +827,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   CrossAxisAlignment.end,
                                               children: [
                                                 Text(
-                                                  '未連線',
+                                                  '連線中',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -851,7 +842,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               ],
                                             ),
                                             Text(
-                                              '上次連接時間:3hr',
+                                              '低延遲',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -877,7 +868,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   context.pushNamed(
-                                    'StepsTracker',
+                                    'settings',
                                     extra: <String, dynamic>{
                                       kTransitionInfoKey: TransitionInfo(
                                         hasTransition: true,

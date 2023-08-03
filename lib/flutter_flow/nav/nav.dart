@@ -114,9 +114,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => GetStartedWidget(),
             ),
             FFRoute(
-              name: 'WeightTracker',
-              path: 'weightTracker',
-              builder: (context, params) => WeightTrackerWidget(),
+              name: 'analyzation',
+              path: 'analyzation',
+              builder: (context, params) => AnalyzationWidget(),
             ),
             FFRoute(
               name: 'StepsTracker',
@@ -149,9 +149,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => WaterTrackerWidget(),
             ),
             FFRoute(
-              name: 'CalorieTracker',
-              path: 'calorieTracker',
-              builder: (context, params) => CalorieTrackerWidget(),
+              name: 'detection',
+              path: 'detection',
+              builder: (context, params) => DetectionWidget(),
             ),
             FFRoute(
               name: 'FoodNutrients',
@@ -162,6 +162,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'HeightEntry',
               path: 'HeightEntry',
               builder: (context, params) => HeightEntryWidget(),
+            ),
+            FFRoute(
+              name: 'settings',
+              path: 'settings',
+              builder: (context, params) => SettingsWidget(),
+            ),
+            FFRoute(
+              name: 'Connect',
+              path: 'connect',
+              builder: (context, params) => ConnectWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

@@ -9,19 +9,19 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
-import 'weight_tracker_model.dart';
-export 'weight_tracker_model.dart';
+import 'analyzation_model.dart';
+export 'analyzation_model.dart';
 
-class WeightTrackerWidget extends StatefulWidget {
-  const WeightTrackerWidget({Key? key}) : super(key: key);
+class AnalyzationWidget extends StatefulWidget {
+  const AnalyzationWidget({Key? key}) : super(key: key);
 
   @override
-  _WeightTrackerWidgetState createState() => _WeightTrackerWidgetState();
+  _AnalyzationWidgetState createState() => _AnalyzationWidgetState();
 }
 
-class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
+class _AnalyzationWidgetState extends State<AnalyzationWidget>
     with TickerProviderStateMixin {
-  late WeightTrackerModel _model;
+  late AnalyzationModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -88,7 +88,7 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => WeightTrackerModel());
+    _model = createModel(context, () => AnalyzationModel());
   }
 
   @override
@@ -155,118 +155,154 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(48.0, 48.0, 48.0, 0.0),
-              child: Row(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 48.0, 0.0, 0.0),
+              child: Column(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '最新次數',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Rubik',
-                              color: Colors.white,
-                              fontSize: 12.0,
-                              letterSpacing: 0.6,
-                              fontWeight: FontWeight.normal,
-                            ),
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            '84',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Rubik',
-                                  color: Colors.white,
-                                  fontSize: 36.0,
-                                ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(7.0, 0.0, 0.0, 5.0),
+                    child: Text(
+                      '好姿勢比例',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Rubik',
+                            color: Colors.white,
+                            fontSize: 14.0,
+                            letterSpacing: 0.6,
+                            fontWeight: FontWeight.normal,
                           ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                2.0, 0.0, 0.0, 6.0),
-                            child: Text(
-                              '次',
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(48.0, 4.0, 48.0, 0.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '本周總共',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Rubik',
                                     color: Colors.white,
-                                    letterSpacing: 0.2,
+                                    fontSize: 12.0,
+                                    letterSpacing: 0.6,
                                     fontWeight: FontWeight.normal,
                                   ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Stack(
-                    alignment: AlignmentDirectional(0.0, 0.0),
-                    children: [
-                      CircularPercentIndicator(
-                        percent: 0.6,
-                        radius: 30.0,
-                        lineWidth: 4.0,
-                        animation: true,
-                        progressColor:
-                            FlutterFlowTheme.of(context).primaryBackground,
-                        backgroundColor: Color(0x4D000000),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '當前目標',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Rubik',
-                              color: Colors.white,
-                              fontSize: 12.0,
-                              letterSpacing: 0.6,
-                              fontWeight: FontWeight.normal,
-                            ),
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            '64',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Rubik',
-                                  color: Colors.white,
-                                  fontSize: 36.0,
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  '84',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Rubik',
+                                        color: Colors.white,
+                                        fontSize: 36.0,
+                                      ),
                                 ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                2.0, 0.0, 0.0, 6.0),
-                            child: Text(
-                              '次',
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      2.0, 0.0, 0.0, 6.0),
+                                  child: Text(
+                                    '次',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Rubik',
+                                          color: Colors.white,
+                                          letterSpacing: 0.2,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Stack(
+                          alignment: AlignmentDirectional(0.0, 0.0),
+                          children: [
+                            CircularPercentIndicator(
+                              percent: 0.63,
+                              radius: 31.5,
+                              lineWidth: 4.0,
+                              animation: true,
+                              progressColor: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                              backgroundColor: Color(0x4D000000),
+                              center: Text(
+                                '63%',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Rubik',
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBtnText,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '每日平均',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Rubik',
                                     color: Colors.white,
-                                    letterSpacing: 0.2,
+                                    fontSize: 12.0,
+                                    letterSpacing: 0.6,
                                     fontWeight: FontWeight.normal,
                                   ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  '16',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Rubik',
+                                        color: Colors.white,
+                                        fontSize: 36.0,
+                                      ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      2.0, 0.0, 0.0, 6.0),
+                                  child: Text(
+                                    '次',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Rubik',
+                                          color: Colors.white,
+                                          letterSpacing: 0.2,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -310,7 +346,7 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
                                 width: 100.0,
                                 height: 42.0,
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context).tertiary,
+                                  color: FlutterFlowTheme.of(context).primary,
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
                                 child: Padding(
@@ -328,7 +364,7 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
                                               fontFamily: 'Rubik',
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primary,
+                                                      .primaryText,
                                               letterSpacing: 0.2,
                                               fontWeight: FontWeight.w500,
                                             ),
@@ -336,7 +372,7 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
                                       Icon(
                                         Icons.arrow_drop_down_rounded,
                                         color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                            .primaryText,
                                         size: 24.0,
                                       ),
                                     ],
@@ -585,7 +621,7 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .tertiary,
+                                                      .accent2,
                                                 ),
                                               ),
                                             ),
@@ -611,7 +647,7 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .tertiary,
+                                                      .accent2,
                                                 ),
                                               ),
                                             ),
@@ -687,7 +723,7 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
                                                                       'Rubik',
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .secondary,
+                                                                      .primary,
                                                                   fontSize:
                                                                       24.0,
                                                                 ),
@@ -710,7 +746,7 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
                                                                         'Rubik',
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .secondary,
+                                                                        .primary,
                                                                     fontSize:
                                                                         12.0,
                                                                     letterSpacing:
@@ -725,19 +761,22 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
                                                       ),
                                                       Text(
                                                         '24 Feb 2023',
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Rubik',
-                                                              color: Color(
-                                                                  0xFF7165E3),
-                                                              fontSize: 12.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .normal,
-                                                            ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Rubik',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                  fontSize:
+                                                                      12.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                ),
                                                       ),
                                                     ],
                                                   ),
@@ -757,25 +796,13 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
                                                             Axis.vertical,
                                                         children: [
                                                           Text(
-                                                            '半身駝背:12次',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodySmall,
-                                                          ),
-                                                          Text(
                                                             '半躺半座:15次',
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyMedium,
                                                           ),
                                                           Text(
-                                                            '上半身右傾:8次',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodySmall,
-                                                          ),
-                                                          Text(
-                                                            '上半身左傾:3次',
+                                                            '半身駝背:12次',
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodySmall,
@@ -787,25 +814,31 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
                                                                 .bodySmall,
                                                           ),
                                                           Text(
+                                                            '上半身右傾:8次',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodySmall,
+                                                          ),
+                                                          Text(
                                                             '翹左腳:5次',
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodySmall,
                                                           ),
                                                           Text(
-                                                            '三分之一坐姿:0次',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodySmall,
-                                                          ),
-                                                          Text(
-                                                            '獅身人面坐姿:2次',
+                                                            '上半身左傾:3次',
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodySmall,
                                                           ),
                                                           Text(
                                                             '盤腿:3次',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodySmall,
+                                                          ),
+                                                          Text(
+                                                            '獅身人面坐姿:2次',
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodySmall,
@@ -871,7 +904,7 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
                                                                         'Rubik',
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .secondary,
+                                                                        .primary,
                                                                     fontSize:
                                                                         24.0,
                                                                   ),
@@ -894,7 +927,7 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
                                                                           'Rubik',
                                                                       color: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .secondary,
+                                                                          .primary,
                                                                       fontSize:
                                                                           12.0,
                                                                       letterSpacing:
@@ -915,8 +948,9 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
                                                               .override(
                                                                 fontFamily:
                                                                     'Rubik',
-                                                                color: Color(
-                                                                    0xFF7165E3),
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
                                                                 fontSize: 12.0,
                                                                 fontWeight:
                                                                     FontWeight
@@ -941,16 +975,22 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
                                                               Axis.vertical,
                                                           children: [
                                                             Text(
-                                                              '半身駝背:12次',
+                                                              '半躺半座:15次',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium,
+                                                            ),
+                                                            Text(
+                                                              '翹右腳:12次',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodySmall,
                                                             ),
                                                             Text(
-                                                              '半躺半座:15次',
+                                                              '半身駝背:12次',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .bodyMedium,
+                                                                  .bodySmall,
                                                             ),
                                                             Text(
                                                               '上半身右傾:8次',
@@ -965,19 +1005,13 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
                                                                   .bodySmall,
                                                             ),
                                                             Text(
-                                                              '翹右腳:12次',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodySmall,
-                                                            ),
-                                                            Text(
                                                               '翹左腳:5次',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodySmall,
                                                             ),
                                                             Text(
-                                                              '三分之一坐姿:0次',
+                                                              '盤腿:3次',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodySmall,
@@ -989,7 +1023,7 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
                                                                   .bodySmall,
                                                             ),
                                                             Text(
-                                                              '盤腿:3次',
+                                                              '三分之一坐姿:0次',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodySmall,
@@ -1056,7 +1090,7 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
                                                                         'Rubik',
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .secondary,
+                                                                        .primary,
                                                                     fontSize:
                                                                         24.0,
                                                                   ),
@@ -1079,7 +1113,7 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
                                                                           'Rubik',
                                                                       color: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .secondary,
+                                                                          .primary,
                                                                       fontSize:
                                                                           12.0,
                                                                       letterSpacing:
@@ -1100,8 +1134,9 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
                                                               .override(
                                                                 fontFamily:
                                                                     'Rubik',
-                                                                color: Color(
-                                                                    0xFF7165E3),
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
                                                                 fontSize: 12.0,
                                                                 fontWeight:
                                                                     FontWeight
@@ -1126,16 +1161,16 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
                                                               Axis.vertical,
                                                           children: [
                                                             Text(
-                                                              '半身駝背:12次',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodySmall,
-                                                            ),
-                                                            Text(
                                                               '半躺半座:15次',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium,
+                                                            ),
+                                                            Text(
+                                                              '半身駝背:12次',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodySmall,
                                                             ),
                                                             Text(
                                                               '上半身右傾:8次',
@@ -1162,7 +1197,7 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
                                                                   .bodySmall,
                                                             ),
                                                             Text(
-                                                              '三分之一坐姿:0次',
+                                                              '盤腿:3次',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodySmall,
@@ -1174,7 +1209,7 @@ class _WeightTrackerWidgetState extends State<WeightTrackerWidget>
                                                                   .bodySmall,
                                                             ),
                                                             Text(
-                                                              '盤腿:3次',
+                                                              '三分之一坐姿:0次',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodySmall,
