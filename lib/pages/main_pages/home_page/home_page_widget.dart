@@ -588,7 +588,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       CrossAxisAlignment.end,
                                                   children: [
                                                     Text(
-                                                      '已連續坐了32分鐘',
+                                                      '今天已這樣32分鐘了',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -722,7 +722,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       .fromSTEB(
                                                           2.0, 0.0, 0.0, 2.0),
                                                   child: Text(
-                                                    '次',
+                                                    '小時',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -738,7 +738,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               ],
                                             ),
                                             Text(
-                                              '每天不良坐姿次數',
+                                              '每天不良坐姿時長',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium

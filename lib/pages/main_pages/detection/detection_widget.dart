@@ -131,11 +131,12 @@ class _DetectionWidgetState extends State<DetectionWidget>
                     },
                   ),
                   Text(
-                    '即時檢測',
-                    style: FlutterFlowTheme.of(context).displayMedium.override(
-                          fontFamily: 'Roboto',
-                          color: FlutterFlowTheme.of(context).black600,
-                          letterSpacing: 0.2,
+                    '即時監控',
+                    style: FlutterFlowTheme.of(context).displaySmall.override(
+                          fontFamily: 'Outfit',
+                          color: Color(0xFF15161E),
+                          fontSize: 36.0,
+                          fontWeight: FontWeight.w600,
                         ),
                   ),
                   FlutterFlowIconButton(
@@ -178,7 +179,7 @@ class _DetectionWidgetState extends State<DetectionWidget>
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: '坐墊壓力分佈',
+                            text: '目前您翹左腳',
                             style: TextStyle(),
                           )
                         ],
@@ -539,15 +540,6 @@ class _DetectionWidgetState extends State<DetectionWidget>
                                           fontWeight: FontWeight.normal,
                                         ),
                                   ),
-                                  Text(
-                                    '76%',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Rubik',
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
                                 ],
                               ),
                               Divider(
@@ -593,15 +585,6 @@ class _DetectionWidgetState extends State<DetectionWidget>
                                           fontWeight: FontWeight.normal,
                                         ),
                                   ),
-                                  Text(
-                                    '53%',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Rubik',
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
                                 ],
                               ),
                               Divider(
@@ -640,15 +623,6 @@ class _DetectionWidgetState extends State<DetectionWidget>
                                   ),
                                   Text(
                                     '42min',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Rubik',
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                  Text(
-                                    '32%',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
