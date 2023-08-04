@@ -677,7 +677,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                         .primaryBtnText,
                                               )
                                             ],
-                                            xLabels: FFAppState().xAxis,
+                                            xLabels: FFAppState().xAxis.map((value) => value.toString()).toList(),
                                             barWidth: 10.0,
                                             barBorderRadius:
                                                 BorderRadius.circular(10.0),
