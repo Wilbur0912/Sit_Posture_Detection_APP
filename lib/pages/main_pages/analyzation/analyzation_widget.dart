@@ -111,45 +111,42 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(24.0, 48.0, 24.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 48.0, 0.0, 0.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  FlutterFlowIconButton(
-                    borderColor: Colors.transparent,
-                    borderRadius: 30.0,
-                    borderWidth: 1.0,
-                    buttonSize: 48.0,
-                    icon: Icon(
-                      Icons.keyboard_arrow_left,
-                      color: Colors.white,
-                      size: 30.0,
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                    child: FlutterFlowIconButton(
+                      borderColor: Colors.transparent,
+                      borderRadius: 30.0,
+                      borderWidth: 1.0,
+                      buttonSize: 48.0,
+                      icon: Icon(
+                        Icons.keyboard_arrow_left,
+                        color: Colors.white,
+                        size: 30.0,
+                      ),
+                      onPressed: () async {
+                        context.pop();
+                      },
                     ),
-                    onPressed: () async {
-                      context.pop();
-                    },
                   ),
-                  Text(
-                    '不良姿勢次數',
-                    style: FlutterFlowTheme.of(context).displayMedium.override(
-                          fontFamily: 'Roboto',
-                          letterSpacing: 0.2,
-                        ),
-                  ),
-                  FlutterFlowIconButton(
-                    borderColor: Colors.transparent,
-                    borderRadius: 30.0,
-                    borderWidth: 1.0,
-                    buttonSize: 48.0,
-                    icon: Icon(
-                      Icons.more_vert_outlined,
-                      color: Colors.white,
-                      size: 24.0,
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 45.0, 0.0),
+                    child: Text(
+                      '不良姿勢次數',
+                      textAlign: TextAlign.center,
+                      style:
+                          FlutterFlowTheme.of(context).displayMedium.override(
+                                fontFamily: 'Roboto',
+                                fontSize: 45.0,
+                                letterSpacing: 0.2,
+                              ),
                     ),
-                    onPressed: () {
-                      print('IconButton pressed ...');
-                    },
                   ),
                 ],
               ),
