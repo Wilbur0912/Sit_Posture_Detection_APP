@@ -553,7 +553,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           ),
                                         ),
                                         Text(
-                                          '翹腳',
+                                          '翹左腳',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
