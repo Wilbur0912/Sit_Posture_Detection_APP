@@ -116,29 +116,25 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
-                    child: FlutterFlowIconButton(
-                      borderColor: Colors.transparent,
-                      borderRadius: 30.0,
-                      borderWidth: 1.0,
-                      buttonSize: 48.0,
-                      icon: Icon(
-                        Icons.keyboard_arrow_left,
-                        color: Colors.white,
-                        size: 30.0,
-                      ),
-                      onPressed: () async {
-                        context.pop();
-                      },
+                  FlutterFlowIconButton(
+                    borderColor: Colors.transparent,
+                    borderRadius: 30.0,
+                    borderWidth: 1.0,
+                    buttonSize: 48.0,
+                    icon: Icon(
+                      Icons.keyboard_arrow_left,
+                      color: Colors.white,
+                      size: 30.0,
                     ),
+                    onPressed: () async {
+                      context.pop();
+                    },
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 45.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 100.0, 0.0),
                     child: Text(
-                      '不良姿勢次數',
+                      '資料統計',
                       textAlign: TextAlign.center,
                       style:
                           FlutterFlowTheme.of(context).displayMedium.override(
@@ -197,7 +193,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
-                                  '84',
+                                  '14',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -210,7 +206,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       2.0, 0.0, 0.0, 6.0),
                                   child: Text(
-                                    '次',
+                                    '小時',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -270,7 +266,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
-                                  '16',
+                                  '2',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -283,7 +279,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       2.0, 0.0, 0.0, 6.0),
                                   child: Text(
-                                    '次',
+                                    '小時',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -711,7 +707,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                                                 .end,
                                                         children: [
                                                           Text(
-                                                            '84',
+                                                            '3.2',
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyMedium
@@ -734,7 +730,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                                                         0.0,
                                                                         2.0),
                                                             child: Text(
-                                                              '次',
+                                                              '小時',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -793,49 +789,49 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                                             Axis.vertical,
                                                         children: [
                                                           Text(
-                                                            '半躺半座:15次',
+                                                            '半躺半座: 2小時',
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyMedium,
                                                           ),
                                                           Text(
-                                                            '半身駝背:12次',
+                                                            '半身駝背: 0.5小時',
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodySmall,
                                                           ),
                                                           Text(
-                                                            '翹右腳:12次',
+                                                            '翹右腳: 0.3小時',
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodySmall,
                                                           ),
                                                           Text(
-                                                            '上半身右傾:8次',
+                                                            '上半身右傾: 0.1小時',
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodySmall,
                                                           ),
                                                           Text(
-                                                            '翹左腳:5次',
+                                                            '翹左腳: 0.1小時',
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodySmall,
                                                           ),
                                                           Text(
-                                                            '上半身左傾:3次',
+                                                            '上半身左傾:0.1小時',
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodySmall,
                                                           ),
                                                           Text(
-                                                            '盤腿:3次',
+                                                            '盤腿:0.1小時',
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodySmall,
                                                           ),
                                                           Text(
-                                                            '獅身人面坐姿:2次',
+                                                            '獅身人面坐姿:0.1小時',
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodySmall,
@@ -892,7 +888,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                                                   .end,
                                                           children: [
                                                             Text(
-                                                              '60',
+                                                              '6.8',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -915,7 +911,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                                                           0.0,
                                                                           2.0),
                                                               child: Text(
-                                                                '次',
+                                                                '小時',
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
@@ -972,31 +968,31 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                                               Axis.vertical,
                                                           children: [
                                                             Text(
-                                                              '半躺半座:15次',
+                                                              '半躺半座: 3小時',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium,
                                                             ),
                                                             Text(
-                                                              '翹右腳:12次',
+                                                              '翹右腳: 2小時',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodySmall,
                                                             ),
                                                             Text(
-                                                              '半身駝背:12次',
+                                                              '半身駝背: 1小時',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodySmall,
                                                             ),
                                                             Text(
-                                                              '上半身右傾:8次',
+                                                              '上半身右傾: 0.5小時',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodySmall,
                                                             ),
                                                             Text(
-                                                              '上半身左傾:3次',
+                                                              '上半身左傾: 0.3小時',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodySmall,
@@ -1078,7 +1074,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                                                   .end,
                                                           children: [
                                                             Text(
-                                                              '47',
+                                                              '3.5',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -1101,7 +1097,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                                                           0.0,
                                                                           2.0),
                                                               child: Text(
-                                                                '次',
+                                                                '小時',
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
@@ -1158,55 +1154,55 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                                               Axis.vertical,
                                                           children: [
                                                             Text(
-                                                              '半躺半座:15次',
+                                                              '半躺半座:1小時',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium,
                                                             ),
                                                             Text(
-                                                              '半身駝背:12次',
+                                                              '半身駝背:1小時',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodySmall,
                                                             ),
                                                             Text(
-                                                              '上半身右傾:8次',
+                                                              '上半身右傾:0.7小時',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodySmall,
                                                             ),
                                                             Text(
-                                                              '上半身左傾:3次',
+                                                              '上半身左傾:0.5小時',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodySmall,
                                                             ),
                                                             Text(
-                                                              '翹右腳:12次',
+                                                              '翹右腳:0.3小時',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodySmall,
                                                             ),
                                                             Text(
-                                                              '翹左腳:5次',
+                                                              '翹左腳: 0.2小時',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodySmall,
                                                             ),
                                                             Text(
-                                                              '盤腿:3次',
+                                                              '盤腿: 0.1小時',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodySmall,
                                                             ),
                                                             Text(
-                                                              '獅身人面坐姿:2次',
+                                                              '獅身人面坐姿: 0.1小時',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodySmall,
                                                             ),
                                                             Text(
-                                                              '三分之一坐姿:0次',
+                                                              '三分之一坐姿: 0.1小時',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodySmall,

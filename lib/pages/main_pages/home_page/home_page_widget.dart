@@ -543,21 +543,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             ),
                                           ],
                                         ),
-                                        CircularPercentIndicator(
-                                          percent: 0.75,
-                                          radius: 48.0,
-                                          lineWidth: 18.0,
-                                          animation: true,
-                                          progressColor: Color(0xFF7EE4F0),
-                                          backgroundColor: Color(0x32000000),
-                                          center: Text(
-                                            '75%',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Rubik',
-                                                  color: Colors.white,
-                                                ),
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          child: Image.asset(
+                                            'assets/images/icons8-monitoring-100.png',
+                                            height: 78.0,
+                                            fit: BoxFit.cover,
                                           ),
                                         ),
                                         Text(
@@ -567,6 +559,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               .override(
                                                 fontFamily: 'Rubik',
                                                 color: Colors.white,
+                                                fontSize: 20.0,
                                                 fontWeight: FontWeight.normal,
                                               ),
                                         ),
@@ -722,7 +715,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       .fromSTEB(
                                                           2.0, 0.0, 0.0, 2.0),
                                                   child: Text(
-                                                    '小時',
+                                                    '小時平均',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
