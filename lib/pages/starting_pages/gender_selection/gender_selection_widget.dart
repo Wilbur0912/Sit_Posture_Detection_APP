@@ -331,7 +331,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                 child: FFButtonWidget(
                   onPressed: () async {
                     context.pushNamed(
-                      'ProfilePicture',
+                      'WeightEntry',
                       extra: <String, dynamic>{
                         kTransitionInfoKey: TransitionInfo(
                           hasTransition: true,

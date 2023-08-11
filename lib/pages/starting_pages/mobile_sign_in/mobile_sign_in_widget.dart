@@ -180,7 +180,7 @@ class _MobileSignInWidgetState extends State<MobileSignInWidget>
                       padding:
                           EdgeInsetsDirectional.fromSTEB(96.0, 12.0, 96.0, 0.0),
                       child: Text(
-                        'Enter your number',
+                        'Enter your acouunt name',
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Rubik',
@@ -193,7 +193,7 @@ class _MobileSignInWidgetState extends State<MobileSignInWidget>
                       padding:
                           EdgeInsetsDirectional.fromSTEB(84.0, 12.0, 84.0, 0.0),
                       child: Text(
-                        'Please enter a valid number to continue',
+                        'Please enter a valid account name to continue',
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Rubik',
@@ -241,7 +241,7 @@ class _MobileSignInWidgetState extends State<MobileSignInWidget>
                             controller: _model.textController,
                             obscureText: false,
                             decoration: InputDecoration(
-                              hintText: 'Enter you mobile',
+                              hintText: 'Enter you acount name',
                               hintStyle: FlutterFlowTheme.of(context)
                                   .bodySmall
                                   .override(
@@ -314,7 +314,7 @@ class _MobileSignInWidgetState extends State<MobileSignInWidget>
                 child: FFButtonWidget(
                   onPressed: () async {
                     context.pushNamed(
-                      'VerifyMobile',
+                      'EnterPassword',
                       extra: <String, dynamic>{
                         kTransitionInfoKey: TransitionInfo(
                           hasTransition: true,
