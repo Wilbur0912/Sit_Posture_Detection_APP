@@ -118,11 +118,11 @@ class _DetectionWidgetState extends State<DetectionWidget>
   }
 
   Future<void> fetchDataList() async {
+    final DateTime now = DateTime.now();
     final String user = 'weber';
-    final String date = '2023/8/5';
-
+    final String formattedDate = DateFormat('yyyy/M/d').format(now);
     final response = await http.get(
-      Uri.parse('http://172.20.10.2:8080/getTodayDataList?date=$date'),
+      Uri.parse('http://172.20.10.2:8080/getTodayDataList?date=$formattedDate'),
       headers: {'Cookie': 'user_name=$user'},
     );
 
