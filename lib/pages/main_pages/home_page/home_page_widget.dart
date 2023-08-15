@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import '../detection/dataItem.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -12,8 +16,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
+
 import 'home_page_model.dart';
 export 'home_page_model.dart';
+import 'package:web_socket_channel/io.dart';
+import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart'; // 引入intl库来处理日期格式化
+
+import 'fetch7DayData.dart';
+
 
 class HomePageWidget extends StatefulWidget {
   const HomePageWidget({Key? key}) : super(key: key);
@@ -22,8 +33,40 @@ class HomePageWidget extends StatefulWidget {
   _HomePageWidgetState createState() => _HomePageWidgetState();
 }
 
+
+
 class _HomePageWidgetState extends State<HomePageWidget>
     with TickerProviderStateMixin {
+  final channel = IOWebSocketChannel.connect('ws://172.20.10.2:8080/');
+  String currentPostureName = '坐姿端正'; // 初始文字
+  int minutesOfCurrentPostureName = 0;
+  int number = 0;
+  String currentDate = "";
+
+  Future<void> fetchTodayDataList() async {
+    final String value = 'weber'; // 这是你的 user_name 值
+    final DateTime now = DateTime.now();
+    final String formattedDate = DateFormat('yyyy/M/d').format(now);
+    final response = await http.get(
+      Uri.parse('http://172.20.10.2:8080/getTodayDataList?date=$formattedDate'),
+      headers: {'Cookie': 'user_name=$value'},
+    );
+
+    if (response.statusCode == 200) {
+      final List<dynamic> responseData = json.decode(response.body);
+
+      setState(() {
+        yourItemList = responseData.map((itemData) {
+          return YourDataItem(itemData['name'], itemData['minutes']);
+        }).toList();
+        sortAndMoveToTop(yourItemList, currentPostureName);
+      });
+
+      minutesOfCurrentPostureName = yourItemList
+          .firstWhere((item) => item.postureName == currentPostureName).minutes;
+    }
+  }
+
   late HomePageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -203,8 +246,18 @@ class _HomePageWidgetState extends State<HomePageWidget>
 
   @override
   void initState() {
+
     super.initState();
     _model = createModel(context, () => HomePageModel());
+    fetch7DayDataList();
+    // 監聽WebSocket消息
+    channel.stream.listen((message) {
+      // 當接收到新消息時，更新文字
+      setState(() async {
+        currentPostureName = message;
+        fetchTodayDataList();
+      });
+    });
   }
 
   @override
@@ -543,30 +596,23 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             ),
                                           ],
                                         ),
-                                        CircularPercentIndicator(
-                                          percent: 0.75,
-                                          radius: 48.0,
-                                          lineWidth: 18.0,
-                                          animation: true,
-                                          progressColor: Color(0xFF7EE4F0),
-                                          backgroundColor: Color(0x32000000),
-                                          center: Text(
-                                            '75%',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Rubik',
-                                                  color: Colors.white,
-                                                ),
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          child: Image.asset(
+                                            'assets/images/icons8-monitoring-100.png',
+                                            height: 78.0,
+                                            fit: BoxFit.cover,
                                           ),
                                         ),
                                         Text(
-                                          '翹腳',
+                                          currentPostureName,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
                                                 fontFamily: 'Rubik',
                                                 color: Colors.white,
+                                                fontSize: 20.0,
                                                 fontWeight: FontWeight.normal,
                                               ),
                                         ),
@@ -588,7 +634,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       CrossAxisAlignment.end,
                                                   children: [
                                                     Text(
-                                                      '今天已這樣32分鐘了',
+                                                      '今天已這樣${minutesOfCurrentPostureName}分鐘了',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -705,7 +751,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   CrossAxisAlignment.end,
                                               children: [
                                                 Text(
-                                                  '3',
+                                                  averageMinutes.toString(),
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -722,7 +768,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       .fromSTEB(
                                                           2.0, 0.0, 0.0, 2.0),
                                                   child: Text(
-                                                    '小時',
+                                                    '分鐘平均',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -1566,3 +1612,5 @@ class _HomePageWidgetState extends State<HomePageWidget>
     );
   }
 }
+
+

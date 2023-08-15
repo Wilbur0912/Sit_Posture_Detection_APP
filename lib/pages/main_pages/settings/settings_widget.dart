@@ -41,81 +41,76 @@ class _SettingsWidgetState extends State<SettingsWidget> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Colors.white,
-      appBar: PreferredSize(
-        preferredSize:
-            Size.fromHeight(MediaQuery.sizeOf(context).height * 0.08),
-        child: AppBar(
-          backgroundColor: Colors.white,
-          automaticallyImplyLeading: false,
-          title: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 15.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                FlutterFlowIconButton(
-                  borderColor: Colors.transparent,
-                  borderRadius: 30.0,
-                  borderWidth: 1.0,
-                  buttonSize: 60.0,
-                  icon: Icon(
-                    Icons.keyboard_arrow_left,
-                    color: FlutterFlowTheme.of(context).gray600,
-                    size: 30.0,
-                  ),
-                  onPressed: () async {
-                    context.pop();
-                  },
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
+        title: Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 15.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              FlutterFlowIconButton(
+                borderColor: Colors.transparent,
+                borderRadius: 30.0,
+                borderWidth: 1.0,
+                buttonSize: 60.0,
+                icon: Icon(
+                  Icons.keyboard_arrow_left,
+                  color: FlutterFlowTheme.of(context).gray600,
+                  size: 30.0,
                 ),
-                Text(
-                  '設定',
-                  style: FlutterFlowTheme.of(context).displaySmall.override(
-                        fontFamily: 'Outfit',
-                        color: Color(0xFF15161E),
-                        fontSize: 36.0,
-                        fontWeight: FontWeight.w600,
-                      ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 16.0, 0.0),
-                  child: Container(
-                    width: 44.0,
-                    height: 44.0,
-                    decoration: BoxDecoration(
-                      color: Color(0x4D9489F5),
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: Color(0xFF6F61EF),
-                        width: 2.0,
-                      ),
+                onPressed: () async {
+                  context.pop();
+                },
+              ),
+              Text(
+                '設定',
+                style: FlutterFlowTheme.of(context).displaySmall.override(
+                      fontFamily: 'Outfit',
+                      color: Color(0xFF15161E),
+                      fontSize: 36.0,
+                      fontWeight: FontWeight.w600,
                     ),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(2.0, 2.0, 2.0, 2.0),
-                      child: Container(
-                        width: 50.0,
-                        height: 50.0,
-                        clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                        ),
-                        child: CachedNetworkImage(
-                          fadeInDuration: Duration(milliseconds: 500),
-                          fadeOutDuration: Duration(milliseconds: 500),
-                          imageUrl: 'https://picsum.photos/seed/934/600',
-                          fit: BoxFit.fitWidth,
-                        ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 16.0, 0.0),
+                child: Container(
+                  width: 44.0,
+                  height: 44.0,
+                  decoration: BoxDecoration(
+                    color: Color(0x4D9489F5),
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Color(0xFF6F61EF),
+                      width: 2.0,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(2.0, 2.0, 2.0, 2.0),
+                    child: Container(
+                      width: 50.0,
+                      height: 50.0,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      child: CachedNetworkImage(
+                        fadeInDuration: Duration(milliseconds: 500),
+                        fadeOutDuration: Duration(milliseconds: 500),
+                        imageUrl: 'https://picsum.photos/seed/934/600',
+                        fit: BoxFit.fitWidth,
                       ),
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          actions: [],
-          centerTitle: false,
-          elevation: 0.0,
         ),
+        actions: [],
+        centerTitle: false,
+        elevation: 0.0,
       ),
       body: SafeArea(
         top: true,
