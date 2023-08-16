@@ -40,7 +40,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
   final channel = IOWebSocketChannel.connect('ws://172.20.10.2:8080/');
   String currentPostureName = '坐姿端正'; // 初始文字
   int minutesOfCurrentPostureName = 0;
-  int number = 0;
   String currentDate = "";
 
   Future<void> fetchTodayDataList() async {
