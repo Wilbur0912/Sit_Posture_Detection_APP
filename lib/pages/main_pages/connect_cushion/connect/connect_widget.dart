@@ -239,26 +239,39 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 24.0),
+                padding: EdgeInsetsDirectional.fromSTEB(72.0, 30.0, 72.0, 60.0),
                 child: FFButtonWidget(
-                  onPressed: () {
-                    print('Button pressed ...');
+                  onPressed: () async {
+                    context.pushNamed(
+                      'Connect',
+                      extra: <String, dynamic>{
+                        kTransitionInfoKey: TransitionInfo(
+                          hasTransition: true,
+                          transitionType: PageTransitionType.fade,
+                        ),
+                      },
+                    );
                   },
-                  text: 'Connect',
+                  text: 'Continue',
                   options: FFButtonOptions(
                     width: double.infinity,
-                    height: 55.0,
+                    height: 54.0,
                     padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     iconPadding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).primary,
-                    textStyle:
-                        FlutterFlowTheme.of(context).titleMedium.override(
-                              fontFamily: 'Rubik',
-                              color: Colors.white,
-                            ),
-                    elevation: 2.0,
-                    borderRadius: BorderRadius.circular(10.0),
+                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                          fontFamily: 'Rubik',
+                          color: Colors.white,
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.normal,
+                        ),
+                    elevation: 0.0,
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(16.0),
                   ),
                 ),
               ),
