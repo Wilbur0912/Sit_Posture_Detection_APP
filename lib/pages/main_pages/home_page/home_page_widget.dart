@@ -757,7 +757,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   context.pushNamed(
-                                    'cushionWifiSetting',
+                                    'WelcomePage',
                                     extra: <String, dynamic>{
                                       kTransitionInfoKey: TransitionInfo(
                                         hasTransition: true,
