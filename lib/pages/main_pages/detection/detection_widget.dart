@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:web_socket_channel/io.dart';
+
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -10,7 +14,12 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'detection_model.dart';
+import 'package:http/http.dart' as http;
+import 'imageHashMap.dart';
+
+import 'dataItem.dart';
 export 'detection_model.dart';
+
 
 class DetectionWidget extends StatefulWidget {
   const DetectionWidget({Key? key}) : super(key: key);
@@ -22,6 +31,9 @@ class DetectionWidget extends StatefulWidget {
 class _DetectionWidgetState extends State<DetectionWidget>
     with TickerProviderStateMixin {
   late DetectionModel _model;
+  //websocket
+  final channel = IOWebSocketChannel.connect('ws://172.20.10.2:8080/');
+  String currentPostureName = '坐姿端正'; // 初始文字
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -89,7 +101,44 @@ class _DetectionWidgetState extends State<DetectionWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => DetectionModel());
+    sortAndMoveToTop(yourItemList, currentPostureName);
+
+    // 監聽WebSocket消息
+    channel.stream.listen((message) {
+      // 當接收到新消息時，更新文字
+      setState(() {
+        currentPostureName = message;
+        if(currentPostureName==""){
+          currentPostureName='坐姿端正';
+        }
+        //fetch資料，將資料整理到dataItem裡
+        fetchDataList();
+      });
+    });
   }
+
+  Future<void> fetchDataList() async {
+    final DateTime now = DateTime.now();
+    final String user = 'weber';
+    final String formattedDate = DateFormat('yyyy/M/d').format(now);
+    final response = await http.get(
+      Uri.parse('http://172.20.10.2:8080/getTodayDataList?date=$formattedDate'),
+      headers: {'Cookie': 'user_name=$user'},
+    );
+
+    if (response.statusCode == 200) {
+      final List<dynamic> responseData = json.decode(response.body);
+
+      setState(() {
+        yourItemList = responseData.map((itemData) {
+          return YourDataItem(itemData['name'], itemData['minutes']);
+        }).toList();
+        sortAndMoveToTop(yourItemList, currentPostureName);
+      });
+    }
+  }
+
+
 
   @override
   void dispose() {
@@ -179,9 +228,13 @@ class _DetectionWidgetState extends State<DetectionWidget>
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: '目前您翹左腳',
+                            text: '目前您',
                             style: TextStyle(),
-                          )
+                          ),
+                          TextSpan(
+                            text: currentPostureName,
+                            style: TextStyle(),
+                          ),
                         ],
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Rubik',
@@ -198,10 +251,10 @@ class _DetectionWidgetState extends State<DetectionWidget>
                       ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
                         child: Image.asset(
-                          'assets/images/40dy8_.jpg',
-                          width: 106.0,
+                          callPostureImage(currentPostureName),
+                          width: 180.0,
                           height: 235.0,
-                          fit: BoxFit.cover,
+                          fit: BoxFit.contain,
                         ),
                       ),
                     ],
@@ -211,185 +264,98 @@ class _DetectionWidgetState extends State<DetectionWidget>
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 48.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(36.0, 0.0, 36.0, 0.0),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: List.generate(yourItemList.length, (index) {
+                              final currentItem = yourItemList[index];
+
+                              return Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(8.0),
+                                        child: Image.asset(
+                                          callPostureImage(currentItem.postureName),
+                                          width: 40.0,
+                                          height: 40.0,
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ),
+                                      Text(
+                                        currentItem.postureName,
+                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                          fontFamily: 'Rubik',
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                      Text(
+                                        '${currentItem.minutes} 分鐘',
+                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                          fontFamily: 'Rubik',
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Divider(
+                                    height: 24.0,
+                                    thickness: 1.0,
+                                    color: Color(0xFFE9E9E9),
+                                  ),
+                                ],
+                              ).animateOnPageLoad(
+                                animationsMap['columnOnPageLoadAnimation1']!,
+                              );
+                            }),
+                          ),
+                        ),
+                      ),
+                    ),
                     Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(36.0, 0.0, 36.0, 0.0),
-                      child: ListView(
-                        padding: EdgeInsets.zero,
-                        primary: false,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        children: [
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: Image.asset(
-                                      'assets/images/kn0ak_.png',
-                                      width: 22.0,
-                                      height: 48.0,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  Text(
-                                    '翹左腳',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Rubik',
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                  Text(
-                                    '35min',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Rubik',
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                              Divider(
-                                height: 24.0,
-                                thickness: 1.0,
-                                color: Color(0xFFE9E9E9),
-                              ),
-                            ],
-                          ).animateOnPageLoad(
-                              animationsMap['columnOnPageLoadAnimation1']!),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: Image.asset(
-                                      'assets/images/amw5z_.png',
-                                      width: 26.0,
-                                      height: 37.0,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  Text(
-                                    '駝背',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Rubik',
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                  Text(
-                                    '5min',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Rubik',
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                              Divider(
-                                height: 24.0,
-                                thickness: 1.0,
-                                color: Color(0xFFE9E9E9),
-                              ),
-                            ],
-                          ).animateOnPageLoad(
-                              animationsMap['columnOnPageLoadAnimation2']!),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: Image.asset(
-                                      'assets/images/v8c70_.png',
-                                      width: 23.0,
-                                      height: 37.0,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  Text(
-                                    '正常坐姿',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Rubik',
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                  Text(
-                                    '42min',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Rubik',
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ).animateOnPageLoad(
-                              animationsMap['columnOnPageLoadAnimation3']!),
-                        ],
+                      padding: EdgeInsetsDirectional.fromSTEB(72.0, 20.0, 72.0, 60.0),
+                      child: FFButtonWidget(
+                        onPressed: () async {
+                          context.pushNamed('analyzation');
+                        },
+                        text: '觀看統計資料',
+                        options: FFButtonOptions(
+                          width: double.infinity,
+                          height: 54.0,
+                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                          color: FlutterFlowTheme.of(context).primary,
+                          textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                            fontFamily: 'Rubik',
+                            color: Colors.white,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          elevation: 2.0,
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(72.0, 0.0, 72.0, 60.0),
-              child: FFButtonWidget(
-                onPressed: () async {
-                  context.pushNamed('analyzation');
-                },
-                text: '觀看統計資料',
-                options: FFButtonOptions(
-                  width: double.infinity,
-                  height: 54.0,
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  iconPadding:
-                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  color: FlutterFlowTheme.of(context).primary,
-                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                        fontFamily: 'Rubik',
-                        color: Colors.white,
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.normal,
-                      ),
-                  elevation: 2.0,
-                  borderSide: BorderSide(
-                    color: Colors.transparent,
-                    width: 1.0,
-                  ),
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-              ),
-            ),
+            )
+
           ],
         ),
       ),
