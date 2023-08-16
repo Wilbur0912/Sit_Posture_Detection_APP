@@ -36,4 +36,7 @@ export '/pages/extra_template/food_nutrients/food_nutrients_widget.dart'
 export '/pages/starting_pages/height_entry/height_entry_widget.dart'
     show HeightEntryWidget;
 export '/pages/main_pages/settings/settings_widget.dart' show SettingsWidget;
-export '/pages/main_pages/connect/connect_widget.dart' show ConnectWidget;
+export '/pages/main_pages/connect_cushion/connect/connect_widget.dart'
+    show ConnectWidget;
+export '/pages/main_pages/connect_cushion/cushion_wifi_setting/cushion_wifi_setting_widget.dart'
+    show CushionWifiSettingWidget;
