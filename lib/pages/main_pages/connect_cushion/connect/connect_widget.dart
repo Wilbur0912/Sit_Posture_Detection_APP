@@ -166,7 +166,7 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 4.0, 0.0, 0.0),
                                       child: Text(
-                                        '在線',
+                                        '坐墊已連線',
                                         style: FlutterFlowTheme.of(context)
                                             .labelSmall
                                             .override(
@@ -186,7 +186,7 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                       ),
                     ),
                     Text(
-                      '坐墊已連線',
+                      '連線成功',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Rubik',
                             fontSize: 20.0,
