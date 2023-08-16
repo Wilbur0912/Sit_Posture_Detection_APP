@@ -252,7 +252,7 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                       },
                     );
                   },
-                  text: 'Continue',
+                  text: '確認',
                   options: FFButtonOptions(
                     width: double.infinity,
                     height: 54.0,
