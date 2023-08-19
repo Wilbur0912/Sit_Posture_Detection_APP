@@ -1,3 +1,4 @@
+import 'package:appp3/userProfileProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +17,13 @@ void main() async {
 
   final appState = FFAppState(); // Initialize FFAppState
   await appState.initializePersistedState();
-
-  runApp(ChangeNotifierProvider(
-    create: (context) => appState,
+  final userProfileProvider = UserProfileProvider();
+  await userProfileProvider.loadUserProfileFromSharedPreferences();
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider.value(value: appState),
+      ChangeNotifierProvider.value(value: userProfileProvider),
+    ],
     child: MyApp(),
   ));
 }
