@@ -1,3 +1,4 @@
+import '../../../userProfileProvider.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -26,7 +27,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
   late GenderSelectionModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
+  bool isMale = true;
   final animationsMap = {
     'imageOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
@@ -48,6 +49,14 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
     _model = createModel(context, () => GenderSelectionModel());
   }
 
+  void updateGender(bool gender) {
+    final userProfileProvider = context.read<UserProfileProvider>();
+    final newUserProfile = userProfileProvider.userProfile?.copyWith(
+      gender: gender ?'Male' :'Female',
+    );
+    userProfileProvider.updateUserProfile(newUserProfile!);
+  }
+
   @override
   void dispose() {
     _model.dispose();
@@ -60,15 +69,13 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-        body: SafeArea(
-          top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
+        onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+        child: Scaffold(
+          key: scaffoldKey,
+          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+          body: SafeArea(
+            top: true,
+            child: Column(mainAxisSize: MainAxisSize.max, children: [
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 0.0),
                 child: Row(
@@ -147,7 +154,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                             ),
                           ),
                           TextSpan(
-                            text: '6',
+                            text: '3',
                             style: TextStyle(),
                           ),
                           TextSpan(
@@ -155,7 +162,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                             style: TextStyle(),
                           ),
                           TextSpan(
-                            text: '9',
+                            text: '5',
                             style: TextStyle(),
                           )
                         ],
@@ -188,6 +195,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
+
                     Stack(
                       alignment: AlignmentDirectional(0.0, 0.0),
                       children: [
@@ -198,91 +206,112 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12.0, 0.0, 12.0, 0.0),
-                                child: Container(
-                                  width: 156.0,
-                                  height: 216.0,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        FlutterFlowTheme.of(context).secondary,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        blurRadius: 24.0,
-                                        color: Color(0x0D000000),
-                                        offset: Offset(0.0, 0.0),
-                                      )
-                                    ],
-                                    borderRadius: BorderRadius.circular(24.0),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 16.0, 16.0, 16.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Male',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Rubik',
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                        ),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    isMale = true;
+                                  });
+                                },
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 0.0, 12.0, 0.0),
+                                  child: Container(
+                                    width: 156.0,
+                                    height: 216.0,
+                                    decoration: BoxDecoration(
+                                      color: isMale
+                                          ? FlutterFlowTheme.of(context)
+                                              .secondary
+                                          : Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 24.0,
+                                          color: Color(0x0D000000),
+                                          offset: Offset(0.0, 0.0),
+                                        )
                                       ],
+                                      borderRadius: BorderRadius.circular(24.0),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          16.0, 16.0, 16.0, 16.0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Male',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Rubik',
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    12.0, 0.0, 12.0, 0.0),
-                                child: Container(
-                                  width: 156.0,
-                                  height: 216.0,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        blurRadius: 24.0,
-                                        color: Color(0x0D000000),
-                                        offset: Offset(0.0, 0.0),
-                                      )
-                                    ],
-                                    borderRadius: BorderRadius.circular(24.0),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 16.0, 16.0, 16.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Female',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Rubik',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                        ),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    isMale = false;
+                                  });
+
+                                },
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 0.0, 12.0, 0.0),
+                                  child: Container(
+                                    width: 156.0,
+                                    height: 216.0,
+                                    decoration: BoxDecoration(
+                                      color: !isMale
+                                          ? FlutterFlowTheme.of(context).secondary
+                                          : Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 24.0,
+                                          color: Color(0x0D000000),
+                                          offset: Offset(0.0, 0.0),
+                                        )
                                       ],
+                                      borderRadius: BorderRadius.circular(24.0),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          16.0, 16.0, 16.0, 16.0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Female',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Rubik',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
+                              )
                             ],
                           ),
                         ),
@@ -312,7 +341,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                         padding: EdgeInsetsDirectional.fromSTEB(
                             84.0, 0.0, 84.0, 0.0),
                         child: Text(
-                          'To give you a customize experience we need to know your gender',
+                          '藉由性別我們能更準確地偵測',
                           textAlign: TextAlign.center,
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
@@ -330,6 +359,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                 padding: EdgeInsetsDirectional.fromSTEB(72.0, 0.0, 72.0, 0.0),
                 child: FFButtonWidget(
                   onPressed: () async {
+                    updateGender(isMale);
                     context.pushNamed(
                       'WeightEntry',
                       extra: <String, dynamic>{
@@ -374,10 +404,8 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                       ),
                 ),
               ),
-            ],
+            ]),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

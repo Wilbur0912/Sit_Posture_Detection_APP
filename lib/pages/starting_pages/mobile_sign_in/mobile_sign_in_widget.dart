@@ -1,11 +1,13 @@
+
+import '../../../model/userModel.dart';
+import '../../../userProfileProvider.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -164,7 +166,7 @@ class _MobileSignInWidgetState extends State<MobileSignInWidget>
                             style: TextStyle(),
                           ),
                           TextSpan(
-                            text: '9',
+                            text: '5',
                             style: TextStyle(),
                           )
                         ],
@@ -299,9 +301,7 @@ class _MobileSignInWidgetState extends State<MobileSignInWidget>
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryText,
                                 ),
-                            keyboardType: TextInputType.number,
-                            validator: _model.textControllerValidator
-                                .asValidator(context),
+                            keyboardType: TextInputType.name,
                           ),
                         ),
                       ),
@@ -313,6 +313,19 @@ class _MobileSignInWidgetState extends State<MobileSignInWidget>
                 padding: EdgeInsetsDirectional.fromSTEB(72.0, 0.0, 72.0, 60.0),
                 child: FFButtonWidget(
                   onPressed: () async {
+                    final userProfileProvider =
+                        context.read<UserProfileProvider>();
+                    if (userProfileProvider.userProfile == null) {
+                      userProfileProvider.updateUserProfile(
+                        UserProfile(username: _model.textController.text),
+                      );
+
+
+                      print("2");
+                    } else {userProfileProvider.updateUserProfile(userProfileProvider.userProfile!.copyWith(username: _model.textController.text));
+                    print("1");
+                    }
+                    print(userProfileProvider.userProfile?.username);
                     context.pushNamed(
                       'EnterPassword',
                       extra: <String, dynamic>{

@@ -1,3 +1,4 @@
+import '../../../userProfileProvider.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -156,7 +157,7 @@ class _EnterPasswordWidgetState extends State<EnterPasswordWidget>
                             ),
                           ),
                           TextSpan(
-                            text: '3',
+                            text: '2',
                             style: TextStyle(),
                           ),
                           TextSpan(
@@ -164,7 +165,7 @@ class _EnterPasswordWidgetState extends State<EnterPasswordWidget>
                             style: TextStyle(),
                           ),
                           TextSpan(
-                            text: '9',
+                            text: '5',
                             style: TextStyle(),
                           )
                         ],
@@ -330,6 +331,13 @@ class _EnterPasswordWidgetState extends State<EnterPasswordWidget>
                 padding: EdgeInsetsDirectional.fromSTEB(72.0, 0.0, 72.0, 60.0),
                 child: FFButtonWidget(
                   onPressed: () async {
+                    final userProfileProvider =
+                    context.read<UserProfileProvider>();
+                    final newUserProfile =
+                    userProfileProvider.userProfile!.copyWith(
+                      password: _model.textController.text,
+                    );
+                    userProfileProvider.updateUserProfile(newUserProfile);
                     context.pushNamed(
                       'GenderSelection',
                       extra: <String, dynamic>{

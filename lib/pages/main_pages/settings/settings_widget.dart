@@ -1,3 +1,4 @@
+import '../../../userProfileProvider.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -37,7 +38,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   @override
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
-
+    final userProfileProvider = Provider.of<UserProfileProvider>(context);
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Colors.white,
@@ -114,231 +115,44 @@ class _SettingsWidgetState extends State<SettingsWidget> {
       ),
       body: SafeArea(
         top: true,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 1.0),
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Color(0xFFF1F4F8),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 0.0,
-                      color: Color(0xFFE5E7EB),
-                      offset: Offset(0.0, 1.0),
-                    )
-                  ],
-                ),
-                child: Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 0.0, 12.0),
-                  child: Text(
-                    '我的個資',
-                    style: FlutterFlowTheme.of(context).labelMedium.override(
-                          fontFamily: 'Plus Jakarta Sans',
-                          color: Color(0xFF606A85),
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w500,
-                        ),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
-              child: Container(
-                width: double.infinity,
-                height: 70.0,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 0.0,
-                      color: Color(0xFFE5E7EB),
-                      offset: Offset(0.0, 1.0),
-                    )
-                  ],
-                  shape: BoxShape.rectangle,
-                ),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            '身高',
-                            style:
-                                FlutterFlowTheme.of(context).bodyLarge.override(
-                                      fontFamily: 'Plus Jakarta Sans',
-                                      color: Color(0xFF15161E),
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                          ),
-                          Expanded(
-                            child: Align(
-                              alignment: AlignmentDirectional(1.0, 0.0),
-                              child: Icon(
-                                Icons.arrow_forward_ios,
-                                color: Color(0xFF606A85),
-                                size: 20.0,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 1.0),
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFF1F4F8),
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 0.0,
+                        color: Color(0xFFE5E7EB),
+                        offset: Offset(0.0, 1.0),
+                      )
                     ],
                   ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
-              child: Container(
-                width: double.infinity,
-                height: 70.0,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 0.0,
-                      color: Color(0xFFE5E7EB),
-                      offset: Offset(0.0, 1.0),
-                    )
-                  ],
-                  shape: BoxShape.rectangle,
-                ),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            '體重',
-                            style:
-                                FlutterFlowTheme.of(context).bodyLarge.override(
-                                      fontFamily: 'Plus Jakarta Sans',
-                                      color: Color(0xFF15161E),
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 0.0, 12.0),
+                    child: Text(
+                      '我的個資',
+                      style: FlutterFlowTheme.of(context).labelMedium.override(
+                            fontFamily: 'Plus Jakarta Sans',
+                            color: Color(0xFF606A85),
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w500,
                           ),
-                          Expanded(
-                            child: Align(
-                              alignment: AlignmentDirectional(1.0, 0.0),
-                              child: Icon(
-                                Icons.arrow_forward_ios,
-                                color: Color(0xFF606A85),
-                                size: 20.0,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
-              child: Container(
-                width: double.infinity,
-                height: 70.0,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 0.0,
-                      color: Color(0xFFE5E7EB),
-                      offset: Offset(0.0, 1.0),
-                    )
-                  ],
-                  shape: BoxShape.rectangle,
-                ),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            '性別',
-                            style:
-                                FlutterFlowTheme.of(context).bodyLarge.override(
-                                      fontFamily: 'Plus Jakarta Sans',
-                                      color: Color(0xFF15161E),
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                          ),
-                          Expanded(
-                            child: Align(
-                              alignment: AlignmentDirectional(1.0, 0.0),
-                              child: Icon(
-                                Icons.arrow_forward_ios,
-                                color: Color(0xFF606A85),
-                                size: 20.0,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Color(0xFFF1F4F8),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 0.0,
-                      color: Color(0xFFE5E7EB),
-                      offset: Offset(0.0, 1.0),
-                    )
-                  ],
-                ),
-                child: Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 0.0, 12.0),
-                  child: Text(
-                    '我的帳戶',
-                    style: FlutterFlowTheme.of(context).labelMedium.override(
-                          fontFamily: 'Plus Jakarta Sans',
-                          color: Color(0xFF606A85),
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w500,
-                        ),
-                  ),
-                ),
-              ),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
-                  child: Container(
-                    width: MediaQuery.sizeOf(context).width * 1.0,
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
+                child: Container(
+                    width: double.infinity,
                     height: 70.0,
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -351,138 +165,495 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       ],
                       shape: BoxShape.rectangle,
                     ),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                '更改帳號名稱',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyLarge
-                                    .override(
-                                      fontFamily: 'Plus Jakarta Sans',
-                                      color: Color(0xFF15161E),
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                              ),
-                              Expanded(
-                                child: Align(
+                    child: InkWell(
+                      onTap: () async {
+                        final String? inputData =
+                            await inputDialog(context, "身高",userProfileProvider);
+                        print("你輸入：$inputData");
+                      },
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '身高',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .override(
+                                              fontFamily: 'Plus Jakarta Sans',
+                                              color: Color(0xFF15161E),
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                      ),
+                                      Text(
+                                        '${userProfileProvider.userProfile!.height} cm',
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              fontFamily: 'Plus Jakarta Sans',
+                                              color: Color(0xFF606A85),
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
+                                    ]),
+                                Expanded(
+                                    child: Align(
                                   alignment: AlignmentDirectional(1.0, 0.0),
                                   child: Icon(
                                     Icons.arrow_forward_ios,
                                     color: Color(0xFF606A85),
                                     size: 20.0,
                                   ),
+                                )),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    )),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
+                child: Container(
+                  width: double.infinity,
+                  height: 70.0,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 0.0,
+                        color: Color(0xFFE5E7EB),
+                        offset: Offset(0.0, 1.0),
+                      )
+                    ],
+                    shape: BoxShape.rectangle,
+                  ),
+                  child: InkWell(
+                    onTap: () async {
+                      final String? inputData =
+                      await inputDialog(context, "體重",userProfileProvider);
+                      print("你輸入：$inputData");
+                    },
+
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '體重',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .override(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          color: Color(0xFF15161E),
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                                  Text(
+                                    '${userProfileProvider.userProfile!.weight} kg',
+                                    style: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          color: Color(0xFF606A85),
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
+                                ]),
+                            Expanded(
+                              child: Align(
+                                alignment: AlignmentDirectional(1.0, 0.0),
+                                child: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Color(0xFF606A85),
+                                  size: 20.0,
                                 ),
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
+                  ),)
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
+                child: Container(
+                  width: double.infinity,
+                  height: 70.0,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 0.0,
+                        color: Color(0xFFE5E7EB),
+                        offset: Offset(0.0, 1.0),
+                      )
+                    ],
+                    shape: BoxShape.rectangle,
                   ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
-              child: Container(
-                width: MediaQuery.sizeOf(context).width * 1.0,
-                height: 70.0,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 0.0,
-                      color: Color(0xFFE5E7EB),
-                      offset: Offset(0.0, 1.0),
-                    )
-                  ],
-                  shape: BoxShape.rectangle,
-                ),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            '更改密碼',
-                            style:
-                                FlutterFlowTheme.of(context).bodyLarge.override(
-                                      fontFamily: 'Plus Jakarta Sans',
-                                      color: Color(0xFF15161E),
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                          ),
-                          Expanded(
-                            child: Align(
-                              alignment: AlignmentDirectional(1.0, 0.0),
-                              child: Icon(
-                                Icons.arrow_forward_ios,
-                                color: Color(0xFF606A85),
-                                size: 20.0,
+                  child: InkWell(
+                    onTap: () async {
+                      final String? inputData =
+                      await inputDialog(context, "性別",userProfileProvider);
+                      print("你輸入：$inputData");
+                    },
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '性別',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .override(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          color: Color(0xFF15161E),
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                                  Text(
+                                    '${userProfileProvider.userProfile!.gender == 'Male' ? '男' : '女'} ',
+                                    style: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          color: Color(0xFF606A85),
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
+                                ]),
+                            Expanded(
+                              child: Align(
+                                alignment: AlignmentDirectional(1.0, 0.0),
+                                child: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Color(0xFF606A85),
+                                  size: 20.0,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),)
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFF1F4F8),
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 0.0,
+                        color: Color(0xFFE5E7EB),
+                        offset: Offset(0.0, 1.0),
+                      )
                     ],
+                  ),
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 0.0, 12.0),
+                    child: Text(
+                      '我的帳戶',
+                      style: FlutterFlowTheme.of(context).labelMedium.override(
+                            fontFamily: 'Plus Jakarta Sans',
+                            color: Color(0xFF606A85),
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                    ),
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 36.0, 0.0, 0.0),
-              child: Row(
+              Row(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  FFButtonWidget(
-                    onPressed: () async {
-                      context.pushNamed('MobileSignIn');
-                    },
-                    text: 'Log Out',
-                    options: FFButtonOptions(
-                      width: 130.0,
-                      height: 50.0,
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: Colors.white,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Plus Jakarta Sans',
-                                color: Color(0xFF606A85),
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w500,
-                              ),
-                      elevation: 0.0,
-                      borderSide: BorderSide(
-                        color: Color(0xFFE5E7EB),
-                        width: 2.0,
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
+                    child: Container(
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      height: 70.0,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 0.0,
+                            color: Color(0xFFE5E7EB),
+                            offset: Offset(0.0, 1.0),
+                          )
+                        ],
+                        shape: BoxShape.rectangle,
                       ),
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
+                      child: InkWell(
+                        onTap: () async {
+                          final String? inputData =
+                          await inputDialog(context, "使用者名稱",userProfileProvider);
+                          print("你輸入：$inputData");
+                        },
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '使用者名稱',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .override(
+                                              fontFamily: 'Plus Jakarta Sans',
+                                              color: Color(0xFF15161E),
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                      ),
+                                      Text(
+                                        '${userProfileProvider.userProfile!.username}',
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              fontFamily: 'Plus Jakarta Sans',
+                                              color: Color(0xFF606A85),
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
+                                    ]),
+                                Expanded(
+                                  child: Align(
+                                    alignment: AlignmentDirectional(1.0, 0.0),
+                                    child: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Color(0xFF606A85),
+                                      size: 20.0,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      )
+                      ),
                   ),
                 ],
               ),
-            ),
-          ],
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
+                child: Container(
+                  width: MediaQuery.sizeOf(context).width * 1.0,
+                  height: 70.0,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 0.0,
+                        color: Color(0xFFE5E7EB),
+                        offset: Offset(0.0, 1.0),
+                      )
+                    ],
+                    shape: BoxShape.rectangle,
+                  ),
+                  child: InkWell(
+                    onTap: () async {
+                      final String? inputData =
+                      await inputDialog(context, "密碼",userProfileProvider);
+                      print("你輸入：$inputData");
+                    },
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              '更改密碼',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyLarge
+                                  .override(
+                                    fontFamily: 'Plus Jakarta Sans',
+                                    color: Color(0xFF15161E),
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                            ),
+                            Expanded(
+                              child: Align(
+                                alignment: AlignmentDirectional(1.0, 0.0),
+                                child: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Color(0xFF606A85),
+                                  size: 20.0,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),)
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 36.0, 0.0, 0.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FFButtonWidget(
+                      onPressed: () async {
+                        context.pushNamed('MobileSignIn');
+                      },
+                      text: 'Log Out',
+                      options: FFButtonOptions(
+                        width: 130.0,
+                        height: 50.0,
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        iconPadding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: Colors.white,
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Plus Jakarta Sans',
+                                  color: Color(0xFF606A85),
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                        elevation: 0.0,
+                        borderSide: BorderSide(
+                          color: Color(0xFFE5E7EB),
+                          width: 2.0,
+                        ),
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
+}
+
+Future<String?> inputDialog(BuildContext context, String lab, UserProfileProvider userProfileProvider) async {
+  String inputData = '';
+  return showDialog<String>(
+    context: context,
+    barrierDismissible: false, //控制點擊對話框以外的區域是否隱藏對話框
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('修改$lab'),
+        content: new Row(
+          children: <Widget>[
+            new Expanded(
+                child: new TextField(
+                  keyboardType: lab=='身高'||lab=='體重'?TextInputType.number:TextInputType.text,
+              autofocus: true,
+              decoration: new InputDecoration(hintText: '請輸入$lab'),
+              onChanged: (value) {
+                inputData = value;
+              },
+            ))
+          ],
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: Text('送出'),
+            onPressed: () {
+              switch (lab) {
+                case '身高':
+                case '體重':
+                  double val = double.tryParse(inputData) ?? 88;
+                  final newUserProfile = userProfileProvider.userProfile!.copyWith(
+                    height: lab == '身高' ? val : userProfileProvider.userProfile!.height,
+                    weight: lab == '體重' ? val : userProfileProvider.userProfile!.weight,
+                  );
+                  userProfileProvider.updateUserProfile(newUserProfile);
+                  break;
+
+                case '密碼':
+                  final newUserProfile = userProfileProvider.userProfile!.copyWith(
+                    password: inputData,
+                  );
+                  userProfileProvider.updateUserProfile(newUserProfile);
+                  break;
+
+                case '使用者名稱':
+                  final newUserProfile = userProfileProvider.userProfile!.copyWith(
+                    username: inputData,
+                  );
+                  userProfileProvider.updateUserProfile(newUserProfile);
+                  break;
+
+                default:
+                  final newUserProfile = userProfileProvider.userProfile!.copyWith(
+                    gender: inputData,
+                  );
+                  userProfileProvider.updateUserProfile(newUserProfile);
+                  break;
+              }
+
+              Navigator.of(context).pop(inputData);
+            },
+          ),
+        ],
+      );
+    },
+  );
 }
