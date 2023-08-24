@@ -72,6 +72,7 @@ class _EnterPasswordWidgetState extends State<EnterPasswordWidget>
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
+      resizeToAvoidBottomInset:false,
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(

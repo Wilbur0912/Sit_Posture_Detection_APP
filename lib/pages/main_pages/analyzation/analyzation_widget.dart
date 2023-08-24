@@ -1,14 +1,14 @@
+import '../../../manager/AnalyzationManager.dart';
+import '../../../model/sitRecordModel.dart';
+import '../../../userProfileProvider.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
+import 'analyzation_Chart.dart';
 import 'analyzation_model.dart';
 export 'analyzation_model.dart';
 
@@ -24,7 +24,8 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
   late AnalyzationModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
+  late UserProfileProvider userProfileProvider;
+  List<SitRecord> sitRecordList = [];
   final animationsMap = {
     'containerOnPageLoadAnimation1': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
@@ -84,11 +85,36 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
       ],
     ),
   };
+  DateTime startDate = DateTime.now();
+  DateTime? endDate;
+  String selectedType = '日';
+  Map<String, int> totalMinutesByDate = {};
+
+  void changeDateAndChartType(
+      {required DateTime start, DateTime? end, String? type}) {
+    if (type != null) {
+      setState(() {
+        startDate = start;
+        endDate = end;
+        selectedType = type;
+      });
+    } else {
+      setState(() {
+        startDate = start;
+        endDate = end;
+      });
+    }
+  }
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => AnalyzationModel());
+    userProfileProvider =
+        Provider.of<UserProfileProvider>(context, listen: false);
+    Future.delayed(Duration(milliseconds: 100), () {
+      _fetchSitRecordData();
+    });
   }
 
   @override
@@ -98,10 +124,85 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
     super.dispose();
   }
 
+  void _onTabClick(String type) {
+    DateTime s = DateTime.now();
+    DateTime? e;
+    final DateTime today = DateTime.now();
+
+    switch (type) {
+      case "日":
+        s = today.subtract(const Duration(days: 7));
+        e = today;
+        break;
+      case '周':
+        s = today.subtract(const Duration(days: 28));
+        e = today;
+        break;
+      case '月':
+        s = today.subtract(const Duration(days: 365));
+        e = today;
+        break;
+      case '年':
+        s = today.subtract(const Duration(days: 3650));
+        e = today;
+        break;
+    }
+    changeDateAndChartType(start: s, end: e, type: type);
+  }
+
+  Future<void> _fetchSitRecordData() async {
+    String sDate = DateFormat("yyyy-MM-dd").format(startDate);
+    String? eDate;
+    if (endDate != null) {
+      DateTime tmp = endDate!;
+      eDate = DateFormat("yyyy-MM-dd").format(tmp);
+      print(eDate);
+    }
+    final res = await AnalyzationManager.getSitRecord(
+        userProfileProvider.userProfile?.username, sDate, eDate);
+    final List<SitRecord> fetchedSitRecordList =
+        SitRecordFromResponse(res.data);
+    totalMinutesByDate = calculateTotalMinutesByDate(fetchedSitRecordList);
+    sitRecordList = fetchedSitRecordList; // 賦值給 SitRecordList 變數
+  }
+
+  Map<String, int> calculateTotalMinutesByDate(List<SitRecord> records) {
+    Map<String, int> totalMinutesMap = {};
+    for (var record in records) {
+      String date = DateFormat('yyyy-MM-dd').format(record.time);
+      totalMinutesMap[date] = (totalMinutesMap[date] ?? 0) + record.minutes;
+    }
+    return totalMinutesMap;
+  }
+
   @override
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
+    double totalMinutes = ((sitRecordList.fold<int>(
+                0,
+                (previousValue, sitRecord) =>
+                    previousValue + sitRecord.minutes)) /
+            60)
+        .roundToDouble();
+    int totalDays = 0;
+    for (SitRecord record in sitRecordList) {
+      // 計算每個 time 的日期天數
+      int daysInMonth =
+          DateTime(record.time.year, record.time.month + 1, 0).day;
+      int daysInYear = DateTime(record.time.year + 1, 1, 0)
+          .difference(DateTime(record.time.year, 1, 0))
+          .inDays;
+      int daysInTenYears = DateTime(record.time.year + 10, 1, 0)
+          .difference(DateTime(record.time.year, 1, 0))
+          .inDays;
 
+      // 根據不同時間間隔累加總天數
+      totalDays += daysInMonth; // 月
+      totalDays += daysInYear; // 年
+      totalDays += daysInTenYears; // 十年
+    }
+
+    double averageMinutes = (totalMinutes / totalDays / 60).roundToDouble();
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
@@ -148,23 +249,10 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 48.0, 0.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 48.0, 0.0, 0.0), //上下左右的填充
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(7.0, 0.0, 0.0, 5.0),
-                    child: Text(
-                      '好姿勢比例',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Rubik',
-                            color: Colors.white,
-                            fontSize: 14.0,
-                            letterSpacing: 0.6,
-                            fontWeight: FontWeight.normal,
-                          ),
-                    ),
-                  ),
                   Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(48.0, 4.0, 48.0, 0.0),
@@ -177,7 +265,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '本周總共',
+                              '統計總共',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -193,7 +281,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
-                                  '14',
+                                  '$totalMinutes',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -221,36 +309,12 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                             ),
                           ],
                         ),
-                        Stack(
-                          alignment: AlignmentDirectional(0.0, 0.0),
-                          children: [
-                            CircularPercentIndicator(
-                              percent: 0.63,
-                              radius: 31.5,
-                              lineWidth: 4.0,
-                              animation: true,
-                              progressColor: FlutterFlowTheme.of(context)
-                                  .primaryBackground,
-                              backgroundColor: Color(0x4D000000),
-                              center: Text(
-                                '63%',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Rubik',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBtnText,
-                                    ),
-                              ),
-                            ),
-                          ],
-                        ),
                         Column(
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '每日平均',
+                              '總計平均',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -266,7 +330,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
-                                  '2',
+                                  '${averageMinutes >= 1 ? averageMinutes : "<1.0"}',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -327,7 +391,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                '每週不良姿勢統計',
+                                '每$selectedType不良姿勢統計',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -348,11 +412,11 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Weekly',
+                                    children: <Widget>[
+                                      DropdownButton<String>(
+                                        value: selectedType,
                                         style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
+                                            .bodyLarge
                                             .override(
                                               fontFamily: 'Rubik',
                                               color:
@@ -361,12 +425,31 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                               letterSpacing: 0.2,
                                               fontWeight: FontWeight.w500,
                                             ),
-                                      ),
-                                      Icon(
-                                        Icons.arrow_drop_down_rounded,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        size: 24.0,
+                                        dropdownColor: Colors.blue,
+                                        onChanged: (String? newValue) {
+                                          // Change the callback argument type
+                                          if (newValue != null) {
+                                            setState(() {
+                                              _onTabClick(newValue);
+                                              _fetchSitRecordData();
+                                              print('$endDate and $startDate');
+                                            });
+                                          }
+                                        },
+                                        items: <String>['日', '周', '月', '年']
+                                            .map<DropdownMenuItem<String>>(
+                                                (String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(value),
+                                          );
+                                        }).toList(),
+                                        icon: Icon(
+                                          Icons.arrow_drop_down_rounded,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          size: 24.0,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -378,176 +461,19 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                         Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 24.0, 0.0, 0.0),
-                                  child: Container(
-                                    width: 300.0,
-                                    height: 120.0,
-                                    child: FlutterFlowLineChart(
-                                      data: [
-                                        FFLineChartData(
-                                          xData: FFAppState().xAxis,
-                                          yData: FFAppState().yAxis,
-                                          settings: LineChartBarData(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            barWidth: 2.0,
-                                            isCurved: true,
-                                            dotData: FlDotData(show: false),
-                                          ),
-                                        )
-                                      ],
-                                      chartStylingInfo: ChartStylingInfo(
-                                        backgroundColor: Color(0x00FFFFFF),
-                                        showGrid: true,
-                                        showBorder: false,
-                                      ),
-                                      axisBounds: AxisBounds(),
-                                      xAxisLabelInfo: AxisLabelInfo(),
-                                      yAxisLabelInfo: AxisLabelInfo(),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      12.0, 14.0, 0.0, 0.0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        '65',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Rubik',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 32.0, 0.0, 32.0),
-                                        child: Text(
-                                          '60',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Rubik',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                fontSize: 14.0,
-                                                fontWeight: FontWeight.normal,
-                                              ),
-                                        ),
-                                      ),
-                                      Text(
-                                        '55',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Rubik',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  24.0, 16.0, 24.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    '21 Feb',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Rubik',
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                  Text(
-                                    '28 May',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Rubik',
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                  Text(
-                                    '16 Jul',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Rubik',
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                  Text(
-                                    '19 Aug',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Rubik',
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                  Text(
-                                    '24 Aug',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Rubik',
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                  Text(
-                                    '25 Nov',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Rubik',
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                ],
+                                  0.0, 24.0, 0.0, 0.0),
+                              child: Container(
+                                width: 300.0,
+                                height: 200.0,
+                                child: AnalysisChart(
+                                  start: startDate,
+                                  end: endDate,
+                                  type: selectedType,
+                                  SitRecordList: sitRecordList,
+                                  // username: userProfileProvider.userProfile?.username,
+                                ),
                               ),
                             ),
                           ],
@@ -576,184 +502,60 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 12.0, 0.0, 48.0),
+                        Container(
+                          width: 286.6,
+                          height: 300.0,
                           child: Column(
-                            mainAxisSize: MainAxisSize.min,
+                            mainAxisSize: MainAxisSize.max,
                             children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    24.0, 0.0, 24.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Container(
-                                              width: 16.0,
-                                              height: 16.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                shape: BoxShape.circle,
-                                              ),
-                                            ),
-                                            ClipRRect(
-                                              child: Container(
-                                                width: 2.0,
-                                                height: 96.0,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .accent2,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Container(
-                                              width: 16.0,
-                                              height: 16.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                shape: BoxShape.circle,
-                                              ),
-                                            ),
-                                            ClipRRect(
-                                              child: Container(
-                                                width: 2.0,
-                                                height: 96.0,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .accent2,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Container(
-                                              width: 16.0,
-                                              height: 16.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                shape: BoxShape.circle,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                              Expanded(
+                                  child: ListView(
+                                padding: EdgeInsets.zero,
+                                scrollDirection: Axis.vertical,
+                                children:
+                                    totalMinutesByDate.entries.map((entry) {
+                                  String date = entry.key;
+                                  int totalMinutes = entry.value;
+                                  double totalHours = totalMinutes / 60.0;
+
+                                  // Filter SitRecord objects for the current date
+                                  List<SitRecord> recordsForDate = sitRecordList
+                                      .where((record) =>
+                                          DateFormat('yyyy-MM-dd')
+                                              .format(record.time) ==
+                                          date)
+                                      .toList();
+
+                                  return Container(
+                                    margin:
+                                        EdgeInsets.symmetric(vertical: 12.0),
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(24.0),
                                     ),
-                                    Expanded(
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 24.0, vertical: 12.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Container(
-                                            width: 286.6,
-                                            height: 100.0,
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
-                                              borderRadius:
-                                                  BorderRadius.circular(24.0),
-                                            ),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      24.0, 12.0, 24.0, 12.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
-                                                  Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
+                                                  Row(
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
+                                                        CrossAxisAlignment.end,
                                                     children: [
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .end,
-                                                        children: [
-                                                          Text(
-                                                            '3.2',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Rubik',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                                  fontSize:
-                                                                      24.0,
-                                                                ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        2.0,
-                                                                        0.0,
-                                                                        0.0,
-                                                                        2.0),
-                                                            child: Text(
-                                                              '小時',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Rubik',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                    fontSize:
-                                                                        12.0,
-                                                                    letterSpacing:
-                                                                        0.2,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .normal,
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
                                                       Text(
-                                                        '24 Feb 2023',
+                                                        totalHours
+                                                            .toStringAsFixed(1),
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -765,467 +567,95 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                                                           context)
                                                                       .primary,
                                                                   fontSize:
-                                                                      12.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .normal,
+                                                                      24.0,
                                                                 ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    2.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    2.0),
+                                                        child: Text(
+                                                          '小時',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Rubik',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                                fontSize: 12.0,
+                                                                letterSpacing:
+                                                                    0.2,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .normal,
+                                                              ),
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
-                                                  Expanded(
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  20.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: ListView(
-                                                        padding:
-                                                            EdgeInsets.zero,
-                                                        scrollDirection:
-                                                            Axis.vertical,
-                                                        children: [
-                                                          Text(
-                                                            '半躺半座: 2小時',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium,
-                                                          ),
-                                                          Text(
-                                                            '半身駝背: 0.5小時',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodySmall,
-                                                          ),
-                                                          Text(
-                                                            '翹右腳: 0.3小時',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodySmall,
-                                                          ),
-                                                          Text(
-                                                            '上半身右傾: 0.1小時',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodySmall,
-                                                          ),
-                                                          Text(
-                                                            '翹左腳: 0.1小時',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodySmall,
-                                                          ),
-                                                          Text(
-                                                            '上半身左傾:0.1小時',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodySmall,
-                                                          ),
-                                                          Text(
-                                                            '盤腿:0.1小時',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodySmall,
-                                                          ),
-                                                          Text(
-                                                            '獅身人面坐姿:0.1小時',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodySmall,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
+                                                  Text(
+                                                    DateFormat('dd MMM yyyy')
+                                                        .format(DateTime.parse(
+                                                            date)),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Rubik',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          fontSize: 12.0,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                        ),
                                                   ),
                                                 ],
                                               ),
-                                            ),
-                                          ).animateOnPageLoad(animationsMap[
-                                              'containerOnPageLoadAnimation1']!),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 16.0, 0.0, 0.0),
-                                            child: Container(
-                                              width: 286.6,
-                                              height: 100.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                borderRadius:
-                                                    BorderRadius.circular(24.0),
-                                              ),
-                                              child: Padding(
+                                              Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
-                                                        24.0, 12.0, 24.0, 12.0),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .end,
-                                                          children: [
-                                                            Text(
-                                                              '6.8',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Rubik',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                    fontSize:
-                                                                        24.0,
-                                                                  ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          2.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          2.0),
-                                                              child: Text(
-                                                                '小時',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Rubik',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primary,
-                                                                      fontSize:
-                                                                          12.0,
-                                                                      letterSpacing:
-                                                                          0.2,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .normal,
-                                                                    ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Text(
-                                                          '24 Feb 2023',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Rubik',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                fontSize: 12.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .normal,
-                                                              ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Expanded(
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    20.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        child: ListView(
-                                                          padding:
-                                                              EdgeInsets.zero,
-                                                          scrollDirection:
-                                                              Axis.vertical,
-                                                          children: [
-                                                            Text(
-                                                              '半躺半座: 3小時',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
-                                                            ),
-                                                            Text(
-                                                              '翹右腳: 2小時',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodySmall,
-                                                            ),
-                                                            Text(
-                                                              '半身駝背: 1小時',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodySmall,
-                                                            ),
-                                                            Text(
-                                                              '上半身右傾: 0.5小時',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodySmall,
-                                                            ),
-                                                            Text(
-                                                              '上半身左傾: 0.3小時',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodySmall,
-                                                            ),
-                                                            Text(
-                                                              '翹左腳:5次',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodySmall,
-                                                            ),
-                                                            Text(
-                                                              '盤腿:3次',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodySmall,
-                                                            ),
-                                                            Text(
-                                                              '獅身人面坐姿:2次',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodySmall,
-                                                            ),
-                                                            Text(
-                                                              '三分之一坐姿:0次',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodySmall,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
+                                                        25.0, 0.0, 0.0, .0),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  children: recordsForDate
+                                                      .map((record) {
+                                                    return Text(
+                                                      '${record.position} : ${(record.minutes / 60).toStringAsFixed(1)}小時',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .displayMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'Roboto',
+                                                            fontSize: 15.0,
+                                                            letterSpacing: 0.2,
+                                                            color: Colors.grey,
+                                                          ),
+                                                    );
+                                                  }).toList(),
                                                 ),
-                                              ),
-                                            ).animateOnPageLoad(animationsMap[
-                                                'containerOnPageLoadAnimation2']!),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 16.0, 0.0, 0.0),
-                                            child: Container(
-                                              width: 286.6,
-                                              height: 100.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                borderRadius:
-                                                    BorderRadius.circular(24.0),
-                                              ),
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        24.0, 12.0, 24.0, 12.0),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .end,
-                                                          children: [
-                                                            Text(
-                                                              '3.5',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Rubik',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                    fontSize:
-                                                                        24.0,
-                                                                  ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          2.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          2.0),
-                                                              child: Text(
-                                                                '小時',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Rubik',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primary,
-                                                                      fontSize:
-                                                                          12.0,
-                                                                      letterSpacing:
-                                                                          0.2,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .normal,
-                                                                    ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Text(
-                                                          '24 Feb 2023',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Rubik',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                fontSize: 12.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .normal,
-                                                              ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Expanded(
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    20.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        child: ListView(
-                                                          padding:
-                                                              EdgeInsets.zero,
-                                                          scrollDirection:
-                                                              Axis.vertical,
-                                                          children: [
-                                                            Text(
-                                                              '半躺半座:1小時',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
-                                                            ),
-                                                            Text(
-                                                              '半身駝背:1小時',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodySmall,
-                                                            ),
-                                                            Text(
-                                                              '上半身右傾:0.7小時',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodySmall,
-                                                            ),
-                                                            Text(
-                                                              '上半身左傾:0.5小時',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodySmall,
-                                                            ),
-                                                            Text(
-                                                              '翹右腳:0.3小時',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodySmall,
-                                                            ),
-                                                            Text(
-                                                              '翹左腳: 0.2小時',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodySmall,
-                                                            ),
-                                                            Text(
-                                                              '盤腿: 0.1小時',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodySmall,
-                                                            ),
-                                                            Text(
-                                                              '獅身人面坐姿: 0.1小時',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodySmall,
-                                                            ),
-                                                            Text(
-                                                              '三分之一坐姿: 0.1小時',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodySmall,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ).animateOnPageLoad(animationsMap[
-                                                'containerOnPageLoadAnimation3']!),
-                                          ),
+                                              )
+                                            ],
+                                          )
                                         ],
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
+                                  ).animateOnPageLoad(animationsMap[
+                                      'containerOnPageLoadAnimation1']!);
+                                }).toList(),
+                              )),
                             ],
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ),
