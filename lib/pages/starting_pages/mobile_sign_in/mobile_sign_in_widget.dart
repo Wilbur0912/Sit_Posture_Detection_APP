@@ -73,6 +73,7 @@ class _MobileSignInWidgetState extends State<MobileSignInWidget>
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
+        resizeToAvoidBottomInset:false,
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(

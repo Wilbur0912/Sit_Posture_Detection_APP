@@ -257,9 +257,9 @@ class _WeightEntryWidgetState extends State<WeightEntryWidget>
                               ),
                               child: Slider(
                                 value: weight.toDouble(),
-                                min: 0.0,
+                                min: 40.0,
                                 max: 150.0,
-                                divisions: 120,
+                                divisions: 220,
                                 onChanged: (double newVal) {
                                   setState(() {
                                     weight = newVal;

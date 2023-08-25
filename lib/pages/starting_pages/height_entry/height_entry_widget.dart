@@ -297,8 +297,8 @@ class _HeightEntryWidgetState extends State<HeightEntryWidget>
                       height: user_height,
                     );
                     userProfileProvider.updateUserProfile(newUserProfile);
-                    // await _userProfileManager
-                    //     .sendUserDataToBackend(newUserProfile);
+                    await _userProfileManager
+                        .sendUserDataToBackend(newUserProfile);
                     context.pushNamed(
                       'HomePage',
                       extra: <String, dynamic>{
