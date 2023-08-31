@@ -29,12 +29,14 @@ class _ConnectWidgetState extends State<ConnectWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late String _receivedWifiName;
   late String _receivedWifiPassword;
+  String userID = ""; //來自持久層的userID
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => ConnectModel());
     _receivedWifiName = widget.wifiName;
     _receivedWifiPassword = widget.wifiPassword;
+
     _model.textController ??= TextEditingController();
   }
 
@@ -53,7 +55,7 @@ class _ConnectWidgetState extends State<ConnectWidget> {
         print('已连接到WiFi网络');
 
         // 在这里将 _wifiName 和 _wifiPassword 发送给AP
-        await sendInfoToAP(_receivedWifiName, _receivedWifiPassword);
+        await sendInfoToAP(_receivedWifiName, _receivedWifiPassword,userID);
 
         await WiFiForIoTPlugin.disconnect();
       } else {
