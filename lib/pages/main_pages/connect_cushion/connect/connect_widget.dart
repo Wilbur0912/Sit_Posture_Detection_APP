@@ -139,7 +139,8 @@ class _ConnectWidgetState extends State<ConnectWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Column(
+          child: SingleChildScrollView(
+              child: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -313,6 +314,7 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                 ),
               ),
             ],
+          )
           ),
         ),
       ),

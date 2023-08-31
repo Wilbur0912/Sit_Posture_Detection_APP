@@ -105,7 +105,8 @@ class _CushionWifiSettingWidgetState extends State<CushionWifiSettingWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Column(
+          child: SingleChildScrollView(
+              child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -273,6 +274,7 @@ class _CushionWifiSettingWidgetState extends State<CushionWifiSettingWidget> {
                 ),
               ),
             ],
+          )
           ),
         ),
       ),
