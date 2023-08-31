@@ -1,5 +1,5 @@
 import 'package:http/http.dart' as http;
-Future<void> sendInfoToAP(String wifiName, String wifiPassword) async {
+Future<void> sendInfoToAP(String wifiName, String wifiPassword, String userID) async {
   // 假设 AP 提供一个 HTTP 接口用于接收信息
   final url = Uri.parse('http://your-ap-url/api/send-info');
   final response = await http.post(
@@ -7,6 +7,7 @@ Future<void> sendInfoToAP(String wifiName, String wifiPassword) async {
     body: {
       'wifiName': wifiName,
       'wifiPassword': wifiPassword,
+      'userID': userID,
     },
   );
 
