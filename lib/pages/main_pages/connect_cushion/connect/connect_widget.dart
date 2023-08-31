@@ -1,3 +1,5 @@
+import 'package:appp3/pages/main_pages/connect_cushion/connect/sendInfoToAP.dart';
+
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -6,10 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'connect_model.dart';
+
+import 'package:wifi_iot/wifi_iot.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+
 export 'connect_model.dart';
 
 class ConnectWidget extends StatefulWidget {
-  const ConnectWidget({Key? key}) : super(key: key);
+  final String wifiName;
+  final String wifiPassword;
+  const ConnectWidget({Key? key, required this.wifiName, required this.wifiPassword}) : super(key: key);
 
   @override
   _ConnectWidgetState createState() => _ConnectWidgetState();
@@ -19,13 +27,41 @@ class _ConnectWidgetState extends State<ConnectWidget> {
   late ConnectModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
+  late String _receivedWifiName;
+  late String _receivedWifiPassword;
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => ConnectModel());
-
+    _receivedWifiName = widget.wifiName;
+    _receivedWifiPassword = widget.wifiPassword;
     _model.textController ??= TextEditingController();
+  }
+
+  Future<void> connectToWiFi() async {
+    try {
+      var connectivityResult = await Connectivity().checkConnectivity();
+      if (connectivityResult == ConnectivityResult.none) {
+        print('无网络连接');
+        return;
+      }
+
+      // 连接到WiFi网络
+      bool isConnected = await WiFiForIoTPlugin.connect( _model.textController.text, password: "00000000");
+
+      if (isConnected) {
+        print('已连接到WiFi网络');
+
+        // 在这里将 _wifiName 和 _wifiPassword 发送给AP
+        await sendInfoToAP(_receivedWifiName, _receivedWifiPassword);
+
+        await WiFiForIoTPlugin.disconnect();
+      } else {
+        print('连接失败');
+      }
+    } catch (e) {
+      print('发生错误：$e');
+    }
   }
 
   @override
@@ -242,6 +278,7 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(72.0, 30.0, 72.0, 60.0),
                 child: FFButtonWidget(
                   onPressed: () async {
+                    await connectToWiFi();
                     context.pushNamed(
                       'Connect',
                       extra: <String, dynamic>{
