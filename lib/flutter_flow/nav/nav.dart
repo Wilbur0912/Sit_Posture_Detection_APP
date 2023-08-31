@@ -171,7 +171,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'Connect',
               path: 'connect',
-              builder: (context, params) => ConnectWidget(),
+              builder: (context, params) => ConnectWidget(wifiName: '', wifiPassword: '',),
             ),
             FFRoute(
               name: 'cushionWifiSetting',

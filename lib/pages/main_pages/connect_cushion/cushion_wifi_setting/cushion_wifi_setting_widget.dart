@@ -240,6 +240,8 @@ class _CushionWifiSettingWidgetState extends State<CushionWifiSettingWidget> {
                     context.pushNamed(
                       'Connect',
                       extra: <String, dynamic>{
+                        'wifiName': _model.textController1.text,
+                        'wifiPassword': _model.textController2.text,
                         kTransitionInfoKey: TransitionInfo(
                           hasTransition: true,
                           transitionType: PageTransitionType.fade,
