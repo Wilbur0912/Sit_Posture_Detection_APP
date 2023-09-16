@@ -8,12 +8,15 @@ class AnalyzationManager{
   static const String baseUrl = "https://d7fc3fd8-0191-42ed-aad3-92e3b6b142df.mock.pstmn.io";
 
   static Future<ResponseData> getSitRecord(String? username, String start, String? end) async {
-    final url = "$baseUrl/getSitRecord";
+    String url = "$baseUrl/getSitRecord/$username/$start/";
+    if (end != null) url += end;
+    // String url = "$baseUrl/getSitRecord";
     ResponseData responseData = ResponseData();
     final requestHeaders = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Cookie': (username != null?'username: ${username};': '')+ 'start: $start' + (end != null ? ';end: $end' : ''),
+      //'Cookie':'token=token',
+      // 'Cookie': (username != null?'username: ${username};': '')+ 'start: $start' + (end != null ? ';end: $end' : ''),
     };
     try {
       final res = await http.get(

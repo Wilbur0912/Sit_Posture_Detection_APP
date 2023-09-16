@@ -1,12 +1,12 @@
 import '../../../userProfileProvider.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
+
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -52,7 +52,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
   void updateGender(bool gender) {
     final userProfileProvider = context.read<UserProfileProvider>();
     final newUserProfile = userProfileProvider.userProfile?.copyWith(
-      gender: gender ?'Male' :'Female',
+      gender: gender ? 'Male' : 'Female',
     );
     userProfileProvider.updateUserProfile(newUserProfile!);
   }
@@ -71,6 +71,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
     return GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
           body: SafeArea(
@@ -80,22 +81,22 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                 padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    FlutterFlowIconButton(
-                      borderColor: Colors.transparent,
-                      borderRadius: 30.0,
-                      borderWidth: 1.0,
-                      buttonSize: 48.0,
-                      icon: Icon(
-                        Icons.arrow_back_ios_rounded,
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        size: 24.0,
-                      ),
-                      onPressed: () {
-                        print('IconButton pressed ...');
-                      },
-                    ),
+                    // FlutterFlowIconButton(
+                    //   borderColor: Colors.transparent,
+                    //   borderRadius: 30.0,
+                    //   borderWidth: 1.0,
+                    //   buttonSize: 48.0,
+                    //   icon: Icon(
+                    //     Icons.arrow_back_ios_rounded,
+                    //     color: FlutterFlowTheme.of(context).primaryText,
+                    //     size: 24.0,
+                    //   ),
+                    //   onPressed: () {
+                    //     print('IconButton pressed ...');
+                    //   },
+                    // ),
                     LinearPercentIndicator(
                       percent: 0.66,
                       width: 120.0,
@@ -105,33 +106,6 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                       backgroundColor: Color(0xFFE9E9E9),
                       barRadius: Radius.circular(12.0),
                       padding: EdgeInsets.zero,
-                    ),
-                    FFButtonWidget(
-                      onPressed: () {
-                        print('Button pressed ...');
-                      },
-                      text: 'Skip',
-                      options: FFButtonOptions(
-                        height: 40.0,
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: Color(0x007165E3),
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'Rubik',
-                                  color: Color(0xFF7165E3),
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                        elevation: 0.0,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
                     ),
                   ],
                 ),
@@ -145,7 +119,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: 'STEP ',
+                            text: '步驟 ',
                             style: GoogleFonts.getFont(
                               'Rubik',
                               color: FlutterFlowTheme.of(context).primary,
@@ -178,12 +152,12 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                       padding:
                           EdgeInsetsDirectional.fromSTEB(96.0, 12.0, 96.0, 0.0),
                       child: Text(
-                        'Which one are you?',
+                        '你的性別是?',
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Rubik',
                               fontSize: 20.0,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w800,
                             ),
                       ),
                     ),
@@ -195,7 +169,6 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-
                     Stack(
                       alignment: AlignmentDirectional(0.0, 0.0),
                       children: [
@@ -220,8 +193,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                                     height: 216.0,
                                     decoration: BoxDecoration(
                                       color: isMale
-                                          ? FlutterFlowTheme.of(context)
-                                              .secondary
+                                          ? Color(0xFF9DCEFF)
                                           : Colors.white,
                                       boxShadow: [
                                         BoxShadow(
@@ -243,13 +215,15 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'Male',
+                                            '男',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Rubik',
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w500,
+                                                  color: !isMale
+                                                      ? Color(0xFF9DCEFF)
+                                                      : Colors.white,
+                                                  fontWeight: FontWeight.w600,
                                                 ),
                                           ),
                                         ],
@@ -263,7 +237,6 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                                   setState(() {
                                     isMale = false;
                                   });
-
                                 },
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -273,7 +246,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                                     height: 216.0,
                                     decoration: BoxDecoration(
                                       color: !isMale
-                                          ? FlutterFlowTheme.of(context).secondary
+                                          ? Color(0xFF9DCEFF)
                                           : Colors.white,
                                       boxShadow: [
                                         BoxShadow(
@@ -295,15 +268,15 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'Female',
+                                            '女',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Rubik',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                  fontWeight: FontWeight.w500,
+                                                  color: isMale
+                                                      ? Color(0xFF9DCEFF)
+                                                      : Colors.white,
+                                                  fontWeight: FontWeight.w600,
                                                 ),
                                           ),
                                         ],
@@ -330,78 +303,81 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                   ],
                 ),
               ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 48.0, 0.0, 0.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            84.0, 0.0, 84.0, 0.0),
-                        child: Text(
-                          '藉由性別我們能更準確地偵測',
-                          textAlign: TextAlign.center,
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Rubik',
-                                    letterSpacing: 0.2,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              // Expanded(
+              //   child: Padding(
+              //     padding: EdgeInsetsDirectional.fromSTEB(0.0, 38.0, 0.0, 0.0),
+              //     child: Column(
+              //       mainAxisSize: MainAxisSize.max,
+              //       mainAxisAlignment: MainAxisAlignment.start,
+              //       children: [
+              //         Padding(
+              //           padding: EdgeInsetsDirectional.fromSTEB(
+              //               84.0, 0.0, 84.0, 0.0),
+              //           child: Text(
+              //             '藉由性別我們能更準確地\n偵測您的坐姿',
+              //             textAlign: TextAlign.center,
+              //             style:
+              //                 FlutterFlowTheme.of(context).bodyMedium.override(
+              //                       fontFamily: 'Rubik',
+              //                       letterSpacing: 0.2,
+              //                       color: Colors.grey,
+              //                       fontWeight: FontWeight.w600,
+              //                     ),
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(72.0, 0.0, 72.0, 0.0),
-                child: FFButtonWidget(
-                  onPressed: () async {
-                    updateGender(isMale);
-                    context.pushNamed(
-                      'WeightEntry',
-                      extra: <String, dynamic>{
-                        kTransitionInfoKey: TransitionInfo(
-                          hasTransition: true,
-                          transitionType: PageTransitionType.fade,
-                        ),
-                      },
-                    );
-                  },
-                  text: 'Continue',
-                  options: FFButtonOptions(
-                    width: double.infinity,
-                    height: 54.0,
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: FlutterFlowTheme.of(context).primary,
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Rubik',
-                          color: Colors.white,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.normal,
-                        ),
-                    elevation: 0.0,
-                    borderSide: BorderSide(
-                      color: Colors.transparent,
-                      width: 1.0,
+                padding:
+                    EdgeInsetsDirectional.fromSTEB(72.0, 120.0, 72.0, 50.0),
+                child: Container(
+                  width: 200,
+                  height: 60.0,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment(-1.00, 0.08),
+                      end: Alignment(1, -0.08),
+                      colors: [Color(0xFFA192FD), Color(0xFF9DCEFF)],
                     ),
-                    borderRadius: BorderRadius.circular(16.0),
+                    borderRadius: BorderRadius.circular(30.0),
                   ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 31.0),
-                child: Text(
-                  'Prefer not to choose',
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Rubik',
-                        color: FlutterFlowTheme.of(context).primary,
-                        fontWeight: FontWeight.w500,
+                  child: FFButtonWidget(
+                    onPressed: () async {
+                      updateGender(isMale);
+                      context.pushNamed(
+                        'WeightEntry',
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                          ),
+                        },
+                      );
+                    },
+                    text: '下一步',
+                    options: FFButtonOptions(
+                      width: double.infinity,
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: Colors.transparent,
+                      textStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w600,
                       ),
+                      elevation: 0.0,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                  ),
                 ),
               ),
             ]),

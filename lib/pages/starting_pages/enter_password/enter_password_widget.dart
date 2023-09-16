@@ -1,12 +1,10 @@
 import '../../../userProfileProvider.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -84,22 +82,22 @@ class _EnterPasswordWidgetState extends State<EnterPasswordWidget>
                 padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    FlutterFlowIconButton(
-                      borderColor: Colors.transparent,
-                      borderRadius: 30.0,
-                      borderWidth: 1.0,
-                      buttonSize: 48.0,
-                      icon: Icon(
-                        Icons.arrow_back_ios_rounded,
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        size: 24.0,
-                      ),
-                      onPressed: () {
-                        print('IconButton pressed ...');
-                      },
-                    ),
+                    // FlutterFlowIconButton(
+                    //   borderColor: Colors.transparent,
+                    //   borderRadius: 30.0,
+                    //   borderWidth: 1.0,
+                    //   buttonSize: 48.0,
+                    //   icon: Icon(
+                    //     Icons.arrow_back_ios_rounded,
+                    //     color: FlutterFlowTheme.of(context).primaryText,
+                    //     size: 24.0,
+                    //   ),
+                    //   onPressed: () {
+                    //     print('IconButton pressed ...');
+                    //   },
+                    // ),
                     LinearPercentIndicator(
                       percent: 0.33,
                       width: 120.0,
@@ -110,33 +108,7 @@ class _EnterPasswordWidgetState extends State<EnterPasswordWidget>
                       barRadius: Radius.circular(12.0),
                       padding: EdgeInsets.zero,
                     ),
-                    FFButtonWidget(
-                      onPressed: () {
-                        print('Button pressed ...');
-                      },
-                      text: 'Skip',
-                      options: FFButtonOptions(
-                        height: 40.0,
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: Color(0x007165E3),
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'Rubik',
-                                  color: Color(0xFF7165E3),
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                        elevation: 0.0,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
+
                   ],
                 ),
               ),
@@ -149,7 +121,7 @@ class _EnterPasswordWidgetState extends State<EnterPasswordWidget>
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: 'STEP ',
+                            text: '步驟 ',
                             style: GoogleFonts.getFont(
                               'Rubik',
                               color: FlutterFlowTheme.of(context).primary,
@@ -182,12 +154,12 @@ class _EnterPasswordWidgetState extends State<EnterPasswordWidget>
                       padding:
                           EdgeInsetsDirectional.fromSTEB(96.0, 12.0, 96.0, 0.0),
                       child: Text(
-                        'Set your password',
+                        '設定你的密碼',
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Rubik',
                               fontSize: 20.0,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w800,
                             ),
                       ),
                     ),
@@ -195,7 +167,7 @@ class _EnterPasswordWidgetState extends State<EnterPasswordWidget>
                       padding:
                           EdgeInsetsDirectional.fromSTEB(84.0, 12.0, 84.0, 0.0),
                       child: Text(
-                        'Enter a strong password for your account',
+                        '輸入足夠保護你帳號的\n強大密碼',
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Rubik',
@@ -228,7 +200,7 @@ class _EnterPasswordWidgetState extends State<EnterPasswordWidget>
                           height: 60.0,
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
+                                .gray200,
                             boxShadow: [
                               BoxShadow(
                                 blurRadius: 12.0,
@@ -243,13 +215,12 @@ class _EnterPasswordWidgetState extends State<EnterPasswordWidget>
                             controller: _model.textController,
                             obscureText: !_model.passwordVisibility,
                             decoration: InputDecoration(
-                              hintText: 'Enter password',
+                              hintText: '輸入密碼',
                               hintStyle: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Rubik',
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
+                                    color: Colors.grey,
                                     fontWeight: FontWeight.normal,
                                   ),
                               enabledBorder: OutlineInputBorder(
@@ -330,45 +301,56 @@ class _EnterPasswordWidgetState extends State<EnterPasswordWidget>
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(72.0, 0.0, 72.0, 60.0),
-                child: FFButtonWidget(
-                  onPressed: () async {
-                    final userProfileProvider =
-                    context.read<UserProfileProvider>();
-                    final newUserProfile =
-                    userProfileProvider.userProfile!.copyWith(
-                      password: _model.textController.text,
-                    );
-                    userProfileProvider.updateUserProfile(newUserProfile);
-                    context.pushNamed(
-                      'GenderSelection',
-                      extra: <String, dynamic>{
-                        kTransitionInfoKey: TransitionInfo(
-                          hasTransition: true,
-                          transitionType: PageTransitionType.fade,
-                        ),
-                      },
-                    );
-                  },
-                  text: 'Continue',
-                  options: FFButtonOptions(
-                    width: double.infinity,
-                    height: 54.0,
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: FlutterFlowTheme.of(context).primary,
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Rubik',
-                          color: Colors.white,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.normal,
-                        ),
-                    elevation: 0.0,
-                    borderSide: BorderSide(
-                      color: Colors.transparent,
-                      width: 1.0,
+                child: Container(
+                  width: 200,
+                  height: 60.0,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment(-1.00, 0.08),
+                      end: Alignment(1, -0.08),
+                      colors: [Color(0xFFA192FD), Color(0xFF9DCEFF)],
                     ),
-                    borderRadius: BorderRadius.circular(16.0),
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: FFButtonWidget(
+                    onPressed: () async {
+                      final userProfileProvider =
+                      context.read<UserProfileProvider>();
+                      final newUserProfile =
+                      userProfileProvider.userProfile!.copyWith(
+                        password: _model.textController.text,
+                      );
+                      userProfileProvider.updateUserProfile(newUserProfile);
+                      context.pushNamed(
+                        'GenderSelection',
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                          ),
+                        },
+                      );
+                    },
+                    text: '下一步',
+                    options: FFButtonOptions(
+                      width: double.infinity,
+                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      iconPadding:
+                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: Colors.transparent,
+                      textStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w600,
+                      ),
+                      elevation: 0.0,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
                   ),
                 ),
               ),

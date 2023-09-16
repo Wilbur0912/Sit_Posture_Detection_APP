@@ -4,13 +4,14 @@ class UserProfile {
   double? height;
   double? weight;
   String? gender;
-
+  String? token;
   UserProfile({
     this.username,
     this.password,
     this.height,
     this.weight,
     this.gender,
+    this.token,
   });
 
   UserProfile copyWith({
@@ -19,6 +20,7 @@ class UserProfile {
     double? height,
     double? weight,
     String? gender,
+    String? token,
   }) {
     return UserProfile(
       username: username ?? this.username,
@@ -26,6 +28,7 @@ class UserProfile {
       height: height ?? this.height,
       weight: weight ?? this.weight,
       gender: gender ?? this.gender,
+      token: token ?? this.token,
     );
   }
   Map<String, dynamic> toJson() {
@@ -35,6 +38,7 @@ class UserProfile {
       'height': height,
       'weight': weight,
       'gender': gender,
+      'token': token,
     };
   }
 
@@ -45,6 +49,7 @@ class UserProfile {
       height: json['height'],
       weight: json['weight'],
       gender: json['gender'],
+      token: json['token'],
     );
   }
 }
