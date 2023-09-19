@@ -1,15 +1,17 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/userModel.dart';
 
-class UserProfileManager{
+class UserProfileManager {
+  static const String baseUrl =
+      "https://d7fc3fd8-0191-42ed-aad3-92e3b6b142df.mock.pstmn.io";
 
-  static const String baseUrl = "https://d7fc3fd8-0191-42ed-aad3-92e3b6b142df.mock.pstmn.io";
   Future<UserProfile> login(String username, String password) async {
     final url = "$baseUrl/login";
+    print(password);
 
+    print(url);
     final requestHeaders = {
       'Content-Type': 'application/json',
       "Accept": "application/json",
@@ -31,18 +33,20 @@ class UserProfileManager{
         final Map<String, dynamic> responseData = json.decode(response.body);
         return UserProfile.fromJson(responseData);
       } else {
-        throw Exception("登入失敗：${response.statusCode}");
+        throw Exception("登入失敗1：${response.statusCode}");
       }
     } catch (e) {
-      throw Exception("登入失敗：$e");
+      throw Exception("登入失敗2：$e");
     }
   }
-  Future<void> sendUserDataToBackend(UserProfile userProfile) async {
+
+  Future<String?> sendUserDataToBackend(UserProfile userProfile) async {
     final url = "$baseUrl/userprofile";
     final headers = {
       'Content-Type': 'application/json',
       "Accept": "application/json",
-      "Cookie": 'user_name=$userProfile.username'
+      // "Cookie": 'token=$userProfile.username'
+      // "Cookie": 'user_name=$userProfile.username'
     };
 
     final userData = {
@@ -60,19 +64,25 @@ class UserProfileManager{
     );
 
     if (response.statusCode == 200) {
+      final responseBody = json.decode(response.body);
+      final token = responseBody['token'];
       print('OK');
+      return token;
     } else {
       print(response.statusCode);
+      return null;
     }
   }
+
   Future<void> updateUserDataToBackend(UserProfile userProfile) async {
     final url = "$baseUrl/updateUserData";
     final headers = {
       'Content-Type': 'application/json',
       "Accept": "application/json",
-      "Cookie": 'user_name=${userProfile.username}'
+      // "Cookie": 'user_name=${userProfile.username}'
+      "Cookie": 'token=$userProfile.token'
     };
-
+    print(userProfile.token);
     final userData = {
       'username': userProfile.username,
       'password': userProfile.password,

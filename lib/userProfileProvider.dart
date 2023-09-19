@@ -25,6 +25,10 @@ class UserProfileProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+  Future<void> clearUserProfileFromSharedPreferences() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('userProfile');
+  }
 
   Future<void> saveUserProfileToSharedPreferences(UserProfile userProfile) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();

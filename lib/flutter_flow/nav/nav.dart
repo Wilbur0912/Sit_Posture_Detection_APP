@@ -1,14 +1,13 @@
 import 'dart:async';
 
+import 'package:appp3/pages/starting_pages/login_page/login_page_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
+import '../../userProfileProvider.dart';
 import '/index.dart';
-import '/main.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/lat_lng.dart';
-import '/flutter_flow/place.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'serialization_util.dart';
 
@@ -48,30 +47,56 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 ),
               ),
             )
-          : WelcomePageWidget(),
+          : LoginPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => appStateNotifier.showSplashImage
-              ? Builder(
-                  builder: (context) => Container(
-                    color: Colors.white,
-                    child: Center(
-                      child: Image.asset(
-                        'assets/images/logo.svg',
-                        width: MediaQuery.sizeOf(context).width * 0.2,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                )
-              : WelcomePageWidget(),
+          builder: (context, params) {
+            // 從Provider中獲取UserProfileProvider
+            final userProfileProvider = Provider.of<UserProfileProvider>(context);
+
+            // 檢查UserProfileProvider是否已加載UserProfile
+            if (userProfileProvider.userProfile != null) {
+              final token = userProfileProvider.userProfile!.token;
+
+              // 檢查token是否存在
+              if (token != null && token.isNotEmpty) {
+                // Token存在，導航到需要登入的頁面（例如HomePage）
+                return HomePageWidget();
+              } else {
+                // Token不存在，導航到登入頁面（例如LoginPage）
+                return LoginPageWidget();
+              }
+            } else {
+              // 如果UserProfileProvider尚未加載UserProfile，可以顯示載入中的頁面
+              return LoginPageWidget(); // 或其他載入中UI
+            }
+          },
+          // builder: (context, _) => appStateNotifier.showSplashImage
+          //     ? Builder(
+          //         builder: (context) => Container(
+          //           color: Colors.white,
+          //           child: Center(
+          //             child: Image.asset(
+          //               'assets/images/logo.svg',
+          //               width: MediaQuery.sizeOf(context).width * 0.2,
+          //               fit: BoxFit.cover,
+          //             ),
+          //           ),
+          //         ),
+          //       )
+          //     : LoginPageWidget(),
           routes: [
             FFRoute(
               name: 'WelcomePage',
               path: 'welcomePage',
               builder: (context, params) => WelcomePageWidget(),
+            ),
+            FFRoute(
+              name: 'LoginPage',
+              path: 'LoginPage',
+              builder: (context, params) => LoginPageWidget(),
             ),
             FFRoute(
               name: 'HomePage',

@@ -1,13 +1,13 @@
 import '../../../manager/userProfileManager.dart';
 import '../../../userProfileProvider.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
+
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -84,22 +84,22 @@ class _HeightEntryWidgetState extends State<HeightEntryWidget>
                 padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    FlutterFlowIconButton(
-                      borderColor: Colors.transparent,
-                      borderRadius: 30.0,
-                      borderWidth: 1.0,
-                      buttonSize: 48.0,
-                      icon: Icon(
-                        Icons.arrow_back_ios_rounded,
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        size: 24.0,
-                      ),
-                      onPressed: () {
-                        print('IconButton pressed ...');
-                      },
-                    ),
+                    // FlutterFlowIconButton(
+                    //   borderColor: Colors.transparent,
+                    //   borderRadius: 30.0,
+                    //   borderWidth: 1.0,
+                    //   buttonSize: 48.0,
+                    //   icon: Icon(
+                    //     Icons.arrow_back_ios_rounded,
+                    //     color: FlutterFlowTheme.of(context).primaryText,
+                    //     size: 24.0,
+                    //   ),
+                    //   onPressed: () {
+                    //     print('IconButton pressed ...');
+                    //   },
+                    // ),
                     LinearPercentIndicator(
                       percent: 0.88,
                       width: 120.0,
@@ -110,33 +110,33 @@ class _HeightEntryWidgetState extends State<HeightEntryWidget>
                       barRadius: Radius.circular(12.0),
                       padding: EdgeInsets.zero,
                     ),
-                    FFButtonWidget(
-                      onPressed: () {
-                        print('Button pressed ...');
-                      },
-                      text: 'Skip',
-                      options: FFButtonOptions(
-                        height: 40.0,
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: Color(0x007165E3),
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'Rubik',
-                                  color: Color(0xFF7165E3),
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                        elevation: 0.0,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
+                    // FFButtonWidget(
+                    //   onPressed: () {
+                    //     print('Button pressed ...');
+                    //   },
+                    //   text: 'Skip',
+                    //   options: FFButtonOptions(
+                    //     height: 40.0,
+                    //     padding:
+                    //         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    //     iconPadding:
+                    //         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    //     color: Color(0x007165E3),
+                    //     textStyle:
+                    //         FlutterFlowTheme.of(context).titleSmall.override(
+                    //               fontFamily: 'Rubik',
+                    //               color: Color(0xFF7165E3),
+                    //               fontSize: 14.0,
+                    //               fontWeight: FontWeight.w500,
+                    //             ),
+                    //     elevation: 0.0,
+                    //     borderSide: BorderSide(
+                    //       color: Colors.transparent,
+                    //       width: 1.0,
+                    //     ),
+                    //     borderRadius: BorderRadius.circular(8.0),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -149,7 +149,7 @@ class _HeightEntryWidgetState extends State<HeightEntryWidget>
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: 'STEP ',
+                            text: '步驟 ',
                             style: GoogleFonts.getFont(
                               'Rubik',
                               color: FlutterFlowTheme.of(context).primary,
@@ -182,12 +182,12 @@ class _HeightEntryWidgetState extends State<HeightEntryWidget>
                       padding:
                           EdgeInsetsDirectional.fromSTEB(84.0, 12.0, 84.0, 0.0),
                       child: Text(
-                        'What is your height?',
+                        '您的身高是?',
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Rubik',
                               fontSize: 20.0,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w800,
                             ),
                       ),
                     ),
@@ -257,26 +257,30 @@ class _HeightEntryWidgetState extends State<HeightEntryWidget>
                                 ],
                               ),
                             ),
-                            SliderTheme(
-                              data: SliderTheme.of(context).copyWith(
-                                activeTrackColor: Colors.white,
-                                thumbColor: Color(0xFF7165E3),
-                                overlayColor: Color(0x29eb1555),
-                                thumbShape: RoundSliderThumbShape(
-                                    enabledThumbRadius: 10.0),
-                                overlayShape: RoundSliderThumbShape(
-                                    enabledThumbRadius: 20.0),
-                              ),
-                              child: Slider(
-                                value: user_height,
-                                min: 100.0,
-                                max: 220.0,
-                                divisions: 240,
-                                onChanged: (double newVal) {
-                                  setState(() {
-                                    user_height = newVal;
-                                  });
-                                },
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  30.0, 30.0, 30.0, 60.0),
+                              child: SliderTheme(
+                                data: SliderTheme.of(context).copyWith(
+                                  activeTrackColor: Colors.white,
+                                  thumbColor: Color(0xFF7165E3),
+                                  overlayColor: Color(0x29eb1555),
+                                  thumbShape: RoundSliderThumbShape(
+                                      enabledThumbRadius: 10.0),
+                                  overlayShape: RoundSliderThumbShape(
+                                      enabledThumbRadius: 20.0),
+                                ),
+                                child: Slider(
+                                  value: user_height,
+                                  min: 100.0,
+                                  max: 220.0,
+                                  divisions: 240,
+                                  onChanged: (double newVal) {
+                                    setState(() {
+                                      user_height = newVal;
+                                    });
+                                  },
+                                ),
                               ),
                             ),
                           ],
@@ -288,47 +292,69 @@ class _HeightEntryWidgetState extends State<HeightEntryWidget>
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(72.0, 0.0, 72.0, 60.0),
-                child: FFButtonWidget(
-                  onPressed: () async {
-                    final userProfileProvider =
-                        context.read<UserProfileProvider>();
-                    final newUserProfile =
-                        userProfileProvider.userProfile!.copyWith(
-                      height: user_height,
-                    );
-                    userProfileProvider.updateUserProfile(newUserProfile);
-                    await _userProfileManager
-                        .sendUserDataToBackend(newUserProfile);
-                    context.pushNamed(
-                      'HomePage',
-                      extra: <String, dynamic>{
-                        kTransitionInfoKey: TransitionInfo(
-                          hasTransition: true,
-                          transitionType: PageTransitionType.fade,
-                        ),
-                      },
-                    );
-                  },
-                  text: 'Continue',
-                  options: FFButtonOptions(
-                    width: double.infinity,
-                    height: 54.0,
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: FlutterFlowTheme.of(context).primary,
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Rubik',
-                          color: Colors.white,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.normal,
-                        ),
-                    elevation: 0.0,
-                    borderSide: BorderSide(
-                      color: Colors.transparent,
-                      width: 1.0,
+                child: Container(
+                  width: 200,
+                  height: 60.0,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment(-1.00, 0.08),
+                      end: Alignment(1, -0.08),
+                      colors: [Color(0xFFA192FD), Color(0xFF9DCEFF)],
                     ),
-                    borderRadius: BorderRadius.circular(16.0),
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: FFButtonWidget(
+                    onPressed: () async {
+                      final userProfileProvider =
+                          context.read<UserProfileProvider>();
+                      final currentUserProfile =
+                          userProfileProvider.userProfile!;
+
+                      final newProfile = currentUserProfile.copyWith(
+                        height: user_height,
+                      );
+
+                      final String? token = await _userProfileManager
+                          .sendUserDataToBackend(newProfile);
+
+                      if (token != null) {
+                        final updatedProfile =
+                            newProfile.copyWith(token: token);
+                        userProfileProvider.updateUserProfile(updatedProfile);
+                      } else {
+                        print('Failed to obtain token');
+                      }
+                      context.pushNamed(
+                        'HomePage',
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                          ),
+                        },
+                      );
+                    },
+                    text: '註冊',
+                    options: FFButtonOptions(
+                      width: double.infinity,
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: Colors.transparent,
+                      textStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w600,
+                      ),
+                      elevation: 0.0,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
                   ),
                 ),
               ),

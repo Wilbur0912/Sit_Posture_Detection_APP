@@ -560,9 +560,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                   children: [
                     FFButtonWidget(
                       onPressed: () async {
-                        context.pushNamed('MobileSignIn');
+                        userProfileProvider.clearUserProfileFromSharedPreferences();
+                        context.pushNamed('LoginPage');
                       },
-                      text: 'Log Out',
+                      text: '登出',
                       options: FFButtonOptions(
                         width: 130.0,
                         height: 50.0,
