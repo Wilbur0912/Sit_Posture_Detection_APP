@@ -19,3 +19,17 @@
   export '/pages/onboarding/weight_entry_copy/weight_entry_copy_widget.dart'
       show WeightEntryCopyWidget;
 ```
+
+
+
+### 想調用 userprofile 該如何實踐
+1. 在頁面 build 引入 userProfileProvider
+```
+  final userProfileProvider =
+   context.read<UserProfileProvider>();
+```
+2. 調用 userProfileProvider 中 userprofile 的 屬性
+```
+ex: userProfileProvider.userProfile?.token
+```
+
