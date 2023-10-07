@@ -85,23 +85,23 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
       ],
     ),
   };
-  DateTime startDate = DateTime.now();
-  DateTime? endDate;
+  DateTime endDate = DateTime.now();
+  DateTime? startDate;
   String selectedType = '日';
   Map<String, int> totalMinutesByDate = {};
 
   void changeDateAndChartType(
-      {required DateTime start, DateTime? end, String? type}) {
+      {DateTime? start, required DateTime end, String? type}) {
     if (type != null) {
       setState(() {
-        startDate = start;
         endDate = end;
+        startDate = start;
         selectedType = type;
       });
     } else {
       setState(() {
-        startDate = start;
         endDate = end;
+        startDate = start;
       });
     }
   }
@@ -125,25 +125,25 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
   }
 
   void _onTabClick(String type) {
-    DateTime s = DateTime.now();
-    DateTime? e;
+    DateTime e = DateTime.now();
+    DateTime? s;
     final DateTime today = DateTime.now();
 
     switch (type) {
       case "日":
-        s = today.subtract(const Duration(days: 7));
+        s = today.subtract(const Duration(days: 6));
         e = today;
         break;
       case '周':
-        s = today.subtract(const Duration(days: 28));
+        s = today.subtract(const Duration(days: 27));
         e = today;
         break;
       case '月':
-        s = today.subtract(const Duration(days: 365));
+        s = today.subtract(const Duration(days: 364));
         e = today;
         break;
       case '年':
-        s = today.subtract(const Duration(days: 3650));
+        s = today.subtract(const Duration(days: 3649));
         e = today;
         break;
     }
@@ -151,15 +151,15 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
   }
 
   Future<void> _fetchSitRecordData() async {
-    String sDate = DateFormat("yyyy-MM-dd").format(startDate);
-    String? eDate;
-    if (endDate != null) {
-      DateTime tmp = endDate!;
-      eDate = DateFormat("yyyy-MM-dd").format(tmp);
-      print(eDate);
+    String eDate = DateFormat("yyyy-MM-dd").format(endDate);
+    String? sDate;
+    if (startDate != null) {
+      DateTime tmp = startDate!;
+      sDate = DateFormat("yyyy-MM-dd").format(tmp);
+      print(sDate);
     }
     final res = await AnalyzationManager.getSitRecord(
-        userProfileProvider.userProfile?.username, sDate, eDate);
+        userProfileProvider.userProfile?.token, sDate!, eDate);
     final List<SitRecord> fetchedSitRecordList =
         SitRecordFromResponse(res.data);
     totalMinutesByDate = calculateTotalMinutesByDate(fetchedSitRecordList);
@@ -204,467 +204,512 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
 
     double averageMinutes = (totalMinutes / totalDays / 60).roundToDouble();
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primary,
-        body: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 48.0, 0.0, 0.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  FlutterFlowIconButton(
-                    borderColor: Colors.transparent,
-                    borderRadius: 30.0,
-                    borderWidth: 1.0,
-                    buttonSize: 48.0,
-                    icon: Icon(
-                      Icons.keyboard_arrow_left,
-                      color: Colors.white,
-                      size: 30.0,
-                    ),
-                    onPressed: () async {
-                      context.pop();
-                    },
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 100.0, 0.0),
-                    child: Text(
-                      '資料統計',
-                      textAlign: TextAlign.center,
-                      style:
-                          FlutterFlowTheme.of(context).displayMedium.override(
+        onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+        child: Scaffold(
+          key: scaffoldKey,
+          body: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment(-1.00, 0.08),
+                end: Alignment(1, -0.08),
+                colors: [Color(0xFF9DCEFF), Color(0xFFA192FD)],
+              ),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 48.0, 0.0, 0.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      FlutterFlowIconButton(
+                        borderColor: Colors.transparent,
+                        borderRadius: 30.0,
+                        borderWidth: 1.0,
+                        buttonSize: 48.0,
+                        icon: Icon(
+                          Icons.keyboard_arrow_left,
+                          color: Colors.white,
+                          size: 30.0,
+                        ),
+                        onPressed: () async {
+                          context.pop();
+                        },
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 120.0, 0.0),
+                        child: Text(
+                          '資料統計',
+                          textAlign: TextAlign.center,
+                          style: FlutterFlowTheme.of(context)
+                              .bodyLarge
+                              .override(
                                 fontFamily: 'Roboto',
-                                fontSize: 45.0,
+                                fontSize: 35.0,
                                 letterSpacing: 0.2,
+                                fontWeight: FontWeight.w600,
                               ),
-                    ),
+                        ),
+                      ),
+
+                    ],
                   ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 48.0, 0.0, 0.0), //上下左右的填充
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(48.0, 4.0, 48.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 48.0, 0.0, 0.0),
+                  //上下左右的填充
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            48.0, 4.0, 48.0, 0.0),
+                        child: Row(
                           mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              '統計總共',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Rubik',
-                                    color: Colors.white,
-                                    fontSize: 12.0,
-                                    letterSpacing: 0.6,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                            ),
-                            Row(
+                            Column(
                               mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '$totalMinutes',
+                                  '統計總共',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Rubik',
+                                        fontFamily: 'Roboto',
                                         color: Colors.white,
-                                        fontSize: 36.0,
+                                        fontSize: 12.0,
+                                        letterSpacing: 0.6,
+                                        fontWeight: FontWeight.normal,
                                       ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      2.0, 0.0, 0.0, 6.0),
-                                  child: Text(
-                                    '小時',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Rubik',
-                                          color: Colors.white,
-                                          letterSpacing: 0.2,
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '總計平均',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Rubik',
-                                    color: Colors.white,
-                                    fontSize: 12.0,
-                                    letterSpacing: 0.6,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  '${averageMinutes >= 1 ? averageMinutes : "<1.0"}',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Rubik',
-                                        color: Colors.white,
-                                        fontSize: 36.0,
-                                      ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      2.0, 0.0, 0.0, 6.0),
-                                  child: Text(
-                                    '小時',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Rubik',
-                                          color: Colors.white,
-                                          letterSpacing: 0.2,
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 48.0, 0.0, 0.0),
-                child: Container(
-                  width: double.infinity,
-                  height: 100.0,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).primaryBackground,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(0.0),
-                      bottomRight: Radius.circular(0.0),
-                      topLeft: Radius.circular(36.0),
-                      topRight: Radius.circular(36.0),
-                    ),
-                  ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              24.0, 24.0, 24.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                '每$selectedType不良姿勢統計',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Rubik',
-                                      fontSize: 16.0,
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      '$totalMinutes',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Roboto',
+                                            color: Colors.white,
+                                            fontSize: 36.0,
+                                          ),
                                     ),
-                              ),
-                              Container(
-                                width: 100.0,
-                                height: 42.0,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      12.0, 0.0, 2.0, 0.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      DropdownButton<String>(
-                                        value: selectedType,
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          2.0, 0.0, 0.0, 6.0),
+                                      child: Text(
+                                        '小時',
                                         style: FlutterFlowTheme.of(context)
-                                            .bodyLarge
+                                            .bodyMedium
                                             .override(
-                                              fontFamily: 'Rubik',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                              fontFamily: 'Roboto',
+                                              color: Colors.white,
                                               letterSpacing: 0.2,
-                                              fontWeight: FontWeight.w500,
+                                              fontWeight: FontWeight.normal,
                                             ),
-                                        dropdownColor: Colors.blue,
-                                        onChanged: (String? newValue) {
-                                          // Change the callback argument type
-                                          if (newValue != null) {
-                                            setState(() {
-                                              _onTabClick(newValue);
-                                              _fetchSitRecordData();
-                                              print('$endDate and $startDate');
-                                            });
-                                          }
-                                        },
-                                        items: <String>['日', '周', '月', '年']
-                                            .map<DropdownMenuItem<String>>(
-                                                (String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          );
-                                        }).toList(),
-                                        icon: Icon(
-                                          Icons.arrow_drop_down_rounded,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          size: 24.0,
-                                        ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
+                              ],
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '總計平均',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Roboto',
+                                        color: Colors.white,
+                                        fontSize: 12.0,
+                                        letterSpacing: 0.6,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      '${averageMinutes >= 1 ? averageMinutes : "<1.0"}',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Roboto',
+                                            color: Colors.white,
+                                            fontSize: 36.0,
+                                          ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          2.0, 0.0, 0.0, 6.0),
+                                      child: Text(
+                                        '小時',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Roboto',
+                                              color: Colors.white,
+                                              letterSpacing: 0.2,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 48.0, 0.0, 0.0),
+                    child: Container(
+                      width: double.infinity,
+                      height: 100.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(0.0),
+                          bottomRight: Radius.circular(0.0),
+                          topLeft: Radius.circular(36.0),
+                          topRight: Radius.circular(36.0),
+                        ),
+                      ),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 24.0, 0.0, 0.0),
-                              child: Container(
-                                width: 300.0,
-                                height: 200.0,
-                                child: AnalysisChart(
-                                  start: startDate,
-                                  end: endDate,
-                                  type: selectedType,
-                                  SitRecordList: sitRecordList,
-                                  // username: userProfileProvider.userProfile?.username,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              24.0, 36.0, 24.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Timeline',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Rubik',
-                                      fontSize: 16.0,
+                                  24.0, 24.0, 24.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    '每$selectedType不良姿勢統計',
+                                    style: TextStyle(
+                                      color: Color(0xFF1D1517),
+                                      fontSize: 16,
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.w600,
+                                      height: 0.09,
                                     ),
-                              ),
-                              Icon(
-                                Icons.keyboard_control_outlined,
-                                color: Color(0xFFE9E9E9),
-                                size: 24.0,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 286.6,
-                          height: 300.0,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Expanded(
-                                  child: ListView(
-                                padding: EdgeInsets.zero,
-                                scrollDirection: Axis.vertical,
-                                children:
-                                    totalMinutesByDate.entries.map((entry) {
-                                  String date = entry.key;
-                                  int totalMinutes = entry.value;
-                                  double totalHours = totalMinutes / 60.0;
-
-                                  // Filter SitRecord objects for the current date
-                                  List<SitRecord> recordsForDate = sitRecordList
-                                      .where((record) =>
-                                          DateFormat('yyyy-MM-dd')
-                                              .format(record.time) ==
-                                          date)
-                                      .toList();
-
-                                  return Container(
-                                    margin:
-                                        EdgeInsets.symmetric(vertical: 12.0),
+                                  ),
+                                  Container(
+                                    width: 100.0,
+                                    height: 42.0,
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      borderRadius: BorderRadius.circular(24.0),
+                                      gradient: LinearGradient(
+                                        begin: Alignment(-1.00, 0.08),
+                                        end: Alignment(1, -0.08),
+                                        colors: [
+                                          Color(0xFFA192FD),
+                                          Color(0xFF9DCEFF)
+                                        ],
+                                      ),
+                                      borderRadius: BorderRadius.circular(50.0),
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 24.0, vertical: 12.0),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          12.0, 0.0, 2.0, 0.0),
                                       child: Row(
+                                        mainAxisSize: MainAxisSize.min,
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          DropdownButton<String>(
+                                            value: selectedType,
+                                            style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              color: Colors.white,
+                                              letterSpacing: 0.2,
+                                              fontWeight: FontWeight
+                                                  .w700, // 設置 DropdownButton 的文本顏色
+                                            ),
+                                            underline: SizedBox(),
+                                            onChanged: (String? newValue) {
+                                              // Change the callback argument type
+                                              if (newValue != null) {
+                                                setState(() {
+                                                  _onTabClick(newValue);
+                                                  _fetchSitRecordData();
+                                                  print(
+                                                      '$startDate and $endDate');
+                                                });
+                                              }
+                                            },
+                                            items: <String>['日', '周', '月', '年']
+                                                .map<DropdownMenuItem<String>>(
+                                                    (String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(
+                                                  value,
+                                                  style: TextStyle(
+                                                    color: value == selectedType
+                                                        ? Colors.white
+                                                        : Colors.grey,
+                                                  ),
+                                                ),
+                                              );
+                                            }).toList(),
+                                            icon: Icon(
+                                              Icons.arrow_drop_down_rounded,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              size: 24.0,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 24.0, 0.0, 0.0),
+                                  child: Container(
+                                    width: 300.0,
+                                    height: 200.0,
+                                    child: AnalysisChart(
+                                      start: startDate,
+                                      end: endDate,
+                                      type: selectedType,
+                                      SitRecordList: sitRecordList,
+                                      // username: userProfileProvider.userProfile?.username,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  24.0, 36.0, 24.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    '詳細記錄',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Roboto',
+                                          fontSize: 16.0,
+                                        ),
+                                  ),
+                                  Icon(
+                                    Icons.keyboard_control_outlined,
+                                    color: Color(0xFFE9E9E9),
+                                    size: 24.0,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: 300.6,
+                              height: 300.0,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                      child: ListView(
+                                    padding: EdgeInsets.zero,
+                                    scrollDirection: Axis.vertical,
+                                    children:
+                                        totalMinutesByDate.entries.map((entry) {
+                                      String date = entry.key;
+                                      int totalMinutes = entry.value;
+                                      double totalHours = totalMinutes / 60.0;
+
+                                      // Filter SitRecord objects for the current date
+                                      List<SitRecord> recordsForDate =
+                                          sitRecordList
+                                              .where((record) =>
+                                                  DateFormat('yyyy-MM-dd')
+                                                      .format(record.time) ==
+                                                  date)
+                                              .toList();
+
+                                      return Container(
+                                        margin: EdgeInsets.symmetric(
+                                            vertical: 12.0),
+                                        decoration: BoxDecoration(
+                                          color: Color.fromRGBO(
+                                              220, 220, 220, 100),
+                                          borderRadius:
+                                              BorderRadius.circular(24.0),
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 24.0, vertical: 12.0),
+                                          child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
-                                                  Row(
+                                                  Column(
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.end,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
-                                                      Text(
-                                                        totalHours
-                                                            .toStringAsFixed(1),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
+                                                      Row(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          Text(
+                                                            totalHours
+                                                                .toStringAsFixed(
+                                                                    1),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
-                                                                      'Rubik',
+                                                                      'Roboto',
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .primary,
                                                                   fontSize:
                                                                       24.0,
                                                                 ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        2.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        2.0),
+                                                            child: Text(
+                                                              '小時',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Roboto',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary,
+                                                                    fontSize:
+                                                                        12.0,
+                                                                    letterSpacing:
+                                                                        0.2,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .normal,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    2.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    2.0),
-                                                        child: Text(
-                                                          '小時',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Rubik',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                fontSize: 12.0,
-                                                                letterSpacing:
-                                                                    0.2,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .normal,
-                                                              ),
-                                                        ),
+                                                      Text(
+                                                        DateFormat(
+                                                                'yyyy MM月dd日 ')
+                                                            .format(
+                                                                DateTime.parse(
+                                                                    date)),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Roboto',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                  fontSize:
+                                                                      12.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                ),
                                                       ),
                                                     ],
                                                   ),
-                                                  Text(
-                                                    DateFormat('dd MMM yyyy')
-                                                        .format(DateTime.parse(
-                                                            date)),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Rubik',
-                                                          color: FlutterFlowTheme
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(25.0, 0.0,
+                                                                0.0, .0),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .end,
+                                                      children: recordsForDate
+                                                          .map((record) {
+                                                        return Text(
+                                                          '${record.position} : ${(record.minutes / 60).toStringAsFixed(1)}小時',
+                                                          style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .primary,
-                                                          fontSize: 12.0,
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                        ),
-                                                  ),
+                                                              .displayMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Roboto',
+                                                                fontSize: 15.0,
+                                                                letterSpacing:
+                                                                    0.2,
+                                                                color:
+                                                                    Colors.grey,
+                                                              ),
+                                                        );
+                                                      }).toList(),
+                                                    ),
+                                                  )
                                                 ],
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        25.0, 0.0, 0.0, .0),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  children: recordsForDate
-                                                      .map((record) {
-                                                    return Text(
-                                                      '${record.position} : ${(record.minutes / 60).toStringAsFixed(1)}小時',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .displayMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Roboto',
-                                                            fontSize: 15.0,
-                                                            letterSpacing: 0.2,
-                                                            color: Colors.grey,
-                                                          ),
-                                                    );
-                                                  }).toList(),
-                                                ),
                                               )
                                             ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ).animateOnPageLoad(animationsMap[
-                                      'containerOnPageLoadAnimation1']!);
-                                }).toList(),
-                              )),
-                            ],
-                          ),
-                        )
-                      ],
+                                          ),
+                                        ),
+                                      ).animateOnPageLoad(animationsMap[
+                                          'containerOnPageLoadAnimation1']!);
+                                    }).toList(),
+                                  )),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }

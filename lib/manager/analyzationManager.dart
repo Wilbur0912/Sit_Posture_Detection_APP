@@ -1,22 +1,27 @@
-
 import 'package:http/http.dart' as http;
+
 class ResponseData {
   bool isSuccess = false;
   dynamic data;
 }
-class AnalyzationManager{
-  static const String baseUrl = "https://d7fc3fd8-0191-42ed-aad3-92e3b6b142df.mock.pstmn.io";
 
-  static Future<ResponseData> getSitRecord(String? username, String start, String? end) async {
-    String url = "$baseUrl/getSitRecord/$username/$start/";
-    if (end != null) url += end;
+class AnalyzationManager {
+  static const String baseUrl =
+      "https://spineinspectorbackend-production.up.railway.app/api";
+
+  static Future<ResponseData> getSitRecord(
+      String? token, String? start, String end) async {
+    String url = "$baseUrl/data/get/";
+    // if (end != null) url += end;
     // String url = "$baseUrl/getSitRecord";
     ResponseData responseData = ResponseData();
     final requestHeaders = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       //'Cookie':'token=token',
-      // 'Cookie': (username != null?'username: ${username};': '')+ 'start: $start' + (end != null ? ';end: $end' : ''),
+      'token': '$token',
+      if (start != null) 'start': '$start',
+      'end': '$end',
     };
     try {
       final res = await http.get(
@@ -26,7 +31,7 @@ class AnalyzationManager{
       responseData.isSuccess = res.statusCode < 400;
       responseData.data = res.body;
     } catch (e) {
-      throw Exception("登入失敗：$e");
+      throw Exception("失敗：$e");
     }
     return responseData;
   }

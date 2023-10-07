@@ -6,7 +6,7 @@ List<SitRecord> SitRecordFromResponse(String body) {
 }
 
 class SitRecord {
-  String id;
+  int id;
   String position;
   DateTime time;
   int minutes;

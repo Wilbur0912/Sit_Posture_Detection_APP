@@ -7,19 +7,21 @@ import 'package:intl/intl.dart';
 
 import '../../../flutter_flow/flutter_flow_charts.dart';
 import '../../../flutter_flow/flutter_flow_theme.dart';
-import '../../../manager/analyzationManager.dart';
+
 import 'analyzationUtil.dart';
 
 class AnalysisChart extends StatefulWidget {
-  DateTime start;
-  DateTime? end;
+  DateTime end;
+  DateTime? start;
   String type;
+
   // String? username;
   List<SitRecord> SitRecordList;
+
   AnalysisChart({
     Key? key,
-    required this.start,
-    this.end,
+    required this.end,
+    this.start,
     required this.type,
     // this.username,
     required this.SitRecordList,
@@ -42,29 +44,29 @@ class _AnalysisChartState extends State<AnalysisChart> {
   }
 
   Future<void> _onDateChange() async {
-    String startDate = DateFormat("yyyy-MM-dd").format(widget.start);
-    String? endDate;
-    if (widget.end != null) {
-      DateTime tmp = widget.end!;
-      endDate = DateFormat("yyyy-MM-dd").format(tmp);
-      print(endDate);
+    String endDate = DateFormat("yyyy-MM-dd").format(widget.end);
+    String? startDate;
+    if (widget.start != null) {
+      DateTime tmp = widget.start!;
+      startDate = DateFormat("yyyy-MM-dd").format(tmp);
+      print(startDate);
     }
     // if (widget.username != null) {
     //   final res = await AnalyzationManager.getSitRecord(
-    //       widget.username, startDate, endDate);
+    //       widget.username, endDate, startDate);
     //   final List<SitRecord> SitRecordList = SitRecordFromResponse(res.data);
-      final List<SitRecord> SitRecordList = widget.SitRecordList;
-      SitRecordList.sort((a, b) => a.time.compareTo(b.time));
-      dateKey = [];
-      dateCounter = {};
-      lineChartData = [];
+    final List<SitRecord> SitRecordList = widget.SitRecordList;
+    SitRecordList.sort((a, b) => a.time.compareTo(b.time));
+    dateKey = [];
+    dateCounter = {};
+    lineChartData = [];
 
-      setState(() {
-        _setDateCounter(SitRecordList);
-        _setLineChartData();
-        maxCount =
-            dateCounter.values.isEmpty ? 0 : dateCounter.values.reduce(max);
-      });
+    setState(() {
+      _setDateCounter(SitRecordList);
+      _setLineChartData();
+      maxCount =
+          dateCounter.values.isEmpty ? 0 : dateCounter.values.reduce(max);
+    });
     // }
   }
 
@@ -84,7 +86,7 @@ class _AnalysisChartState extends State<AnalysisChart> {
           interval = DateFormat("MM/dd").format(sitTime); // 格式化為月/日
           break;
         case '周':
-          DateTime p1 = widget.start; // 開始時間
+          DateTime p1 = widget.end; // 開始時間
           DateTime p2 = p1.add(const Duration(days: 7)); // 加7天得到下一個時間點
           DateTime p3 = p2.add(const Duration(days: 7));
           DateTime p4 = p3.add(const Duration(days: 7));
@@ -106,13 +108,11 @@ class _AnalysisChartState extends State<AnalysisChart> {
           break;
       }
 
-      if (interval != null) {
-        if (dateCounter.containsKey(interval)) {
-          dateCounter[interval] = (dateCounter[interval] ?? 0) + 1;
-        } else {
-          dateCounter[interval] = 1;
-          dateKey.add(interval);
-        }
+      if (dateCounter.containsKey(interval)) {
+        dateCounter[interval] = (dateCounter[interval] ?? 0) + 1;
+      } else {
+        dateCounter[interval] = 1;
+        dateKey.add(interval);
       }
     }
   }
@@ -162,7 +162,7 @@ class _AnalysisChartState extends State<AnalysisChart> {
           padding: const EdgeInsets.only(top: 5.0),
           child: LineChart(
             LineChartData(
-              maxY:  maxCount*1.2,
+              maxY: maxCount * 1.2,
               backgroundColor: Colors.white,
               lineTouchData: LineTouchData(
                 enabled: false,
@@ -187,14 +187,16 @@ class _AnalysisChartState extends State<AnalysisChart> {
                   sideTitles: SideTitles(showTitles: false),
                 ),
                 leftTitles: AxisTitles(
-                  sideTitles: SideTitles(showTitles: false,),
-
+                  sideTitles: SideTitles(
+                    showTitles: false,
+                  ),
                 ),
               ),
               lineBarsData: lineChartData.isNotEmpty
                   ? [
                       LineChartBarData(
-                        spots: lineChartData, // 資料點的列表
+                        spots: lineChartData,
+                        // 資料點的列表
                         dotData: FlDotData(show: false),
                         isCurved: true,
                         color: FlutterFlowTheme.of(context).primary,
