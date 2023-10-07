@@ -1,8 +1,8 @@
 class UserProfile {
   String? username;
   String? password;
-  double? height;
-  double? weight;
+  num? height;
+  num? weight;
   String? gender;
   String? token;
   UserProfile({

@@ -141,9 +141,15 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
       child: FFButtonWidget(
         onPressed: () async {
           final userProfileProvider = context.read<UserProfileProvider>();
-          UserProfile newProfile = await UserProfileManager()
+
+          String token = await UserProfileManager()
               .login(_accountController.text, _passwordController.text);
-          userProfileProvider.updateUserProfile(newProfile);
+          UserProfile newProfile = await UserProfileManager()
+              .getUserProfile(token);
+          final updatedProfile =
+          newProfile.copyWith(token: token);
+          userProfileProvider.updateUserProfile(updatedProfile);
+          print("${userProfileProvider.userProfile!.token}");
           context.pushNamed(
             'HomePage',
             extra: <String, dynamic>{

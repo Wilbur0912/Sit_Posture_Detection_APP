@@ -306,34 +306,31 @@ class _HeightEntryWidgetState extends State<HeightEntryWidget>
                   child: FFButtonWidget(
                     onPressed: () async {
                       final userProfileProvider =
-                          context.read<UserProfileProvider>();
+                      context.read<UserProfileProvider>();
                       final currentUserProfile =
-                          userProfileProvider.userProfile!;
+                      userProfileProvider.userProfile!;
 
                       final newProfile = currentUserProfile.copyWith(
                         height: user_height,
                       );
-
-                      final String? token = await _userProfileManager
-                          .sendUserDataToBackend(newProfile);
-
-                      if (token != null) {
-                        final updatedProfile =
-                            newProfile.copyWith(token: token);
-                        userProfileProvider.updateUserProfile(updatedProfile);
-                      } else {
-                        print('Failed to obtain token');
+                      try {
+                        await _userProfileManager
+                            .register(newProfile);
+                        context.pushNamed(
+                          'LoginPage',
+                          extra: <String, dynamic>{
+                            kTransitionInfoKey: TransitionInfo(
+                              hasTransition: true,
+                              transitionType: PageTransitionType.fade,
+                            ),
+                          },
+                        );
                       }
-                      context.pushNamed(
-                        'HomePage',
-                        extra: <String, dynamic>{
-                          kTransitionInfoKey: TransitionInfo(
-                            hasTransition: true,
-                            transitionType: PageTransitionType.fade,
-                          ),
-                        },
-                      );
+                      catch (e) {
+                        print("註冊失敗,$e");
+                      }
                     },
+
                     text: '註冊',
                     options: FFButtonOptions(
                       width: double.infinity,

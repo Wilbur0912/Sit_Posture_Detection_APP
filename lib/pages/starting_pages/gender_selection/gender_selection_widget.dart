@@ -52,7 +52,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
   void updateGender(bool gender) {
     final userProfileProvider = context.read<UserProfileProvider>();
     final newUserProfile = userProfileProvider.userProfile?.copyWith(
-      gender: gender ? 'Male' : 'Female',
+      gender: gender ? 'M' : 'F',
     );
     userProfileProvider.updateUserProfile(newUserProfile!);
   }
