@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import '../../../manager/AnalyzationManager.dart';
+import '../../../userProfileProvider.dart';
 import '../detection/dataItem.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_charts.dart';
@@ -37,34 +39,59 @@ class HomePageWidget extends StatefulWidget {
 
 class _HomePageWidgetState extends State<HomePageWidget>
     with TickerProviderStateMixin {
+  // final userId = 'weber0923';
+  // final channel = IOWebSocketChannel.connect('ws://172.20.10.2:8080/$userId');
   final channel = IOWebSocketChannel.connect('ws://172.20.10.2:8080/');
   String currentPostureName = '坐姿端正'; // 初始文字
   int minutesOfCurrentPostureName = 0;
   String currentDate = "";
 
-  Future<void> fetchTodayDataList() async {
-    final String value = 'weber'; // 这是你的 user_name 值
+  Future<void> fetchTodayDataList(String? token) async {
     final DateTime now = DateTime.now();
-    final String formattedDate = DateFormat('yyyy/M/d').format(now);
-    final response = await http.get(
-      Uri.parse('http://172.20.10.2:8080/getTodayDataList?date=$formattedDate'),
-      headers: {'Cookie': 'user_name=$value'},
-    );
+    final String formattedDate = DateFormat('yyyy-M-d').format(now);
 
-    if (response.statusCode == 200) {
-      final List<dynamic> responseData = json.decode(response.body);
+    final response = await AnalyzationManager.getSitRecord(token, formattedDate, formattedDate);
+
+    if (response.isSuccess && response.data is List<dynamic>) {
+      final List<dynamic> responseData = response.data;
 
       setState(() {
         yourItemList = responseData.map((itemData) {
-          return YourDataItem(itemData['name'], itemData['minutes']);
+          return YourDataItem(itemData['postureName'], itemData['second']);
         }).toList();
         sortAndMoveToTop(yourItemList, currentPostureName);
       });
 
       minutesOfCurrentPostureName = yourItemList
-          .firstWhere((item) => item.postureName == currentPostureName).minutes;
+          .firstWhere((item) => item.postureName == currentPostureName, orElse: () => YourDataItem("", 0))
+          .minutes;
     }
   }
+
+  // Future<void> fetchTodayDataList() async {
+  //
+  //   final String value = 'weber'; // 这是你的 user_name 值
+  //   final DateTime now = DateTime.now();
+  //   final String formattedDate = DateFormat('yyyy/M/d').format(now);
+  //   final response = await http.get(
+  //     Uri.parse('http://172.20.10.2:8080/getTodayDataList?date=$formattedDate'),
+  //     headers: {'Cookie': 'user_name=$value'},
+  //   );
+  //
+  //   if (response.statusCode == 200) {
+  //     final List<dynamic> responseData = json.decode(response.body);
+  //
+  //     setState(() {
+  //       yourItemList = responseData.map((itemData) {
+  //         return YourDataItem(itemData['name'], itemData['minutes']);
+  //       }).toList();
+  //       sortAndMoveToTop(yourItemList, currentPostureName);
+  //     });
+  //
+  //     minutesOfCurrentPostureName = yourItemList
+  //         .firstWhere((item) => item.postureName == currentPostureName).minutes;
+  //   }
+  // }
 
   late HomePageModel _model;
 
@@ -248,13 +275,15 @@ class _HomePageWidgetState extends State<HomePageWidget>
 
     super.initState();
     _model = createModel(context, () => HomePageModel());
-    fetch7DayDataList();
+    final userProfileProvider =
+        Provider.of<UserProfileProvider>(context, listen: false);
+    fetch7DayDataList(userProfileProvider.userProfile?.token);
     // 監聽WebSocket消息
     channel.stream.listen((message) {
       // 當接收到新消息時，更新文字
       setState(() async {
         currentPostureName = message;
-        fetchTodayDataList();
+        fetchTodayDataList(userProfileProvider.userProfile?.token);
       });
     });
   }
@@ -268,8 +297,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
 
+    context.watch<FFAppState>();
+    final userProfileProvider =
+    context.read<UserProfileProvider>();
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: WillPopScope(

@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:web_socket_channel/io.dart';
 
+import '../../../manager/AnalyzationManager.dart';
+import '../../../userProfileProvider.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -102,7 +104,8 @@ class _DetectionWidgetState extends State<DetectionWidget>
     super.initState();
     _model = createModel(context, () => DetectionModel());
     sortAndMoveToTop(yourItemList, currentPostureName);
-
+    final userProfileProvider =
+    Provider.of<UserProfileProvider>(context, listen: false);
     // 監聽WebSocket消息
     channel.stream.listen((message) {
       // 當接收到新消息時，更新文字
@@ -112,31 +115,49 @@ class _DetectionWidgetState extends State<DetectionWidget>
           currentPostureName='坐姿端正';
         }
         //fetch資料，將資料整理到dataItem裡
-        fetchDataList();
+        fetchDataList(userProfileProvider.userProfile?.token);
       });
     });
   }
 
-  Future<void> fetchDataList() async {
+  // Future<void> fetchDataList() async {
+  //   final DateTime now = DateTime.now();
+  //   final String user = 'weber';
+  //   final String formattedDate = DateFormat('yyyy/M/d').format(now);
+  //   final response = await http.get(
+  //     Uri.parse('http://172.20.10.2:8080/getTodayDataList?date=$formattedDate'),
+  //     headers: {'Cookie': 'user_name=$user'},
+  //   );
+  //
+  //   if (response.statusCode == 200) {
+  //     final List<dynamic> responseData = json.decode(response.body);
+  //
+  //     setState(() {
+  //       yourItemList = responseData.map((itemData) {
+  //         return YourDataItem(itemData['name'], itemData['minutes']);
+  //       }).toList();
+  //       sortAndMoveToTop(yourItemList, currentPostureName);
+  //     });
+  //   }
+  // }
+  Future<void> fetchDataList(String? token) async {
     final DateTime now = DateTime.now();
-    final String user = 'weber';
-    final String formattedDate = DateFormat('yyyy/M/d').format(now);
-    final response = await http.get(
-      Uri.parse('http://172.20.10.2:8080/getTodayDataList?date=$formattedDate'),
-      headers: {'Cookie': 'user_name=$user'},
-    );
+    final String formattedDate = DateFormat('yyyy-M-d').format(now);
 
-    if (response.statusCode == 200) {
-      final List<dynamic> responseData = json.decode(response.body);
+    final response = await AnalyzationManager.getSitRecord(token, formattedDate, formattedDate);
+
+    if (response.isSuccess && response.data is List<dynamic>) {
+      final List<dynamic> responseData = response.data;
 
       setState(() {
         yourItemList = responseData.map((itemData) {
-          return YourDataItem(itemData['name'], itemData['minutes']);
+          return YourDataItem(itemData['postureName'], itemData['second']);
         }).toList();
         sortAndMoveToTop(yourItemList, currentPostureName);
       });
     }
   }
+
 
 
 
