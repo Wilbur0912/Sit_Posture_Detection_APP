@@ -274,7 +274,7 @@ class _MobileSignInWidgetState extends State<MobileSignInWidget>
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryText,
                                 ),
-                            keyboardType: TextInputType.name,
+                            keyboardType: TextInputType.text,
                           ),
                         ),
                       ),
