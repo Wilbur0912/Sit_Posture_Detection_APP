@@ -115,7 +115,7 @@ class UserProfileManager {
 
 
   Future<void> register(UserProfile userProfile) async {
-    final url = "$baseUrl/user/create";
+    final url = "$baseUrl/user/create/";
     final headers = {
       'Content-Type': 'application/json',
       "Accept": "application/json",
@@ -138,7 +138,7 @@ class UserProfileManager {
     );
 
 try {
-  if (response.statusCode == 200) {
+  if (response.statusCode == 200 ||response.statusCode == 201 ) {
     // final responseBody = json.decode(response.body);
     // final token = responseBody['token'];
     print('register OK');
