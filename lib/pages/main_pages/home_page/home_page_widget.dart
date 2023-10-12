@@ -41,7 +41,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
     with TickerProviderStateMixin {
   // final userId = 'weber0923';
   // final channel = IOWebSocketChannel.connect('ws://172.20.10.2:8080/$userId');
-  final channel = IOWebSocketChannel.connect('ws://172.20.10.2:8080/');
+
   String currentPostureName = '坐姿端正'; // 初始文字
   int minutesOfCurrentPostureName = 0;
   String currentDate = "";
@@ -279,6 +279,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
         Provider.of<UserProfileProvider>(context, listen: false);
     fetch7DayDataList(userProfileProvider.userProfile?.token);
     // 監聽WebSocket消息
+    final channel = IOWebSocketChannel.connect('socket:ws://https://spineinspectorbackend-production.up.railway.app//inspect/',headers: {'token': userProfileProvider.userProfile?.token},);
     channel.stream.listen((message) {
       // 當接收到新消息時，更新文字
       setState(() async {
