@@ -153,34 +153,63 @@ try {
 
 
 
-  Future<void> updateUserDataToBackend(UserProfile userProfile) async {
-    final url = "$baseUrl/updateUserData";
+  Future<void> updateUserprofile(UserProfile userProfile) async {
+    final url = "$baseUrl/user/updateprofile/";
     final headers = {
       'Content-Type': 'application/json',
       "Accept": "application/json",
       // "Cookie": 'user_name=${userProfile.username}'
-      'token':'$userProfile.token'
+      'token':'${userProfile.token}'
     };
+    String gender;
     print(userProfile.token);
+    print(userProfile.height);
+    print(userProfile.weight);print(userProfile.gender);
+    // if(userProfile.gender == 'M'){ gender = 'Male';}else{gender = 'Female';}
     final userData = {
-      'username': userProfile.username,
-      'password': userProfile.password,
       'height': userProfile.height,
       'weight': userProfile.weight,
       'gender': userProfile.gender,
     };
 
-    print('$userProfile');
     final response = await http.post(
       Uri.parse(url),
       headers: headers,
       body: json.encode(userData),
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 ||response.statusCode == 201) {
       print('OK');
     } else {
-      throw Exception("更改失敗：$response.statusCode");
+      throw Exception("更改失敗：${response.statusCode}");
+    }
+  }
+  Future<void> updateUser(UserProfile userProfile) async {
+    final url = "$baseUrl/user/updateuser/";
+    final headers = {
+      'Content-Type': 'application/json',
+      "Accept": "application/json",
+      // "Cookie": 'user_name=${userProfile.username}'
+      'token':'${userProfile.token}'
+    };
+
+    print(userProfile.token);
+    print("${userProfile.username} ${userProfile.password}");
+    final userData = {
+      'username': userProfile.username,
+      'password': userProfile.password,
+    };
+
+    final response = await http.post(
+      Uri.parse(url),
+      headers: headers,
+      body: json.encode(userData),
+    );
+
+    if (response.statusCode == 200 ||response.statusCode == 201) {
+      print('OK');
+    } else {
+      throw Exception("更改失敗：${response.statusCode}");
     }
   }
 }

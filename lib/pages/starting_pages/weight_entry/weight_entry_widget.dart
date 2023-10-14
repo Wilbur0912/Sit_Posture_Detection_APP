@@ -262,7 +262,7 @@ class _WeightEntryWidgetState extends State<WeightEntryWidget>
                                   value: weight.toDouble(),
                                   min: 40.0,
                                   max: 150.0,
-                                  divisions: 220,
+                                  divisions: 110,
                                   onChanged: (double newVal) {
                                     setState(() {
                                       weight = newVal;

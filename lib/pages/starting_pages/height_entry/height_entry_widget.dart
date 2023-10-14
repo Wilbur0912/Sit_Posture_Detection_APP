@@ -274,7 +274,7 @@ class _HeightEntryWidgetState extends State<HeightEntryWidget>
                                   value: user_height,
                                   min: 100.0,
                                   max: 220.0,
-                                  divisions: 240,
+                                  divisions: 120,
                                   onChanged: (double newVal) {
                                     setState(() {
                                       user_height = newVal;

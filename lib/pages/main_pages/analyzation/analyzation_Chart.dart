@@ -11,12 +11,12 @@ import '../../../flutter_flow/flutter_flow_theme.dart';
 import 'analyzationUtil.dart';
 
 class AnalysisChart extends StatefulWidget {
-  DateTime end;
-  DateTime? start;
-  String type;
+  final DateTime end;
+  final DateTime? start;
+  final String type;
 
   // String? username;
-  List<SitRecord> SitRecordList;
+  final List<SitRecord> SitRecordList;
 
   AnalysisChart({
     Key? key,
@@ -32,10 +32,10 @@ class AnalysisChart extends StatefulWidget {
 }
 
 class _AnalysisChartState extends State<AnalysisChart> {
-  Map<String, int> dateCounter = {};
+  Map<String, double> dateCounter = {};
   List<String> dateKey = [];
   List<FlSpot> lineChartData = [];
-  int maxCount = 0;
+  double maxCount = 0;
 
   @override
   void didUpdateWidget(covariant AnalysisChart oldWidget) {
@@ -44,7 +44,7 @@ class _AnalysisChartState extends State<AnalysisChart> {
   }
 
   Future<void> _onDateChange() async {
-    String endDate = DateFormat("yyyy-MM-dd").format(widget.end);
+    // String endDate = DateFormat("yyyy-MM-dd").format(widget.end);
     String? startDate;
     if (widget.start != null) {
       DateTime tmp = widget.start!;
@@ -109,9 +109,9 @@ class _AnalysisChartState extends State<AnalysisChart> {
       }
 
       if (dateCounter.containsKey(interval)) {
-        dateCounter[interval] = (dateCounter[interval] ?? 0) + 1;
+        dateCounter[interval] = (dateCounter[interval] ?? 0) + (SitRecordList[i].second/60);
       } else {
-        dateCounter[interval] = 1;
+        dateCounter[interval] = SitRecordList[i].second/60;
         dateKey.add(interval);
       }
     }

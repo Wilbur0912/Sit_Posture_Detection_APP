@@ -351,7 +351,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                             ),
                                       ),
                                       Text(
-                                        '${userProfileProvider.userProfile!.gender == 'M' ? '男' : '女'} ',
+                                        '${userProfileProvider.userProfile!.gender == 'Male' ? '男' : '女'} ',
                                         style: FlutterFlowTheme.of(context)
                                             .labelMedium
                                             .override(

@@ -24,8 +24,13 @@ Future<String?> inputDialog(BuildContext context, String lab,
   }
 
   void updateUserProfile(UserProfile newUserProfile) async {
-    await UserProfileManager()
-        .updateUserDataToBackend(newUserProfile.copyWith());
+    if(lab == '密碼'||lab=='使用者名稱'){
+      await UserProfileManager()
+          .updateUser(newUserProfile.copyWith());
+    }else{
+      await UserProfileManager()
+          .updateUserprofile(newUserProfile.copyWith());
+    }
     userProfileProvider.updateUserProfile(newUserProfile);
     Navigator.of(context).pop(inputData);
   }
@@ -102,7 +107,7 @@ class _GenderDialogState extends State<GenderDialog> {
 
   void updateUserProfile(UserProfile newUserProfile) async {
     widget.userProfileProvider.updateUserProfile(newUserProfile);
-    //await UserProfileManager().updateUserDataToBackend(newUserProfile.copyWith());
+    await UserProfileManager().updateUserprofile(newUserProfile.copyWith());
   }
 
   @override
@@ -142,6 +147,7 @@ class _GenderDialogState extends State<GenderDialog> {
               UserProfile newUserProfile = widget.userProfileProvider.userProfile!;
               newUserProfile = newUserProfile.copyWith(gender: selectedGender!);
               updateUserProfile(newUserProfile);
+              print('完成');
               Navigator.of(context).pop(selectedGender); // 返回选中的性别
             }
           },

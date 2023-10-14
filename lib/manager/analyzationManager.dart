@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
 class ResponseData {
@@ -29,9 +31,9 @@ class AnalyzationManager {
         headers: requestHeaders,
       );
       responseData.isSuccess = res.statusCode < 400;
-      responseData.data = res.body;
+      responseData.data = utf8.decode(res.bodyBytes);
     } catch (e) {
-      throw Exception("失敗：$e");
+      throw Exception("失敗：$e ");
     }
     return responseData;
   }

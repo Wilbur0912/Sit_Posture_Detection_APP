@@ -147,7 +147,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
           UserProfile newProfile = await UserProfileManager()
               .getUserProfile(token);
           final updatedProfile =
-          newProfile.copyWith(token: token);
+          newProfile.copyWith(token: token,password: _passwordController.text);
           userProfileProvider.updateUserProfile(updatedProfile);
           print("${userProfileProvider.userProfile!.token}");
           context.pushNamed(
