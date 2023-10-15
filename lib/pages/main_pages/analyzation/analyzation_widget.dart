@@ -1,3 +1,5 @@
+// import 'dart:convert';
+
 import '../../../manager/AnalyzationManager.dart';
 import '../../../model/sitRecordModel.dart';
 import '../../../userProfileProvider.dart';
@@ -88,7 +90,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
   DateTime endDate = DateTime.now();
   DateTime? startDate;
   String selectedType = '日';
-  Map<String, int> totalMinutesByDate = {};
+  Map<String, double> totalMinutesByDate = {};
 
   void changeDateAndChartType(
       {DateTime? start, required DateTime end, String? type}) {
@@ -112,7 +114,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
     _model = createModel(context, () => AnalyzationModel());
     userProfileProvider =
         Provider.of<UserProfileProvider>(context, listen: false);
-    Future.delayed(Duration(milliseconds: 100), () {
+    Future.delayed(Duration(milliseconds: 1000), () {
       _fetchSitRecordData();
     });
   }
@@ -166,11 +168,12 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
     sitRecordList = fetchedSitRecordList; // 賦值給 SitRecordList 變數
   }
 
-  Map<String, int> calculateTotalMinutesByDate(List<SitRecord> records) {
-    Map<String, int> totalMinutesMap = {};
+  Map<String, double> calculateTotalMinutesByDate(List<SitRecord> records) {
+    Map<String, double> totalMinutesMap = {};
     for (var record in records) {
+      print(record.second);
       String date = DateFormat('yyyy-MM-dd').format(record.time);
-      totalMinutesMap[date] = (totalMinutesMap[date] ?? 0) + record.minutes;
+      totalMinutesMap[date] = (totalMinutesMap[date] ?? 0) + (record.second/60);
     }
     return totalMinutesMap;
   }
@@ -178,12 +181,12 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
   @override
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
-    double totalMinutes = ((sitRecordList.fold<int>(
+    double totalMinutes = double.parse(((sitRecordList.fold<int>(
                 0,
                 (previousValue, sitRecord) =>
-                    previousValue + sitRecord.minutes)) /
-            60)
-        .roundToDouble();
+                    previousValue + sitRecord.second)) /
+            3600)
+        .toStringAsFixed(2));
     int totalDays = 0;
     for (SitRecord record in sitRecordList) {
       // 計算每個 time 的日期天數
@@ -544,7 +547,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                     children:
                                         totalMinutesByDate.entries.map((entry) {
                                       String date = entry.key;
-                                      int totalMinutes = entry.value;
+                                      double totalMinutes = entry.value;
                                       double totalHours = totalMinutes / 60.0;
 
                                       // Filter SitRecord objects for the current date
@@ -672,7 +675,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                                       children: recordsForDate
                                                           .map((record) {
                                                         return Text(
-                                                          '${record.position} : ${(record.minutes / 60).toStringAsFixed(1)}小時',
+                                                          '${record.position} : ${(record.second / 3600).toStringAsFixed(2)}小時',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .displayMedium
