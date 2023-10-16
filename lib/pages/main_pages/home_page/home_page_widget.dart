@@ -394,7 +394,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       6.0, 0.0, 0.0, 0.0),
                                   child: Text(
-                                    'WED 24 MAR',
+                                    '${ DateFormat('yyyy-MM-dd').format(DateTime.now())}',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -414,18 +414,18 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: 'Hi, ',
+                                      text: '你好, ',
                                       style: TextStyle(),
                                     ),
                                     TextSpan(
-                                      text: 'Amelia',
+                                      text: '${userProfileProvider.userProfile?.username}',
                                       style: TextStyle(),
                                     )
                                   ],
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Rubik',
+                                        fontFamily: 'Roboto',
                                         fontSize: 24.0,
                                       ),
                                 ),
@@ -510,13 +510,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           ),
                                         ),
                                         Text(
-                                          'Read more',
+                                          '詳細資料',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
                                                 fontFamily: 'Rubik',
                                                 color: Color(0xFF8B80F8),
-                                                fontWeight: FontWeight.w500,
+                                                fontWeight: FontWeight.w600,
                                               ),
                                         ),
                                       ],
@@ -617,7 +617,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily: 'Rubik',
+                                                        fontFamily: 'Roboto',
                                                         color: Colors.white,
                                                         fontSize: 24.0,
                                                         letterSpacing: 1.0,
@@ -1053,587 +1053,587 @@ class _HomePageWidgetState extends State<HomePageWidget>
                       ],
                     ),
                   ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 24.0),
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Color(0xFFF5F6FA),
-                        borderRadius: BorderRadius.circular(24.0),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            24.0, 24.0, 24.0, 24.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Stack(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
-                                  children: [
-                                    CircularPercentIndicator(
-                                      percent: 0.85,
-                                      radius: 30.0,
-                                      lineWidth: 4.0,
-                                      animation: true,
-                                      progressColor: Color(0xFF7165E3),
-                                      backgroundColor: Color(0xFFE9E9E9),
-                                    ),
-                                    SvgPicture.asset(
-                                      'assets/images/spoon.svg',
-                                      width: 24.0,
-                                      height: 24.0,
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ],
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        12.0, 0.0, 0.0, 0.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        RichText(
-                                          text: TextSpan(
-                                            children: [
-                                              TextSpan(
-                                                text: '2158',
-                                                style: TextStyle(),
-                                              ),
-                                              TextSpan(
-                                                text: ' of ',
-                                                style: TextStyle(),
-                                              ),
-                                              TextSpan(
-                                                text: '2850',
-                                                style: TextStyle(),
-                                              ),
-                                              TextSpan(
-                                                text: ' Cal',
-                                                style: TextStyle(),
-                                              )
-                                            ],
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Rubik',
-                                                  fontSize: 16.0,
-                                                ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 6.0, 0.0, 0.0),
-                                          child: Text(
-                                            'Add more calories to your diet',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Rubik',
-                                                  color: Color(0xFF828282),
-                                                  fontWeight: FontWeight.normal,
-                                                ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                FlutterFlowIconButton(
-                                  borderColor: Colors.transparent,
-                                  borderRadius: 24.0,
-                                  borderWidth: 1.0,
-                                  buttonSize: 36.0,
-                                  fillColor: Color(0xFFE4DFFF),
-                                  icon: Icon(
-                                    Icons.add_rounded,
-                                    color: Color(0xFF7165E3),
-                                    size: 16.0,
-                                  ),
-                                  onPressed: () async {
-                                    context.pushNamed('FoodJournal');
-                                  },
-                                ),
-                              ],
-                            ),
-                            Divider(
-                              height: 48.0,
-                              thickness: 1.0,
-                              color: Color(0xFFE9E9E9),
-                            ),
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 12.0, 0.0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Proteins: 56%',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Rubik',
-                                                        fontSize: 12.0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 6.0, 0.0, 0.0),
-                                              child: LinearPercentIndicator(
-                                                percent: 0.4,
-                                                width: 132.0,
-                                                lineHeight: 6.0,
-                                                animation: true,
-                                                progressColor:
-                                                    Color(0xFFFF8C00),
-                                                backgroundColor:
-                                                    Color(0xFFE9E9E9),
-                                                barRadius:
-                                                    Radius.circular(12.0),
-                                                padding: EdgeInsets.zero,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            12.0, 0.0, 0.0, 0.0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Proteins: 142%',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Rubik',
-                                                        fontSize: 12.0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 6.0, 0.0, 0.0),
-                                              child: LinearPercentIndicator(
-                                                percent: 1.0,
-                                                width: 132.0,
-                                                lineHeight: 6.0,
-                                                animation: true,
-                                                progressColor:
-                                                    Color(0xFFDD2E44),
-                                                backgroundColor:
-                                                    Color(0xFFE9E9E9),
-                                                barRadius:
-                                                    Radius.circular(12.0),
-                                                padding: EdgeInsets.zero,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 24.0, 0.0, 0.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Expanded(
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 12.0, 0.0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'Proteins: 90%',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Rubik',
-                                                          fontSize: 12.0,
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                        ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 6.0, 0.0, 0.0),
-                                                child: LinearPercentIndicator(
-                                                  percent: 0.9,
-                                                  width: 132.0,
-                                                  lineHeight: 6.0,
-                                                  animation: true,
-                                                  progressColor:
-                                                      Color(0xFF7ABD4C),
-                                                  backgroundColor:
-                                                      Color(0xFFE9E9E9),
-                                                  barRadius:
-                                                      Radius.circular(12.0),
-                                                  padding: EdgeInsets.zero,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  12.0, 0.0, 0.0, 0.0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'Proteins: 86%',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Rubik',
-                                                          fontSize: 12.0,
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                        ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 6.0, 0.0, 0.0),
-                                                child: LinearPercentIndicator(
-                                                  percent: 0.8,
-                                                  width: 132.0,
-                                                  lineHeight: 6.0,
-                                                  animation: true,
-                                                  progressColor:
-                                                      Color(0xFFFFC850),
-                                                  backgroundColor:
-                                                      Color(0xFFE9E9E9),
-                                                  barRadius:
-                                                      Radius.circular(12.0),
-                                                  padding: EdgeInsets.zero,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ).animateOnPageLoad(
-                        animationsMap['containerOnPageLoadAnimation6']!),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 24.0),
-                    child: InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        context.pushNamed(
-                          'EventsPage',
-                          extra: <String, dynamic>{
-                            kTransitionInfoKey: TransitionInfo(
-                              hasTransition: true,
-                              transitionType: PageTransitionType.fade,
-                              duration: Duration(milliseconds: 300),
-                            ),
-                          },
-                        );
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).primaryBackground,
-                          borderRadius: BorderRadius.circular(24.0),
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              height: 144.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: Image.network(
-                                    'https://images.unsplash.com/photo-1621625069869-07706581abec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-                                  ).image,
-                                ),
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(0.0),
-                                  bottomRight: Radius.circular(0.0),
-                                  topLeft: Radius.circular(24.0),
-                                  topRight: Radius.circular(24.0),
-                                ),
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 16.0, 16.0, 0.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        FlutterFlowIconButton(
-                                          borderColor: Colors.transparent,
-                                          borderRadius: 12.0,
-                                          borderWidth: 1.0,
-                                          buttonSize: 36.0,
-                                          fillColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .primaryBackground,
-                                          icon: Icon(
-                                            Icons.favorite_rounded,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            size: 14.0,
-                                          ),
-                                          onPressed: () {
-                                            print('IconButton pressed ...');
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(24.0),
-                                  bottomRight: Radius.circular(24.0),
-                                  topLeft: Radius.circular(0.0),
-                                  topRight: Radius.circular(0.0),
-                                ),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    24.0, 24.0, 24.0, 24.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'EVENTS',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Rubik',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            fontSize: 12.0,
-                                            letterSpacing: 0.4,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 8.0, 0.0, 0.0),
-                                      child: Text(
-                                        'National health movement',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Rubik',
-                                              fontSize: 16.0,
-                                            ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 6.0, 0.0, 0.0),
-                                      child: Text(
-                                        'Challenge your friends by taking the most steps on Saturday and Sunday!',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Rubik',
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 24.0, 0.0, 0.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Container(
-                                                width: 42.0,
-                                                height: 42.0,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryBackground,
-                                                  image: DecorationImage(
-                                                    fit: BoxFit.cover,
-                                                    image: Image.network(
-                                                      'https://images.unsplash.com/photo-1604004555489-723a93d6ce74?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-                                                    ).image,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          14.0),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        6.0, 0.0, 0.0, 0.0),
-                                                child: Container(
-                                                  width: 42.0,
-                                                  height: 42.0,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryBackground,
-                                                    image: DecorationImage(
-                                                      fit: BoxFit.cover,
-                                                      image: Image.network(
-                                                        'https://images.unsplash.com/photo-1604004555489-723a93d6ce74?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-                                                      ).image,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            14.0),
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        6.0, 0.0, 0.0, 0.0),
-                                                child: Container(
-                                                  width: 42.0,
-                                                  height: 42.0,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryBackground,
-                                                    image: DecorationImage(
-                                                      fit: BoxFit.cover,
-                                                      image: Image.network(
-                                                        'https://images.unsplash.com/photo-1604004555489-723a93d6ce74?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-                                                      ).image,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            14.0),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          FFButtonWidget(
-                                            onPressed: () {
-                                              print('Button pressed ...');
-                                            },
-                                            text: 'Join',
-                                            options: FFButtonOptions(
-                                              height: 42.0,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      24.0, 0.0, 24.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .tertiary,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily: 'Rubik',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        fontSize: 14.0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
-                                              elevation: 0.0,
-                                              borderSide: BorderSide(
-                                                color: Colors.transparent,
-                                                width: 0.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ).animateOnPageLoad(
-                        animationsMap['containerOnPageLoadAnimation7']!),
-                  ),
+                  // Padding(
+                  //   padding:
+                  //       EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 24.0),
+                  //   child: Container(
+                  //     width: double.infinity,
+                  //     decoration: BoxDecoration(
+                  //       color: Color(0xFFF5F6FA),
+                  //       borderRadius: BorderRadius.circular(24.0),
+                  //     ),
+                  //     child: Padding(
+                  //       padding: EdgeInsetsDirectional.fromSTEB(
+                  //           24.0, 24.0, 24.0, 24.0),
+                  //       child: Column(
+                  //         mainAxisSize: MainAxisSize.max,
+                  //         children: [
+                  //           Row(
+                  //             mainAxisSize: MainAxisSize.max,
+                  //             children: [
+                  //               Stack(
+                  //                 alignment: AlignmentDirectional(0.0, 0.0),
+                  //                 children: [
+                  //                   CircularPercentIndicator(
+                  //                     percent: 0.85,
+                  //                     radius: 30.0,
+                  //                     lineWidth: 4.0,
+                  //                     animation: true,
+                  //                     progressColor: Color(0xFF7165E3),
+                  //                     backgroundColor: Color(0xFFE9E9E9),
+                  //                   ),
+                  //                   SvgPicture.asset(
+                  //                     'assets/images/spoon.svg',
+                  //                     width: 24.0,
+                  //                     height: 24.0,
+                  //                     fit: BoxFit.contain,
+                  //                   ),
+                  //                 ],
+                  //               ),
+                  //               Expanded(
+                  //                 child: Padding(
+                  //                   padding: EdgeInsetsDirectional.fromSTEB(
+                  //                       12.0, 0.0, 0.0, 0.0),
+                  //                   child: Column(
+                  //                     mainAxisSize: MainAxisSize.max,
+                  //                     crossAxisAlignment:
+                  //                         CrossAxisAlignment.start,
+                  //                     children: [
+                  //                       RichText(
+                  //                         text: TextSpan(
+                  //                           children: [
+                  //                             TextSpan(
+                  //                               text: '2158',
+                  //                               style: TextStyle(),
+                  //                             ),
+                  //                             TextSpan(
+                  //                               text: ' of ',
+                  //                               style: TextStyle(),
+                  //                             ),
+                  //                             TextSpan(
+                  //                               text: '2850',
+                  //                               style: TextStyle(),
+                  //                             ),
+                  //                             TextSpan(
+                  //                               text: ' Cal',
+                  //                               style: TextStyle(),
+                  //                             )
+                  //                           ],
+                  //                           style: FlutterFlowTheme.of(context)
+                  //                               .bodyMedium
+                  //                               .override(
+                  //                                 fontFamily: 'Rubik',
+                  //                                 fontSize: 16.0,
+                  //                               ),
+                  //                         ),
+                  //                       ),
+                  //                       Padding(
+                  //                         padding:
+                  //                             EdgeInsetsDirectional.fromSTEB(
+                  //                                 0.0, 6.0, 0.0, 0.0),
+                  //                         child: Text(
+                  //                           'Add more calories to your diet',
+                  //                           style: FlutterFlowTheme.of(context)
+                  //                               .bodyMedium
+                  //                               .override(
+                  //                                 fontFamily: 'Rubik',
+                  //                                 color: Color(0xFF828282),
+                  //                                 fontWeight: FontWeight.normal,
+                  //                               ),
+                  //                         ),
+                  //                       ),
+                  //                     ],
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //               FlutterFlowIconButton(
+                  //                 borderColor: Colors.transparent,
+                  //                 borderRadius: 24.0,
+                  //                 borderWidth: 1.0,
+                  //                 buttonSize: 36.0,
+                  //                 fillColor: Color(0xFFE4DFFF),
+                  //                 icon: Icon(
+                  //                   Icons.add_rounded,
+                  //                   color: Color(0xFF7165E3),
+                  //                   size: 16.0,
+                  //                 ),
+                  //                 onPressed: () async {
+                  //                   context.pushNamed('FoodJournal');
+                  //                 },
+                  //               ),
+                  //             ],
+                  //           ),
+                  //           Divider(
+                  //             height: 48.0,
+                  //             thickness: 1.0,
+                  //             color: Color(0xFFE9E9E9),
+                  //           ),
+                  //           Column(
+                  //             mainAxisSize: MainAxisSize.max,
+                  //             children: [
+                  //               Row(
+                  //                 mainAxisSize: MainAxisSize.min,
+                  //                 mainAxisAlignment:
+                  //                     MainAxisAlignment.spaceBetween,
+                  //                 children: [
+                  //                   Expanded(
+                  //                     child: Padding(
+                  //                       padding: EdgeInsetsDirectional.fromSTEB(
+                  //                           0.0, 0.0, 12.0, 0.0),
+                  //                       child: Column(
+                  //                         mainAxisSize: MainAxisSize.min,
+                  //                         crossAxisAlignment:
+                  //                             CrossAxisAlignment.start,
+                  //                         children: [
+                  //                           Text(
+                  //                             'Proteins: 56%',
+                  //                             style:
+                  //                                 FlutterFlowTheme.of(context)
+                  //                                     .bodyMedium
+                  //                                     .override(
+                  //                                       fontFamily: 'Rubik',
+                  //                                       fontSize: 12.0,
+                  //                                       fontWeight:
+                  //                                           FontWeight.normal,
+                  //                                     ),
+                  //                           ),
+                  //                           Padding(
+                  //                             padding: EdgeInsetsDirectional
+                  //                                 .fromSTEB(0.0, 6.0, 0.0, 0.0),
+                  //                             child: LinearPercentIndicator(
+                  //                               percent: 0.4,
+                  //                               width: 132.0,
+                  //                               lineHeight: 6.0,
+                  //                               animation: true,
+                  //                               progressColor:
+                  //                                   Color(0xFFFF8C00),
+                  //                               backgroundColor:
+                  //                                   Color(0xFFE9E9E9),
+                  //                               barRadius:
+                  //                                   Radius.circular(12.0),
+                  //                               padding: EdgeInsets.zero,
+                  //                             ),
+                  //                           ),
+                  //                         ],
+                  //                       ),
+                  //                     ),
+                  //                   ),
+                  //                   Expanded(
+                  //                     child: Padding(
+                  //                       padding: EdgeInsetsDirectional.fromSTEB(
+                  //                           12.0, 0.0, 0.0, 0.0),
+                  //                       child: Column(
+                  //                         mainAxisSize: MainAxisSize.max,
+                  //                         crossAxisAlignment:
+                  //                             CrossAxisAlignment.start,
+                  //                         children: [
+                  //                           Text(
+                  //                             'Proteins: 142%',
+                  //                             style:
+                  //                                 FlutterFlowTheme.of(context)
+                  //                                     .bodyMedium
+                  //                                     .override(
+                  //                                       fontFamily: 'Rubik',
+                  //                                       fontSize: 12.0,
+                  //                                       fontWeight:
+                  //                                           FontWeight.normal,
+                  //                                     ),
+                  //                           ),
+                  //                           Padding(
+                  //                             padding: EdgeInsetsDirectional
+                  //                                 .fromSTEB(0.0, 6.0, 0.0, 0.0),
+                  //                             child: LinearPercentIndicator(
+                  //                               percent: 1.0,
+                  //                               width: 132.0,
+                  //                               lineHeight: 6.0,
+                  //                               animation: true,
+                  //                               progressColor:
+                  //                                   Color(0xFFDD2E44),
+                  //                               backgroundColor:
+                  //                                   Color(0xFFE9E9E9),
+                  //                               barRadius:
+                  //                                   Radius.circular(12.0),
+                  //                               padding: EdgeInsets.zero,
+                  //                             ),
+                  //                           ),
+                  //                         ],
+                  //                       ),
+                  //                     ),
+                  //                   ),
+                  //                 ],
+                  //               ),
+                  //               Padding(
+                  //                 padding: EdgeInsetsDirectional.fromSTEB(
+                  //                     0.0, 24.0, 0.0, 0.0),
+                  //                 child: Row(
+                  //                   mainAxisSize: MainAxisSize.max,
+                  //                   children: [
+                  //                     Expanded(
+                  //                       child: Padding(
+                  //                         padding:
+                  //                             EdgeInsetsDirectional.fromSTEB(
+                  //                                 0.0, 0.0, 12.0, 0.0),
+                  //                         child: Column(
+                  //                           mainAxisSize: MainAxisSize.max,
+                  //                           crossAxisAlignment:
+                  //                               CrossAxisAlignment.start,
+                  //                           children: [
+                  //                             Text(
+                  //                               'Proteins: 90%',
+                  //                               style:
+                  //                                   FlutterFlowTheme.of(context)
+                  //                                       .bodyMedium
+                  //                                       .override(
+                  //                                         fontFamily: 'Rubik',
+                  //                                         fontSize: 12.0,
+                  //                                         fontWeight:
+                  //                                             FontWeight.normal,
+                  //                                       ),
+                  //                             ),
+                  //                             Padding(
+                  //                               padding: EdgeInsetsDirectional
+                  //                                   .fromSTEB(
+                  //                                       0.0, 6.0, 0.0, 0.0),
+                  //                               child: LinearPercentIndicator(
+                  //                                 percent: 0.9,
+                  //                                 width: 132.0,
+                  //                                 lineHeight: 6.0,
+                  //                                 animation: true,
+                  //                                 progressColor:
+                  //                                     Color(0xFF7ABD4C),
+                  //                                 backgroundColor:
+                  //                                     Color(0xFFE9E9E9),
+                  //                                 barRadius:
+                  //                                     Radius.circular(12.0),
+                  //                                 padding: EdgeInsets.zero,
+                  //                               ),
+                  //                             ),
+                  //                           ],
+                  //                         ),
+                  //                       ),
+                  //                     ),
+                  //                     Expanded(
+                  //                       child: Padding(
+                  //                         padding:
+                  //                             EdgeInsetsDirectional.fromSTEB(
+                  //                                 12.0, 0.0, 0.0, 0.0),
+                  //                         child: Column(
+                  //                           mainAxisSize: MainAxisSize.max,
+                  //                           crossAxisAlignment:
+                  //                               CrossAxisAlignment.start,
+                  //                           children: [
+                  //                             Text(
+                  //                               'Proteins: 86%',
+                  //                               style:
+                  //                                   FlutterFlowTheme.of(context)
+                  //                                       .bodyMedium
+                  //                                       .override(
+                  //                                         fontFamily: 'Rubik',
+                  //                                         fontSize: 12.0,
+                  //                                         fontWeight:
+                  //                                             FontWeight.normal,
+                  //                                       ),
+                  //                             ),
+                  //                             Padding(
+                  //                               padding: EdgeInsetsDirectional
+                  //                                   .fromSTEB(
+                  //                                       0.0, 6.0, 0.0, 0.0),
+                  //                               child: LinearPercentIndicator(
+                  //                                 percent: 0.8,
+                  //                                 width: 132.0,
+                  //                                 lineHeight: 6.0,
+                  //                                 animation: true,
+                  //                                 progressColor:
+                  //                                     Color(0xFFFFC850),
+                  //                                 backgroundColor:
+                  //                                     Color(0xFFE9E9E9),
+                  //                                 barRadius:
+                  //                                     Radius.circular(12.0),
+                  //                                 padding: EdgeInsets.zero,
+                  //                               ),
+                  //                             ),
+                  //                           ],
+                  //                         ),
+                  //                       ),
+                  //                     ),
+                  //                   ],
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ).animateOnPageLoad(
+                  //       animationsMap['containerOnPageLoadAnimation6']!),
+                  // ),
+                  // Padding(
+                  //   padding:
+                  //       EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 24.0),
+                  //   child: InkWell(
+                  //     splashColor: Colors.transparent,
+                  //     focusColor: Colors.transparent,
+                  //     hoverColor: Colors.transparent,
+                  //     highlightColor: Colors.transparent,
+                  //     onTap: () async {
+                  //       context.pushNamed(
+                  //         'EventsPage',
+                  //         extra: <String, dynamic>{
+                  //           kTransitionInfoKey: TransitionInfo(
+                  //             hasTransition: true,
+                  //             transitionType: PageTransitionType.fade,
+                  //             duration: Duration(milliseconds: 300),
+                  //           ),
+                  //         },
+                  //       );
+                  //     },
+                  //     child: Container(
+                  //       width: double.infinity,
+                  //       decoration: BoxDecoration(
+                  //         color: FlutterFlowTheme.of(context).primaryBackground,
+                  //         borderRadius: BorderRadius.circular(24.0),
+                  //       ),
+                  //       child: Column(
+                  //         mainAxisSize: MainAxisSize.max,
+                  //         children: [
+                  //           Container(
+                  //             width: double.infinity,
+                  //             height: 144.0,
+                  //             decoration: BoxDecoration(
+                  //               color: FlutterFlowTheme.of(context)
+                  //                   .primaryBackground,
+                  //               image: DecorationImage(
+                  //                 fit: BoxFit.cover,
+                  //                 image: Image.network(
+                  //                   'https://images.unsplash.com/photo-1621625069869-07706581abec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
+                  //                 ).image,
+                  //               ),
+                  //               borderRadius: BorderRadius.only(
+                  //                 bottomLeft: Radius.circular(0.0),
+                  //                 bottomRight: Radius.circular(0.0),
+                  //                 topLeft: Radius.circular(24.0),
+                  //                 topRight: Radius.circular(24.0),
+                  //               ),
+                  //             ),
+                  //             child: Column(
+                  //               mainAxisSize: MainAxisSize.max,
+                  //               children: [
+                  //                 Padding(
+                  //                   padding: EdgeInsetsDirectional.fromSTEB(
+                  //                       16.0, 16.0, 16.0, 0.0),
+                  //                   child: Row(
+                  //                     mainAxisSize: MainAxisSize.max,
+                  //                     mainAxisAlignment: MainAxisAlignment.end,
+                  //                     children: [
+                  //                       FlutterFlowIconButton(
+                  //                         borderColor: Colors.transparent,
+                  //                         borderRadius: 12.0,
+                  //                         borderWidth: 1.0,
+                  //                         buttonSize: 36.0,
+                  //                         fillColor:
+                  //                             FlutterFlowTheme.of(context)
+                  //                                 .primaryBackground,
+                  //                         icon: Icon(
+                  //                           Icons.favorite_rounded,
+                  //                           color: FlutterFlowTheme.of(context)
+                  //                               .primary,
+                  //                           size: 14.0,
+                  //                         ),
+                  //                         onPressed: () {
+                  //                           print('IconButton pressed ...');
+                  //                         },
+                  //                       ),
+                  //                     ],
+                  //                   ),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           Container(
+                  //             width: double.infinity,
+                  //             decoration: BoxDecoration(
+                  //               color: FlutterFlowTheme.of(context)
+                  //                   .secondaryBackground,
+                  //               borderRadius: BorderRadius.only(
+                  //                 bottomLeft: Radius.circular(24.0),
+                  //                 bottomRight: Radius.circular(24.0),
+                  //                 topLeft: Radius.circular(0.0),
+                  //                 topRight: Radius.circular(0.0),
+                  //               ),
+                  //             ),
+                  //             child: Padding(
+                  //               padding: EdgeInsetsDirectional.fromSTEB(
+                  //                   24.0, 24.0, 24.0, 24.0),
+                  //               child: Column(
+                  //                 mainAxisSize: MainAxisSize.max,
+                  //                 crossAxisAlignment: CrossAxisAlignment.start,
+                  //                 children: [
+                  //                   Text(
+                  //                     'EVENTS',
+                  //                     style: FlutterFlowTheme.of(context)
+                  //                         .bodyMedium
+                  //                         .override(
+                  //                           fontFamily: 'Rubik',
+                  //                           color: FlutterFlowTheme.of(context)
+                  //                               .primary,
+                  //                           fontSize: 12.0,
+                  //                           letterSpacing: 0.4,
+                  //                           fontWeight: FontWeight.w500,
+                  //                         ),
+                  //                   ),
+                  //                   Padding(
+                  //                     padding: EdgeInsetsDirectional.fromSTEB(
+                  //                         0.0, 8.0, 0.0, 0.0),
+                  //                     child: Text(
+                  //                       'National health movement',
+                  //                       style: FlutterFlowTheme.of(context)
+                  //                           .bodyMedium
+                  //                           .override(
+                  //                             fontFamily: 'Rubik',
+                  //                             fontSize: 16.0,
+                  //                           ),
+                  //                     ),
+                  //                   ),
+                  //                   Padding(
+                  //                     padding: EdgeInsetsDirectional.fromSTEB(
+                  //                         0.0, 6.0, 0.0, 0.0),
+                  //                     child: Text(
+                  //                       'Challenge your friends by taking the most steps on Saturday and Sunday!',
+                  //                       style: FlutterFlowTheme.of(context)
+                  //                           .bodyMedium
+                  //                           .override(
+                  //                             fontFamily: 'Rubik',
+                  //                             fontWeight: FontWeight.normal,
+                  //                           ),
+                  //                     ),
+                  //                   ),
+                  //                   Padding(
+                  //                     padding: EdgeInsetsDirectional.fromSTEB(
+                  //                         0.0, 24.0, 0.0, 0.0),
+                  //                     child: Row(
+                  //                       mainAxisSize: MainAxisSize.max,
+                  //                       mainAxisAlignment:
+                  //                           MainAxisAlignment.spaceBetween,
+                  //                       children: [
+                  //                         Row(
+                  //                           mainAxisSize: MainAxisSize.max,
+                  //                           children: [
+                  //                             Container(
+                  //                               width: 42.0,
+                  //                               height: 42.0,
+                  //                               decoration: BoxDecoration(
+                  //                                 color: FlutterFlowTheme.of(
+                  //                                         context)
+                  //                                     .secondaryBackground,
+                  //                                 image: DecorationImage(
+                  //                                   fit: BoxFit.cover,
+                  //                                   image: Image.network(
+                  //                                     'https://images.unsplash.com/photo-1604004555489-723a93d6ce74?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+                  //                                   ).image,
+                  //                                 ),
+                  //                                 borderRadius:
+                  //                                     BorderRadius.circular(
+                  //                                         14.0),
+                  //                               ),
+                  //                             ),
+                  //                             Padding(
+                  //                               padding: EdgeInsetsDirectional
+                  //                                   .fromSTEB(
+                  //                                       6.0, 0.0, 0.0, 0.0),
+                  //                               child: Container(
+                  //                                 width: 42.0,
+                  //                                 height: 42.0,
+                  //                                 decoration: BoxDecoration(
+                  //                                   color: FlutterFlowTheme.of(
+                  //                                           context)
+                  //                                       .secondaryBackground,
+                  //                                   image: DecorationImage(
+                  //                                     fit: BoxFit.cover,
+                  //                                     image: Image.network(
+                  //                                       'https://images.unsplash.com/photo-1604004555489-723a93d6ce74?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+                  //                                     ).image,
+                  //                                   ),
+                  //                                   borderRadius:
+                  //                                       BorderRadius.circular(
+                  //                                           14.0),
+                  //                                 ),
+                  //                               ),
+                  //                             ),
+                  //                             Padding(
+                  //                               padding: EdgeInsetsDirectional
+                  //                                   .fromSTEB(
+                  //                                       6.0, 0.0, 0.0, 0.0),
+                  //                               child: Container(
+                  //                                 width: 42.0,
+                  //                                 height: 42.0,
+                  //                                 decoration: BoxDecoration(
+                  //                                   color: FlutterFlowTheme.of(
+                  //                                           context)
+                  //                                       .secondaryBackground,
+                  //                                   image: DecorationImage(
+                  //                                     fit: BoxFit.cover,
+                  //                                     image: Image.network(
+                  //                                       'https://images.unsplash.com/photo-1604004555489-723a93d6ce74?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+                  //                                     ).image,
+                  //                                   ),
+                  //                                   borderRadius:
+                  //                                       BorderRadius.circular(
+                  //                                           14.0),
+                  //                                 ),
+                  //                               ),
+                  //                             ),
+                  //                           ],
+                  //                         ),
+                  //                         FFButtonWidget(
+                  //                           onPressed: () {
+                  //                             print('Button pressed ...');
+                  //                           },
+                  //                           text: 'Join',
+                  //                           options: FFButtonOptions(
+                  //                             height: 42.0,
+                  //                             padding: EdgeInsetsDirectional
+                  //                                 .fromSTEB(
+                  //                                     24.0, 0.0, 24.0, 0.0),
+                  //                             iconPadding: EdgeInsetsDirectional
+                  //                                 .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  //                             color:
+                  //                                 FlutterFlowTheme.of(context)
+                  //                                     .tertiary,
+                  //                             textStyle:
+                  //                                 FlutterFlowTheme.of(context)
+                  //                                     .titleSmall
+                  //                                     .override(
+                  //                                       fontFamily: 'Rubik',
+                  //                                       color:
+                  //                                           FlutterFlowTheme.of(
+                  //                                                   context)
+                  //                                               .primary,
+                  //                                       fontSize: 14.0,
+                  //                                       fontWeight:
+                  //                                           FontWeight.normal,
+                  //                                     ),
+                  //                             elevation: 0.0,
+                  //                             borderSide: BorderSide(
+                  //                               color: Colors.transparent,
+                  //                               width: 0.0,
+                  //                             ),
+                  //                             borderRadius:
+                  //                                 BorderRadius.circular(12.0),
+                  //                           ),
+                  //                         ),
+                  //                       ],
+                  //                     ),
+                  //                   ),
+                  //                 ],
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ).animateOnPageLoad(
+                  //       animationsMap['containerOnPageLoadAnimation7']!),
+                  // ),
                 ],
               ),
             ),
