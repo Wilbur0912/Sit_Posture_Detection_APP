@@ -112,11 +112,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => AnalyzationModel());
-    userProfileProvider =
-        Provider.of<UserProfileProvider>(context, listen: false);
-    Future.delayed(Duration(milliseconds: 1000), () {
-      _fetchSitRecordData();
-    });
+
   }
 
   @override
@@ -154,7 +150,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
 
   Future<void> _fetchSitRecordData() async {
     String eDate = DateFormat("yyyy-MM-dd").format(endDate);
-    String? sDate;
+    String sDate = DateFormat("yyyy-MM-dd").format(DateTime.now().subtract(const Duration(days: 6)));
     if (startDate != null) {
       DateTime tmp = startDate!;
       sDate = DateFormat("yyyy-MM-dd").format(tmp);
@@ -180,6 +176,9 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
 
   @override
   Widget build(BuildContext context) {
+    userProfileProvider =
+        Provider.of<UserProfileProvider>(context, listen: false);
+      _fetchSitRecordData();
     context.watch<FFAppState>();
     double totalMinutes = double.parse(((sitRecordList.fold<int>(
                 0,
@@ -343,8 +342,22 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          2.0, 0.0, 0.0, 5.0),
+                                    child:Text(
+                                      '${averageMinutes >= 1 ? "" : "低於 "}',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                        fontFamily: 'Roboto',
+                                        color: Colors.white,
+                                        fontSize: 25.0,
+                                      ),
+                                    ),
+                                    ),
                                     Text(
-                                      '${averageMinutes >= 1 ? averageMinutes : "<1.0"}',
+                                      '${averageMinutes >= 1 ? averageMinutes : "1"}',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -564,7 +577,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                             vertical: 12.0),
                                         decoration: BoxDecoration(
                                           color: Color.fromRGBO(
-                                              220, 220, 220, 100),
+                                              225, 225, 225, 210),
                                           borderRadius:
                                               BorderRadius.circular(24.0),
                                         ),
