@@ -311,7 +311,7 @@ class _HeightEntryWidgetState extends State<HeightEntryWidget>
                       userProfileProvider.userProfile!;
 
                       final newProfile = currentUserProfile.copyWith(
-                        height: user_height,
+                        height: user_height.round(),
                       );
                       try {
                         await _userProfileManager

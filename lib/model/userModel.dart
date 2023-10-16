@@ -1,8 +1,8 @@
 class UserProfile {
   String? username;
   String? password;
-  num? height;
-  num? weight;
+  int? height;
+  int? weight;
   String? gender;
   String? token;
   UserProfile({
@@ -17,8 +17,8 @@ class UserProfile {
   UserProfile copyWith({
     String? username,
     String? password,
-    num? height,
-    num? weight,
+    int? height,
+    int? weight,
     String? gender,
     String? token,
   }) {

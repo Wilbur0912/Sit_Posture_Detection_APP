@@ -24,7 +24,7 @@ Future<String?> inputDialog(BuildContext context, String lab,
   }
 
   void updateUserProfile(UserProfile newUserProfile) async {
-    if(lab == '密碼'||lab=='使用者名稱'){
+    if(lab == '密碼'||lab=='帳號名稱'){
       await UserProfileManager()
           .updateUser(newUserProfile.copyWith());
     }else{
@@ -62,16 +62,16 @@ Future<String?> inputDialog(BuildContext context, String lab,
               switch (lab) {
                 case '身高':
                   newUserProfile = newUserProfile.copyWith(
-                      height: double.tryParse(inputData) ?? 88);
+                      height: int.tryParse(inputData));
                   break;
                 case '體重':
                   newUserProfile = newUserProfile.copyWith(
-                      weight: double.tryParse(inputData) ?? 88);
+                      weight: int.tryParse(inputData) ?? 88);
                   break;
                 case '密碼':
                   newUserProfile = newUserProfile.copyWith(password: inputData);
                   break;
-                case '使用者名稱':
+                case '帳號名稱':
                   newUserProfile = newUserProfile.copyWith(username: inputData);
                   break;
               // '性別' 会在上面的 if 分支处理，不需要在这里再处理一次

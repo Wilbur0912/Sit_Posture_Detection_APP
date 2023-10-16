@@ -297,7 +297,7 @@ class _WeightEntryWidgetState extends State<WeightEntryWidget>
                           context.read<UserProfileProvider>();
                       final newUserProfile =
                           userProfileProvider.userProfile!.copyWith(
-                        weight: weight,
+                        weight: weight.round(),
                       );
                       userProfileProvider.updateUserProfile(newUserProfile);
                       context.pushNamed(
