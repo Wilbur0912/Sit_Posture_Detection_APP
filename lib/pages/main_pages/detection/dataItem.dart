@@ -7,10 +7,10 @@ import '../../../flutter_flow/flutter_flow_util.dart';
 export 'detection_model.dart';
 
 class YourDataItem {
-  final String postureName;
-  final int minutes;
+  final String position;
+  final int second;
 
-  YourDataItem(this.postureName, this.minutes);
+  YourDataItem(this.position, this.second);
 }
 
 List<YourDataItem> yourItemList = [
@@ -21,13 +21,13 @@ List<YourDataItem> yourItemList = [
 void sortAndMoveToTop(List<YourDataItem> itemList, String currentPostureName) {
   itemList.sort((a, b) {
     // 将特定的 postureName 移到列表的第一位
-    if (a.postureName == currentPostureName) {
+    if (a.position == currentPostureName) {
       return -1;
-    } else if (b.postureName == currentPostureName) {
+    } else if (b.position == currentPostureName) {
       return 1;
     }
     // 根据 minutes 进行排序
-    return b.minutes.compareTo(a.minutes);
+    return b.second.compareTo(a.second);
   });
 }
 

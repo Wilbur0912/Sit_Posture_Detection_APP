@@ -35,6 +35,7 @@ class AnalyzationManager {
     } catch (e) {
       throw Exception("失敗：$e ");
     }
+
     return responseData;
   }
 }

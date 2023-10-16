@@ -7,7 +7,7 @@ import '../../../manager/AnalyzationManager.dart';
 import '../detection/dataItem.dart';
 int averageMinutes = 0;
 
-Future<void> fetch7DayDataList(String? token) async {
+Future<int> fetch7DayDataList(String? token) async {
   final DateTime now = DateTime.now();
   final DateTime endDate = now;
   final DateTime startDate = now.subtract(Duration(days: 6)); // 获取过去7天的起始日期
@@ -18,23 +18,30 @@ Future<void> fetch7DayDataList(String? token) async {
   final List<YourDataItem> allDataItems = [];
 
   final response = await AnalyzationManager.getSitRecord(token, formattedStartDate, formattedEndDate);
+  print("reppon"+response.data.toString());
+  final responseDataList = json.decode(response.data);
 
-  if (response.isSuccess && response.data is List<dynamic>) {
-    final List<dynamic> responseData = response.data;
-    final List<YourDataItem> dataItems = responseData.map((itemData) {
-      return YourDataItem(itemData['postureName'], itemData['second']);
+  if (response.isSuccess && responseDataList is List<dynamic>) {
+    final List<YourDataItem> dataItems = responseDataList.map((itemData) {
+      return YourDataItem(itemData['position'], itemData['second']);
     }).toList();
     allDataItems.addAll(dataItems);
+    for (YourDataItem item in allDataItems) {
+      print("Position: ${item.position}, Second: ${item.second}");
+    }
+
   }
 
   double totalMinutes = 0;
   for (final item in allDataItems) {
-    if (item.postureName != "坐姿端正") {
-      totalMinutes += item.minutes;
+    if (item.position != "坐姿端正") {
+      totalMinutes += item.second;
     }
   }
 
   averageMinutes = totalMinutes ~/ 7;
+  return averageMinutes;
+  print("avag"+averageMinutes.toString());
 }
 
 

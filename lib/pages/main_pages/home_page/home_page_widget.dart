@@ -41,30 +41,28 @@ class _HomePageWidgetState extends State<HomePageWidget>
     with TickerProviderStateMixin {
   // final userId = 'weber0923';
   // final channel = IOWebSocketChannel.connect('ws://172.20.10.2:8080/$userId');
-
+  int averageMinutesMain = 0;
+  int averageMinutesMainReturn = 0;
   String currentPostureName = '坐姿端正'; // 初始文字
   int minutesOfCurrentPostureName = 0;
   String currentDate = "";
-
   Future<void> fetchTodayDataList(String? token) async {
     final DateTime now = DateTime.now();
     final String formattedDate = DateFormat('yyyy-M-d').format(now);
 
     final response = await AnalyzationManager.getSitRecord(token, formattedDate, formattedDate);
-
-    if (response.isSuccess && response.data is List<dynamic>) {
-      final List<dynamic> responseData = response.data;
-
+    final List<dynamic> responseData = json.decode(response.data);
+    if (response.isSuccess && responseData is List<dynamic>) {
       setState(() {
         yourItemList = responseData.map((itemData) {
-          return YourDataItem(itemData['postureName'], itemData['second']);
+          return YourDataItem(itemData['position'], itemData['second']);
         }).toList();
         sortAndMoveToTop(yourItemList, currentPostureName);
       });
 
       minutesOfCurrentPostureName = yourItemList
-          .firstWhere((item) => item.postureName == currentPostureName, orElse: () => YourDataItem("", 0))
-          .minutes;
+          .firstWhere((item) => item.position == currentPostureName, orElse: () => YourDataItem("", 0))
+          .second;
     }
   }
 
@@ -277,7 +275,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
     _model = createModel(context, () => HomePageModel());
     final userProfileProvider =
         Provider.of<UserProfileProvider>(context, listen: false);
-    fetch7DayDataList(userProfileProvider.userProfile?.token);
+    fetch7dayData();
+    fetchTodayDataList(userProfileProvider.userProfile?.token);
     // 監聽WebSocket消息
     final channel = IOWebSocketChannel.connect('ws://https://spineinspectorbackend-production.up.railway.app//inspect/',headers: {'token': userProfileProvider.userProfile?.token},);
     channel.stream.listen((message) {
@@ -289,6 +288,18 @@ class _HomePageWidgetState extends State<HomePageWidget>
     });
   }
 
+  Future<void> fetch7dayData() async {
+    try {
+      final userProfileProvider =
+      Provider.of<UserProfileProvider>(context, listen: false);
+      averageMinutesMainReturn = await fetch7DayDataList(userProfileProvider.userProfile?.token);
+      setState(() {
+        averageMinutesMain = averageMinutesMainReturn;
+      });
+    } catch (e) {
+      // 处理错误
+    }
+  }
   @override
   void dispose() {
     _model.dispose();
@@ -782,7 +793,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   CrossAxisAlignment.end,
                                               children: [
                                                 Text(
-                                                  averageMinutes.toString(),
+                                                  averageMinutesMain.toString(),
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium

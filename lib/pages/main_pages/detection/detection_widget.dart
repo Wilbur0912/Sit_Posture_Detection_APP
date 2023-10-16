@@ -150,7 +150,7 @@ class _DetectionWidgetState extends State<DetectionWidget>
 
       setState(() {
         yourItemList = responseData.map((itemData) {
-          return YourDataItem(itemData['postureName'], itemData['second']);
+          return YourDataItem(itemData['position'], itemData['second']);
         }).toList();
         sortAndMoveToTop(yourItemList, currentPostureName);
       });
@@ -307,21 +307,21 @@ class _DetectionWidgetState extends State<DetectionWidget>
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(8.0),
                                         child: Image.asset(
-                                          callPostureImage(currentItem.postureName),
+                                          callPostureImage(currentItem.position),
                                           width: 40.0,
                                           height: 40.0,
                                           fit: BoxFit.contain,
                                         ),
                                       ),
                                       Text(
-                                        currentItem.postureName,
+                                        currentItem.position,
                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                                           fontFamily: 'Rubik',
                                           fontWeight: FontWeight.normal,
                                         ),
                                       ),
                                       Text(
-                                        '${currentItem.minutes} 分鐘',
+                                        '${currentItem.second} 分鐘',
                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                                           fontFamily: 'Rubik',
                                           fontWeight: FontWeight.normal,
