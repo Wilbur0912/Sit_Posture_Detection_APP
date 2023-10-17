@@ -111,7 +111,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
             ),
           ),
           decoration: BoxDecoration(
-            color: Color(0xFFE2E2E2),
+            color: Colors.white,
             borderRadius: BorderRadius.circular(10.0),
             boxShadow: [
               BoxShadow(
