@@ -200,7 +200,7 @@ class _EnterPasswordWidgetState extends State<EnterPasswordWidget>
                           height: 60.0,
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context)
-                                .gray200,
+                                .white,
                             boxShadow: [
                               BoxShadow(
                                 blurRadius: 12.0,

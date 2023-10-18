@@ -2,7 +2,6 @@ import 'package:appp3/pages/main_pages/settings/setting_dialog.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 import '../../../userProfileProvider.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -77,7 +76,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                   fontSize: 20,
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w700,
-
                 ),
               ),
               Padding(
@@ -85,7 +83,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                 child: Container(
                   width: 44.0,
                   height: 44.0,
-
                 ),
               ),
             ],
@@ -100,16 +97,17 @@ class _SettingsWidgetState extends State<SettingsWidget> {
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 1.0),
-            child:Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children:[
-                  Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(30.0, 20.0, 30.0, 1.0),
-                  child:Stack(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 1.0),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            30.0, 20.0, 30.0, 1.0),
+                        child: Stack(
                           children: [
                             Container(
                               width: 50.0,
@@ -119,7 +117,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                 shape: BoxShape.circle,
                               ),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(2.0, 2.0, 2.0, 2.0),
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    2.0, 2.0, 2.0, 2.0),
                                 child: Container(
                                   width: 50.0,
                                   height: 50.0,
@@ -129,554 +128,159 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                   ),
                                   child: CachedNetworkImage(
                                     fadeInDuration: Duration(milliseconds: 500),
-                                    fadeOutDuration: Duration(milliseconds: 500),
-                                    imageUrl: 'https://picsum.photos/seed/934/600',
+                                    fadeOutDuration:
+                                        Duration(milliseconds: 500),
+                                    imageUrl:
+                                        'https://picsum.photos/seed/934/600',
                                     fit: BoxFit.fitWidth,
                                   ),
                                 ),
                               ),
                             ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(70.0, 0.0, 0.0, 0.0),
-                          child:Column(
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  70.0, 0.0, 0.0, 0.0),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: 73,
+                                    height: 44,
+                                    child: Stack(
                                       children: [
-                                        Container(
-                                          width: 73,
-                                          height: 44,
-                                          child: Stack(
-                                            children: [
-                                              Positioned(
-                                                left: 0,
-                                                top: 10,
-                                                child: Text(
-                                                  '${userProfileProvider.userProfile!.username}',
-                                                    style: GoogleFonts.poppins(
-                                                      textStyle:TextStyle(
-                                                        color: Color(0xFF1D1517),
-                                                        fontSize: 16,
-                                                      ),
-                                                    ),
-                                                ),
+                                        Positioned(
+                                          left: 0,
+                                          top: 10,
+                                          child: Text(
+                                            '${userProfileProvider.userProfile!.username}',
+                                            style: GoogleFonts.poppins(
+                                              textStyle: TextStyle(
+                                                color: Color(0xFF1D1517),
+                                                fontSize: 16,
                                               ),
-                                              // Positioned(
-                                              //   left: 0,
-                                              //   top: 26,
-                                              //   child: Text(
-                                              //     '${DateFormat('yyyy-MM-dd').format(DateTime.now())}',
-                                              //     style: GoogleFonts.poppins(
-                                              //       textStyle:TextStyle(
-                                              //         color: Color(0xFF7B6F72),
-                                              //         fontSize: 14,
-                                              //       ),
-                                              //     )
-                                              //   ),
-                                              // ),
-                                            ],
+                                            ),
                                           ),
                                         ),
+                                        // Positioned(
+                                        //   left: 0,
+                                        //   top: 26,
+                                        //   child: Text(
+                                        //     '${DateFormat('yyyy-MM-dd').format(DateTime.now())}',
+                                        //     style: GoogleFonts.poppins(
+                                        //       textStyle:TextStyle(
+                                        //         color: Color(0xFF7B6F72),
+                                        //         fontSize: 14,
+                                        //       ),
+                                        //     )
+                                        //   ),
+                                        // ),
                                       ],
                                     ),
-                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
-                  ), //使用者名稱
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 24.0, 1.0),
-                      child:Stack(
-                        children: [
-                          Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 1.0),
-                              child:
-                                  Container(
-                                      width: 85,
-                                      height: 70,
-                                      decoration: ShapeDecoration(
-                                        color: Colors.white,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(16),
-                                        ),
-                                        shadows: [
-                                          BoxShadow(
-                                            color: Color(0x111D1617),
-                                            blurRadius: 40,
-                                            offset: Offset(0, 10),
-                                            spreadRadius: 0,
-                                          )
-                                        ],
-                                      ),
-                                    child:Stack(
-                                        alignment: Alignment.center,
-                                        children:[
-                                          Padding(
-                                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
-                                          child: Text(
-                                            '${userProfileProvider.userProfile!.height}cm',
-
-                                            style: GoogleFonts.poppins(
-                                              textStyle:TextStyle(
-                                                color: Color(0xFFA192FD),
-                                                fontSize: 16,
-                                                height: 0.11,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                          Padding(
-                                            padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
-                                            child: Text(
-                                              '身高',
-                                              style: TextStyle(
-                                                color: Color(0xFF7B6F72),
-                                                fontSize: 14,
-                                                fontFamily: 'Poppins',
-                                                fontWeight: FontWeight.w400,
-                                                height: 0.12,
-                                              ),
-                                            ),
-                                          ),
-                                        ]
-
-                                    ),
-                                  )
-                          ),
-                          Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(137.0, 0.0, 0.0, 1.0),
-                              child:
-                              Container(
-                                width: 85,
-                                height: 70,
-                                decoration: ShapeDecoration(
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  shadows: [
-                                    BoxShadow(
-                                      color: Color(0x111D1617),
-                                      blurRadius: 40,
-                                      offset: Offset(0, 10),
-                                      spreadRadius: 0,
-                                    )
-                                  ],
-                                ),
-
-                                child:Stack(
-                                    alignment: Alignment.center,
-                                    children:[
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
-                                        child: Text(
-                                          '${userProfileProvider.userProfile!.weight}kg',
-
-                                          style: GoogleFonts.poppins(
-                                            textStyle:TextStyle(
-                                              color: Color(0xFFA192FD),
-                                              fontSize: 16,
-                                              height: 0.11,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
-                                        child: Text(
-                                          '體重',
-                                          style: TextStyle(
-                                            color: Color(0xFF7B6F72),
-                                            fontSize: 14,
-                                            fontFamily: 'Poppins',
-                                            fontWeight: FontWeight.w400,
-                                            height: 0.12,
-                                          ),
-                                        ),
-                                      ),
-                                    ]
-
-                                ),
-                              )
-                          ),
-                          Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(250.0, 0.0, 0.0, 1.0),
-                              child:
-                              Container(
-                                width: 85,
-                                height: 70,
-                                decoration: ShapeDecoration(
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  shadows: [
-                                    BoxShadow(
-                                      color: Color(0x111D1617),
-                                      blurRadius: 40,
-                                      offset: Offset(0, 10),
-                                      spreadRadius: 0,
-                                    )
-                                  ],
-                                ),
-                                child:Stack(
-                                    alignment: Alignment.center,
-                                    children:[
-
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
-                                        child: Text(
-                                          '性別',
-                                          style: TextStyle(
-                                            color: Color(0xFF7B6F72),
-                                            fontSize: 14,
-                                            fontFamily: 'Poppins',
-                                            fontWeight: FontWeight.w400,
-                                            height: 0.12,
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
-                                        child: Text(
-                                          '${userProfileProvider.userProfile!.gender == 'Male' ? '男' : '女'} ',
-
-                                          style: GoogleFonts.poppins(
-                                            textStyle:TextStyle(
-                                              color: Color(0xFFA192FD),
-                                              fontSize: 16,
-                                              height: 0.11,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ]
-
-                                ),
-                              )
-                          ),
-
-                        ],
-                      )
-                  ),
-                  Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(24.0, 20.0, 24.0, 1.0),
-                      child: Container(
-                        width: 325,
-                        height: 320,
-                        decoration: ShapeDecoration(
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          shadows: [
-                            BoxShadow(
-                              color: Color(0x111D1617),
-                              blurRadius: 40,
-                              offset: Offset(0, 10),
-                              spreadRadius: 0,
-                            )
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                      ), //使用者名稱
+                      Padding(
+                        padding: EdgeInsets.all(24.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(20.0, 40.0, 0.0, 20.0),
-                                child:
-                                Text(
-                                  '修改資料',
-                                  style: TextStyle(
-                                    color: Color(0xFF1D1517),
-                                    fontSize: 20,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w600,
-                                    height: 0.09,
-                                  ),
-                                )
+                            buildUserProfileItem(
+                              label: '身高',
+                              value: (userProfileProvider.userProfile?.height)
+                                  .toString(),
                             ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 0.0, 1.0),
-                              child:
-                              Container(
-                                width: 280,
-                                height: 30,
-                                child: InkWell(
-                                  onTap: () async {
-                                    final String? inputData = await inputDialog(
-                                        context, "帳號名稱", userProfileProvider);
-                                    print("你輸入：$inputData");
-                                  },
-                                child: Stack(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(00.0, 0.0, 0.0, 1.0),
-                                      child:SvgPicture.asset(
-                                        'assets/images/Icon-Profile.svg',
-                                        width: 20,
-                                        height: 20,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(30.0, 0.0, 0.0, 1.0),
-                                      child:Text(
-                                        '帳號名稱',
-                                        style: GoogleFonts.poppins(
-                                          textStyle:TextStyle(
-                                            color: Color(0xFF7B6F72),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(250.0, 5.0, 0.0, 1.0),
-                                      child:Container(
-                                        width: 18,
-                                        height: 18,
-                                        child: Icon(
-                                          Icons.arrow_forward_ios,
-                                          color: Color(0xFF606A85),
-                                          size: 15.0,
-                                        ),
-                                      ),
-                                    ),
-
-
-                                  ],
-                                ),
-                              ),
-                              ),
+                            buildUserProfileItem(
+                              label: '體重',
+                              value: (userProfileProvider.userProfile?.weight)
+                                  .toString(),
                             ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 0.0, 1.0),
-                              child:
-                              Container(
-                                width: 280,
-                                height: 30,
-                                child: InkWell(
-                                  onTap: () async {
-                                    final String? inputData = await inputDialog(
-                                        context, "密碼", userProfileProvider);
-                                    print("你輸入：$inputData");
-                                  },
-                                child: Stack(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(00.0, 0.0, 0.0, 1.0),
-                                      child:SvgPicture.asset(
-                                        'assets/images/Icon-password.svg',
-                                        width: 20,
-                                        height: 20,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(30.0, 0.0, 0.0, 1.0),
-                                      child:Text(
-                                        '密碼',
-                                        style: GoogleFonts.poppins(
-                                          textStyle:TextStyle(
-                                            color: Color(0xFF7B6F72),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(250.0, 5.0, 0.0, 1.0),
-                                      child:Container(
-                                        width: 18,
-                                        height: 18,
-                                        child: Icon(
-                                          Icons.arrow_forward_ios,
-                                          color: Color(0xFF606A85),
-                                          size: 15.0,
-                                        ),
-                                      ),
-                                    ),
-
-
-                                  ],
-                                ),
-                              ),
-                              ),
+                            buildUserProfileItem(
+                              label: '性別',
+                              value: userProfileProvider.userProfile?.gender ==
+                                      'Male'
+                                  ? '男'
+                                  : '女',
                             ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 0.0, 1.0),
-                              child:
-                              Container(
-                                width: 280,
-                                height: 30,
-                                child:InkWell(
-                                  onTap: () async {
-                                    final String? inputData = await inputDialog(
-                                        context, "身高", userProfileProvider);
-                                    print("你輸入：$inputData");
-                                  },
-                                child: Stack(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(00.0, 0.0, 0.0, 1.0),
-                                      child:SvgPicture.asset(
-                                        'assets/images/height.svg', // 替换为你的 SVG 图像文件路径
-                                        width: 20, // 设置图像宽度
-                                        height: 20, // 设置图像高度
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(30.0, 0.0, 0.0, 1.0),
-                                      child:Text(
-                                        '身高',
-                                        style: GoogleFonts.poppins(
-                                          textStyle:TextStyle(
-                                            color: Color(0xFF7B6F72),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(250.0, 0.0, 0.0, 1.0),
-                                      child:Container(
-                                        width: 18,
-                                        height: 18,
-                                        child: Icon(
-                                          Icons.arrow_forward_ios,
-                                          color: Color(0xFF606A85),
-                                          size: 15.0,
-                                        ),
-                                      ),
-                                    ),
-
-
-                                  ],
-                                ),
-                              ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 0.0, 1.0),
-                              child:
-                              Container(
-                                width: 280,
-                                height: 30,
-                                child:InkWell(
-                                  onTap: () async {
-                                    final String? inputData = await inputDialog(
-                                        context, "體重", userProfileProvider);
-                                    print("你輸入：$inputData");
-                                  },
-                                child: Stack(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(00.0, 0.0, 0.0, 1.0),
-                                      child:SvgPicture.asset(
-                                        'assets/images/weight.svg', // 替换为你的 SVG 图像文件路径
-                                        width: 20, // 设置图像宽度
-                                        height: 20, // 设置图像高度
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(30.0, 0.0, 0.0, 1.0),
-                                      child:Text(
-                                        '體重',
-                                        style: GoogleFonts.poppins(
-                                          textStyle:TextStyle(
-                                            color: Color(0xFF7B6F72),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(250.0, 0.0, 0.0, 1.0),
-                                      child:Container(
-                                        width: 18,
-                                        height: 18,
-                                        child: Icon(
-                                          Icons.arrow_forward_ios,
-                                          color: Color(0xFF606A85),
-                                          size: 15.0,
-                                        ),
-                                      ),
-                                    ),
-
-
-                                  ],
-                                ),
-                              ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 0.0, 1.0),
-                              child:
-                              Container(
-                                width: 280,
-                                height: 40,
-                                child:InkWell(
-                                  onTap: () async {
-                                    final String? inputData = await inputDialog(
-                                        context, "性別", userProfileProvider);
-                                    print("你輸入：$inputData");
-                                  },
-                                child: Stack(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(00.0, 0.0, 0.0, 1.0),
-                                      child:SvgPicture.asset(
-                                        'assets/images/Gender.svg', // 替换为你的 SVG 图像文件路径
-                                        width: 20, // 设置图像宽度
-                                        height: 20, // 设置图像高度
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(30.0, 0.0, 0.0, 1.0),
-                                      child:Text(
-                                        '性別',
-                                        style: GoogleFonts.poppins(
-                                          textStyle:TextStyle(
-                                            color: Color(0xFF7B6F72),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(250.0, 0.0, 0.0, 1.0),
-                                      child:Container(
-                                        width: 18,
-                                        height: 18,
-                                        child: Icon(
-                                          Icons.arrow_forward_ios,
-                                          color: Color(0xFF606A85),
-                                          size: 15.0,
-                                        ),
-                                      ),
-                                    ),
-
-
-                                  ],
-                                ),
-                                ),
-                              ),
-                            ),
-
-
-
                           ],
                         ),
-                      )
-                  ),
-
-
-
-                ]
+                      ),
+                      Padding(
+                          padding: EdgeInsets.all(24.0),
+                          child: Container(
+                            width: double.infinity,
+                            decoration: ShapeDecoration(
+                              color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              shadows: [
+                                BoxShadow(
+                                  color: Color(0x111D1617),
+                                  blurRadius: 40,
+                                  offset: Offset(0, 10),
+                                  spreadRadius: 0,
+                                )
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        20.0, 40.0, 0.0, 20.0),
+                                    child: Text(
+                                      '修改資料',
+                                      style: TextStyle(
+                                        color: Color(0xFF1D1517),
+                                        fontSize: 20,
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w600,
+                                        height: 0.09,
+                                      ),
+                                    )),
+                                buildUpdateItem(
+                                    context: context,
+                                    label: '帳號名稱',
+                                    value: (userProfileProvider
+                                            .userProfile?.height)
+                                        .toString(),
+                                    userProfileProvider: userProfileProvider),
+                                buildUpdateItem(
+                                    context: context,
+                                    label: '密碼',
+                                    value: (userProfileProvider
+                                            .userProfile?.weight)
+                                        .toString(),
+                                    userProfileProvider: userProfileProvider),
+                                buildUpdateItem(
+                                    context: context,
+                                    label: '身高',
+                                    value: (userProfileProvider
+                                            .userProfile?.height)
+                                        .toString(),
+                                    userProfileProvider: userProfileProvider),
+                                buildUpdateItem(
+                                    context: context,
+                                    label: '體重',
+                                    value: (userProfileProvider
+                                            .userProfile?.weight)
+                                        .toString(),
+                                    userProfileProvider: userProfileProvider),
+                                buildUpdateItem(
+                                    context: context,
+                                    label: '性別',
+                                    value: (userProfileProvider
+                                            .userProfile?.gender)
+                                        .toString(),
+                                    userProfileProvider: userProfileProvider),
+                              ],
+                            ),
+                          )),
+                    ]),
               ),
-          ),
               // Padding(
               //   padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 1.0),
               //   child: Container(
@@ -1107,14 +711,15 @@ class _SettingsWidgetState extends State<SettingsWidget> {
               //       )),
               // ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 36.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     FFButtonWidget(
                       onPressed: () async {
-                        userProfileProvider.clearUserProfileFromSharedPreferences();
+                        userProfileProvider
+                            .clearUserProfileFromSharedPreferences();
                         context.pushNamed('LoginPage');
                       },
                       text: '登出',
@@ -1152,4 +757,128 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   }
 }
 
+Widget buildUserProfileItem({required String label, required String value}) {
+  return Container(
+    width: 85,
+    height: 70,
+    decoration: BoxDecoration(
+      color: Colors.white,
+      shape: BoxShape.rectangle,
+      borderRadius: BorderRadius.circular(16),
+      boxShadow: [
+        BoxShadow(
+          color: Color(0x111D1617),
+          blurRadius: 40,
+          offset: Offset(0, 10),
+          spreadRadius: 0,
+        ),
+      ],
+    ),
+    child: Stack(
+      alignment: Alignment.center,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(bottom: 10.0),
+          child: Text(
+            value,
+            style: TextStyle(
+              color: Color(0xFFA192FD),
+              fontSize: 16,
+              height: 0.11,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 30.0),
+          child: Text(
+            label,
+            style: TextStyle(
+              color: Color(0xFF7B6F72),
+              fontSize: 14,
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w400,
+              height: 0.12,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
 
+Widget buildUpdateItem({
+  required BuildContext context,
+  required String label,
+  required String value,
+  required UserProfileProvider userProfileProvider,
+}) {
+  String imagePath = ''; // 图像文件路径
+
+  if (label == '帳號名稱') {
+    imagePath = 'assets/images/Icon-Profile.svg';
+  } else if (label == '密碼') {
+    imagePath = 'assets/images/Password.svg';
+  } else if (label == '身高') {
+    imagePath = 'assets/images/Icon-Height.svg';
+  } else if (label == '體重') {
+    imagePath = 'assets/images/Icon-Weight.svg';
+  } else if (label == '性別') {
+    imagePath = 'assets/images/Icon-Gender.svg';
+  }
+  return Padding(
+    padding: EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 0.0, 10.0),
+    child: Container(
+      width: double.infinity, // 占满可用宽度
+      height: 30,
+      child: InkWell(
+        onTap: () async {
+          final String? inputData = await inputDialog(
+            context,
+            label,
+            userProfileProvider,
+          );
+          print("你輸入：$inputData");
+        },
+        child: Stack(
+          children: [
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(00.0, 0.0, 0.0, 1.0),
+              child: SvgPicture.asset(
+                '$imagePath',
+                width: 20,
+                height: 20,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(30.0, 0.0, 0.0, 1.0),
+              child: Text(
+                label,
+                style: TextStyle(
+                  color: Color(0xFF7B6F72),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 24.0, 1.0),
+                child: Container(
+                  width: 18,
+                  height: 18,
+                  child: Icon(
+                    Icons.arrow_forward_ios,
+                    color: Color(0xFF606A85),
+                    size: 15.0,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}

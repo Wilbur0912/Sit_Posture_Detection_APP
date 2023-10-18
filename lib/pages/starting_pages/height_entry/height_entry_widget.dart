@@ -231,7 +231,7 @@ class _HeightEntryWidgetState extends State<HeightEntryWidget>
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Text(
-                                    '$user_height',
+                                    '${user_height.round()}',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -272,8 +272,8 @@ class _HeightEntryWidgetState extends State<HeightEntryWidget>
                                 ),
                                 child: Slider(
                                   value: user_height,
-                                  min: 100.0,
-                                  max: 220.0,
+                                  min: 100,
+                                  max: 220,
                                   divisions: 120,
                                   onChanged: (double newVal) {
                                     setState(() {
@@ -306,16 +306,15 @@ class _HeightEntryWidgetState extends State<HeightEntryWidget>
                   child: FFButtonWidget(
                     onPressed: () async {
                       final userProfileProvider =
-                      context.read<UserProfileProvider>();
+                          context.read<UserProfileProvider>();
                       final currentUserProfile =
-                      userProfileProvider.userProfile!;
+                          userProfileProvider.userProfile!;
 
                       final newProfile = currentUserProfile.copyWith(
                         height: user_height.round(),
                       );
                       try {
-                        await _userProfileManager
-                            .register(newProfile);
+                        await _userProfileManager.register(newProfile);
                         context.pushNamed(
                           'LoginPage',
                           extra: <String, dynamic>{
@@ -325,12 +324,10 @@ class _HeightEntryWidgetState extends State<HeightEntryWidget>
                             ),
                           },
                         );
-                      }
-                      catch (e) {
+                      } catch (e) {
                         print("註冊失敗,$e");
                       }
                     },
-
                     text: '註冊',
                     options: FFButtonOptions(
                       width: double.infinity,
