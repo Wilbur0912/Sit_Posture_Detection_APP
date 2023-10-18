@@ -780,7 +780,7 @@ Widget buildUserProfileItem({required String label, required String value}) {
         Padding(
           padding: EdgeInsets.only(bottom: 10.0),
           child: Text(
-            value,
+          label == '身高'?'$value cm':label == '體重'?'$value kg':value,
             style: TextStyle(
               color: Color(0xFFA192FD),
               fontSize: 16,
