@@ -5,9 +5,9 @@
 
 
     <application
-        android:label="APPP3"
+        android:label="脊椎檢查員"
         tools:replace="android:label"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:requestLegacyExternalStorage="true">
 
         <activity
