@@ -147,6 +147,7 @@ class _AnalysisChartState extends State<AnalysisChart> {
         meta.formattedValue,
         style: style,
       ),
+
     );
   }
 
@@ -220,7 +221,7 @@ class _AnalysisChartState extends State<AnalysisChart> {
                 // 繪製水平網格線
                 verticalInterval: 1,
                 // 垂直網格線之間的間隔
-                horizontalInterval: 1,
+                horizontalInterval: 3,
                 // 水平網格線之間的間隔
                 getDrawingVerticalLine: (value) {
                   return FlLine(
