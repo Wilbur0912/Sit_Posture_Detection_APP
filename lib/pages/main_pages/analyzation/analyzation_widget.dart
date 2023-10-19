@@ -112,7 +112,9 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => AnalyzationModel());
-
+    userProfileProvider =
+        Provider.of<UserProfileProvider>(context, listen: false);
+    _fetchSitRecordData();
   }
 
   @override
@@ -157,11 +159,13 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
       print(sDate);
     }
     final res = await AnalyzationManager.getSitRecord(
-        userProfileProvider.userProfile?.token, sDate!, eDate);
+        userProfileProvider.userProfile?.token, sDate, eDate);
     final List<SitRecord> fetchedSitRecordList =
         SitRecordFromResponse(res.data);
-    totalMinutesByDate = calculateTotalMinutesByDate(fetchedSitRecordList);
-    sitRecordList = fetchedSitRecordList; // 賦值給 SitRecordList 變數
+    setState(() {
+      totalMinutesByDate = calculateTotalMinutesByDate(fetchedSitRecordList);
+      sitRecordList = fetchedSitRecordList; // 賦值給 SitRecordList 變數
+    });
   }
 
   Map<String, double> calculateTotalMinutesByDate(List<SitRecord> records) {
@@ -176,9 +180,8 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
 
   @override
   Widget build(BuildContext context) {
-    userProfileProvider =
-        Provider.of<UserProfileProvider>(context, listen: false);
-      _fetchSitRecordData();
+
+
     context.watch<FFAppState>();
     double totalMinutes = double.parse(((sitRecordList.fold<int>(
                 0,
@@ -464,12 +467,13 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                             onChanged: (String? newValue) {
                                               // Change the callback argument type
                                               if (newValue != null) {
-                                                setState(() {
+                                                print('a');
+
                                                   _onTabClick(newValue);
                                                   _fetchSitRecordData();
                                                   print(
                                                       '$startDate and $endDate');
-                                                });
+
                                               }
                                             },
                                             items: <String>['日', '周', '月', '年']

@@ -219,7 +219,7 @@ class _WeightEntryWidgetState extends State<WeightEntryWidget>
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Text(
-                                    '$weight',
+                                    '${weight.round()}',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(

@@ -200,7 +200,7 @@ class _MobileSignInWidgetState extends State<MobileSignInWidget>
                           width: double.infinity,
                           height: 60.0,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).gray200,
+                            color: FlutterFlowTheme.of(context).white,
                             boxShadow: [
                               BoxShadow(
                                 blurRadius: 12.0,
