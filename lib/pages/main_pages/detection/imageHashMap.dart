@@ -7,7 +7,7 @@ String callPostureImage(String key) {
     '三分之一坐姿': 'assets/images/三分之一坐姿.jpg',
     '上半身右傾': 'assets/images/上半身右傾.jpg',
     '上半身左傾': 'assets/images/上半身左傾.jpg',
-    '半身駝背': 'assets/images/半身駝背.jpg',
+    '駝背': 'assets/images/半身駝背.jpg',
     '半躺半坐': 'assets/images/半躺半坐.jpg',
     '坐姿端正': 'assets/images/坐姿端正.jpg',
   };

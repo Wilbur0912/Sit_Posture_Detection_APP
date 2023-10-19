@@ -321,7 +321,7 @@ class _DetectionWidgetState extends State<DetectionWidget>
                                         ),
                                       ),
                                       Text(
-                                        '${currentItem.second} 分鐘',
+                                        '${(currentItem.second/60).toStringAsFixed(1)} 分鐘',
                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                                           fontFamily: 'Rubik',
                                           fontWeight: FontWeight.normal,

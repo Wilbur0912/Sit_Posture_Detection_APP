@@ -676,7 +676,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       CrossAxisAlignment.end,
                                                   children: [
                                                     Text(
-                                                      '今天已這樣${minutesOfCurrentPostureName}分鐘了',
+                                                      '今天已這樣${(minutesOfCurrentPostureName / 60.0).toStringAsFixed(1)}分鐘了',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -793,7 +793,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   CrossAxisAlignment.end,
                                               children: [
                                                 Text(
-                                                  averageMinutesMain.toString(),
+                                                  (averageMinutesMain/60).toStringAsFixed(1).toString(),
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
