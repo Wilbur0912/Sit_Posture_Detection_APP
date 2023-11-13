@@ -245,21 +245,35 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            0.0, 0.0, 120.0, 0.0),
-                        child: Text(
+                            0.0, 0.0, 0.0, 0.0),
+                        child: Center(child:Text(
                           '資料統計',
                           textAlign: TextAlign.center,
                           style: FlutterFlowTheme.of(context)
                               .bodyLarge
                               .override(
                                 fontFamily: 'Roboto',
-                                fontSize: 35.0,
+                                fontSize: 20.0,
                                 letterSpacing: 0.2,
                                 fontWeight: FontWeight.w600,
                               ),
                         ),
+                        ),
                       ),
-
+                      FlutterFlowIconButton(
+                        borderColor: Colors.transparent,
+                        borderRadius: 30.0,
+                        borderWidth: 1.0,
+                        buttonSize: 48.0,
+                        icon: Icon(
+                          Icons.more_vert_outlined,
+                          color: Colors.white,
+                          size: 24.0,
+                        ),
+                        onPressed: () {
+                          print('IconButton pressed ...');
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -425,7 +439,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                   Text(
                                     '每$selectedType不良姿勢統計',
                                     style: TextStyle(
-                                      color: Color(0xFF1D1517),
+                                      color: Colors.grey,
                                       fontSize: 16,
                                       fontFamily: 'Roboto',
                                       fontWeight: FontWeight.w600,
@@ -541,7 +555,9 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                         .override(
                                           fontFamily: 'Roboto',
                                           fontSize: 16.0,
+                                      color: Colors.grey,
                                         ),
+
                                   ),
                                   Icon(
                                     Icons.keyboard_control_outlined,

@@ -17,7 +17,10 @@ export 'connect_model.dart';
 class ConnectWidget extends StatefulWidget {
   final String wifiName;
   final String wifiPassword;
-  const ConnectWidget({Key? key, required this.wifiName, required this.wifiPassword}) : super(key: key);
+
+  const ConnectWidget(
+      {Key? key, required this.wifiName, required this.wifiPassword})
+      : super(key: key);
 
   @override
   _ConnectWidgetState createState() => _ConnectWidgetState();
@@ -49,13 +52,15 @@ class _ConnectWidgetState extends State<ConnectWidget> {
       }
 
       // 连接到WiFi网络
-      bool isConnected = await WiFiForIoTPlugin.connect( _model.textController.text, password: "00000000");
+      bool isConnected = await WiFiForIoTPlugin.connect(
+          _model.textController.text,
+          password: "00000000");
 
       if (isConnected) {
         print('已连接到WiFi网络');
 
         // 在这里将 _wifiName 和 _wifiPassword 发送给AP
-        await sendInfoToAP(_receivedWifiName, _receivedWifiPassword,userID);
+        await sendInfoToAP(_receivedWifiName, _receivedWifiPassword, userID);
 
         await WiFiForIoTPlugin.disconnect();
       } else {
@@ -81,12 +86,12 @@ class _ConnectWidgetState extends State<ConnectWidget> {
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         appBar: PreferredSize(
           preferredSize:
               Size.fromHeight(MediaQuery.sizeOf(context).height * 0.08),
           child: AppBar(
-            backgroundColor: Colors.white,
+            backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
             automaticallyImplyLeading: false,
             title: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 15.0),
@@ -101,7 +106,7 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                     buttonSize: 60.0,
                     icon: Icon(
                       Icons.keyboard_arrow_left,
-                      color: FlutterFlowTheme.of(context).gray600,
+                      color: Colors.grey,
                       size: 30.0,
                     ),
                     onPressed: () async {
@@ -112,8 +117,8 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                     '連接坐墊',
                     style: FlutterFlowTheme.of(context).displaySmall.override(
                           fontFamily: 'Outfit',
-                          color: Color(0xFF15161E),
-                          fontSize: 36.0,
+                          color: Colors.grey,
+                          fontSize: 20.0,
                           fontWeight: FontWeight.w600,
                         ),
                   ),
@@ -124,7 +129,7 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                     buttonSize: 48.0,
                     icon: Icon(
                       Icons.more_vert_outlined,
-                      color: Colors.white,
+                      color: Colors.grey,
                       size: 24.0,
                     ),
                     onPressed: () {
@@ -134,6 +139,17 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                 ],
               ),
             ),
+            // flexibleSpace: Container(
+            //   height: MediaQuery.sizeOf(context).height,
+            //   decoration: BoxDecoration(
+            //     gradient: LinearGradient(
+            //       begin: Alignment(-1.00, 0.08),
+            //       end: Alignment(1, -0.08),
+            //       colors: [Color(0xFF9DCEFF), Color(0xFFA192FD)],
+            //     ),
+            //     borderRadius: BorderRadius.circular(5.0),
+            //   ),
+            // ),
             actions: [],
             centerTitle: false,
             elevation: 0.0,
@@ -144,12 +160,14 @@ class _ConnectWidgetState extends State<ConnectWidget> {
           child: SingleChildScrollView(
               child: Column(
             mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 30.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
                       padding:
@@ -166,7 +184,7 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                               height: 291.0,
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                    .primaryBackground,
                                 boxShadow: [
                                   BoxShadow(
                                     blurRadius: 4.0,
@@ -224,100 +242,146 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                         ],
                       ),
                     ),
-                    Text(
-                      '連線成功',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Rubik',
-                            fontSize: 20.0,
-                          ),
-                    ),
+                    // Text(
+                    //   '連線成功',
+                    //   style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    //         fontFamily: 'Rubik',
+                    //         fontSize: 20.0,
+                    //       ),
+                    // ),
                   ],
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16.0, 10.0, 16.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(48.0, 10.0, 48.0, 0.0),
+                child:Container(
+                  width: double.infinity,
+                  height: 60.0,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).white,
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 12.0,
+                        color: Color(0x0D000000),
+                        offset: Offset(0.0, 0.0),
+                      )
+                    ],
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  alignment: AlignmentDirectional(0.0, 0.0),
                 child: TextFormField(
                   controller: _model.textController,
                   obscureText: false,
                   decoration: InputDecoration(
-                    labelText: '坐墊序號',
-                    hintText: 'Enter cushion\'s serial number...',
-                    hintStyle: FlutterFlowTheme.of(context).bodyLarge,
+                    hintText: '坐墊序號',
+                    hintStyle:
+                    FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Rubik',
+                        color: Colors.grey,
+                      fontWeight: FontWeight.normal,
+                    ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primary,
-                        width: 2.0,
+                        color: Color(0x00000000),
+                        width: 1.0,
                       ),
-                      borderRadius: BorderRadius.circular(10.0),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(4.0),
+                        topRight: Radius.circular(4.0),
+                      ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Color(0x00000000),
-                        width: 2.0,
+                        width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     errorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Color(0x00000000),
-                        width: 2.0,
+                        width: 1.0,
                       ),
-                      borderRadius: BorderRadius.circular(10.0),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(4.0),
+                        topRight: Radius.circular(4.0),
+                      ),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Color(0x00000000),
-                        width: 2.0,
+                        width: 1.0,
                       ),
-                      borderRadius: BorderRadius.circular(10.0),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(4.0),
+                        topRight: Radius.circular(4.0),
+                      ),
                     ),
+                    contentPadding:
+                    EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                   ),
-                  style: FlutterFlowTheme.of(context).bodyMedium,
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    fontFamily: 'Rubik',
+                    color: FlutterFlowTheme.of(context).secondaryText,
+                    fontWeight: FontWeight.normal,
+                  ),
                   validator:
                       _model.textControllerValidator.asValidator(context),
                 ),
               ),
+              ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(72.0, 30.0, 72.0, 60.0),
-                child: FFButtonWidget(
-                  onPressed: () async {
-                    await connectToWiFi();
-                    context.pushNamed(
-                      'Connect',
-                      extra: <String, dynamic>{
-                        kTransitionInfoKey: TransitionInfo(
-                          hasTransition: true,
-                          transitionType: PageTransitionType.fade,
-                        ),
-                      },
-                    );
-                  },
-                  text: '確認',
-                  options: FFButtonOptions(
-                    width: double.infinity,
-                    height: 54.0,
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: FlutterFlowTheme.of(context).primary,
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Rubik',
-                          color: Colors.white,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.normal,
-                        ),
-                    elevation: 0.0,
-                    borderSide: BorderSide(
-                      color: Colors.transparent,
-                      width: 1.0,
+                padding: EdgeInsetsDirectional.fromSTEB(72.0, 50.0, 72.0, 60.0),
+                child: Container(
+                  width: 200,
+                  height: 60.0,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment(-1.00, 0.08),
+                      end: Alignment(1, -0.08),
+                      colors: [Color(0xFFA192FD), Color(0xFF9DCEFF)],
                     ),
-                    borderRadius: BorderRadius.circular(16.0),
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: FFButtonWidget(
+                    onPressed: () async {
+                      await connectToWiFi();
+                      context.pushNamed(
+                        'Connect',
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                          ),
+                        },
+                      );
+                    },
+                    text: '確認',
+                    options: FFButtonOptions(
+                      width: double.infinity,
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: Colors.transparent,
+                      textStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w600,
+                      ),
+                      elevation: 0.0,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
                   ),
                 ),
               ),
             ],
-          )
-          ),
+          )),
         ),
       ),
     );

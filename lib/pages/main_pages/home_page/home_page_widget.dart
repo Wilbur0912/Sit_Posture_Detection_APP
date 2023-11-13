@@ -344,9 +344,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 focusColor: Colors.transparent,
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  context.pushNamed('ProfilePage');
-                                },
+                                // onTap: () async {
+                                //   context.pushNamed('ProfilePage');
+                                // },
                                 child: Container(
                                   width: 48.0,
                                   height: 48.0,
@@ -474,14 +474,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       height: 80.0,
                                       fit: BoxFit.cover,
                                     ),
-                                    Text(
-                                      '72',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Rubik',
-                                            color: Colors.white,
-                                          ),
+                                    Image.asset(
+                                      'assets/images/lightbulb.png',
+                                      width: 30.0,
+                                      height: 30.0,
                                     ),
                                   ],
                                 ),
