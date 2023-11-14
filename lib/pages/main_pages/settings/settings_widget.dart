@@ -1,4 +1,6 @@
+import 'package:appp3/flutter_flow/flutter_flow_animations.dart';
 import 'package:appp3/pages/main_pages/settings/setting_dialog.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -25,7 +27,178 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   late SettingsModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
+  final animationsMap = {
+    'containerOnPageLoadAnimation1': AnimationInfo(
+      reverse: true,
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        ScaleEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 2000.ms,
+          begin: Offset(1.0, 1.0),
+          end: Offset(1.2, 1.2),
+        ),
+      ],
+    ),
+    'imageOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        RotateEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 900.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'columnOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'rowOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 80.0),
+          end: Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'containerOnPageLoadAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 80.0),
+          end: Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 200.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'containerOnPageLoadAnimation3': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 400.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 80.0),
+          end: Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 400.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'containerOnPageLoadAnimation4': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 300.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 80.0),
+          end: Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 300.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'containerOnPageLoadAnimation5': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 500.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 80.0),
+          end: Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 500.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'containerOnPageLoadAnimation6': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 900.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 80.0),
+          end: Offset(0.0, 0.0),
+        ),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 900.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'containerOnPageLoadAnimation7': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 1200.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 1200.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, 20.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+  };
   @override
   void initState() {
     super.initState();
@@ -62,7 +235,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                 buttonSize: 60.0,
                 icon: Icon(
                   Icons.keyboard_arrow_left,
-                  color: FlutterFlowTheme.of(context).gray600,
+                  color: Colors.grey,
                   size: 30.0,
                 ),
                 onPressed: () async {
@@ -71,19 +244,26 @@ class _SettingsWidgetState extends State<SettingsWidget> {
               ),
               Text(
                 '設定',
-                style: TextStyle(
-                  color: Color(0xFF1D1517),
-                  fontSize: 20,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w700,
+                style: FlutterFlowTheme.of(context).displaySmall.override(
+                  fontFamily: 'Outfit',
+                  color: Colors.grey,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 16.0, 0.0),
-                child: Container(
-                  width: 44.0,
-                  height: 44.0,
+              FlutterFlowIconButton(
+                borderColor: Colors.transparent,
+                borderRadius: 30.0,
+                borderWidth: 1.0,
+                buttonSize: 48.0,
+                icon: Icon(
+                  Icons.more_vert_outlined,
+                  color: Colors.grey,
+                  size: 24.0,
                 ),
+                onPressed: () {
+                  print('IconButton pressed ...');
+                },
               ),
             ],
           ),
@@ -181,7 +361,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                             ),
                           ],
                         ),
-                      ), //使用者名稱
+                      ).animateOnPageLoad(animationsMap[
+                      'containerOnPageLoadAnimation2']!), //使用者名稱
                       Padding(
                         padding: EdgeInsets.all(24.0),
                         child: Row(
@@ -206,7 +387,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                             ),
                           ],
                         ),
-                      ),
+                      ).animateOnPageLoad(animationsMap[
+                      'containerOnPageLoadAnimation3']!),
                       Padding(
                           padding: EdgeInsets.all(24.0),
                           child: Container(
@@ -278,7 +460,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                     userProfileProvider: userProfileProvider),
                               ],
                             ),
-                          )),
+                          )).animateOnPageLoad(animationsMap[
+                      'containerOnPageLoadAnimation4']!),
                     ]),
               ),
               // Padding(
@@ -748,7 +931,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     ),
                   ],
                 ),
-              ),
+              ).animateOnPageLoad(animationsMap[
+              'containerOnPageLoadAnimation5']!),
             ],
           ),
         ),

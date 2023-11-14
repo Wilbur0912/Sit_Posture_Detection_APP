@@ -1,4 +1,5 @@
 import 'package:appp3/userProfileProvider.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,20 @@ void main() async {
   await appState.initializePersistedState();
   final userProfileProvider = UserProfileProvider();
   await userProfileProvider.loadUserProfileFromSharedPreferences();
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+  FlutterLocalNotificationsPlugin();
+
+  final InitializationSettings initializationSettings =
+  InitializationSettings(
+    android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+  );
+
+  await flutterLocalNotificationsPlugin.initialize(
+    initializationSettings,
+    onSelectNotification: (String? payload) async {
+
+    },
+  );
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider.value(value: appState),

@@ -45,12 +45,12 @@ class _CushionWifiSettingWidgetState extends State<CushionWifiSettingWidget> {
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         appBar: PreferredSize(
           preferredSize:
               Size.fromHeight(MediaQuery.sizeOf(context).height * 0.08),
           child: AppBar(
-            backgroundColor: Colors.white,
+            backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
             automaticallyImplyLeading: false,
             title: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 15.0),
@@ -65,7 +65,7 @@ class _CushionWifiSettingWidgetState extends State<CushionWifiSettingWidget> {
                     buttonSize: 60.0,
                     icon: Icon(
                       Icons.keyboard_arrow_left,
-                      color: FlutterFlowTheme.of(context).gray600,
+                      color: Colors.grey,
                       size: 30.0,
                     ),
                     onPressed: () async {
@@ -73,11 +73,11 @@ class _CushionWifiSettingWidgetState extends State<CushionWifiSettingWidget> {
                     },
                   ),
                   Text(
-                    '坐墊wifi設定',
+                    '坐墊 Wi-Fi 設定',
                     style: FlutterFlowTheme.of(context).displaySmall.override(
                           fontFamily: 'Outfit',
-                          color: Color(0xFF15161E),
-                          fontSize: 36.0,
+                          color: Colors.grey,
+                          fontSize: 20.0,
                           fontWeight: FontWeight.w600,
                         ),
                   ),
@@ -88,7 +88,7 @@ class _CushionWifiSettingWidgetState extends State<CushionWifiSettingWidget> {
                     buttonSize: 48.0,
                     icon: Icon(
                       Icons.more_vert_outlined,
-                      color: Colors.white,
+                      color: Colors.grey,
                       size: 24.0,
                     ),
                     onPressed: () {
@@ -98,6 +98,17 @@ class _CushionWifiSettingWidgetState extends State<CushionWifiSettingWidget> {
                 ],
               ),
             ),
+            // flexibleSpace: Container(
+            //   height: MediaQuery.sizeOf(context).height,
+            //   decoration: BoxDecoration(
+            //     gradient: LinearGradient(
+            //       begin: Alignment(-1.00, 0.08),
+            //       end: Alignment(1, -0.08),
+            //       colors: [Color(0xFF9DCEFF), Color(0xFFA192FD)],
+            //     ),
+            //     borderRadius: BorderRadius.circular(5.0),
+            //   ),
+            // ),
             actions: [],
             centerTitle: false,
             elevation: 0.0,
@@ -112,170 +123,235 @@ class _CushionWifiSettingWidgetState extends State<CushionWifiSettingWidget> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(30.0, 30.0, 30.0, 30.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 30.0),
                 child: Container(
-                  width: 205.0,
-                  height: 192.0,
+                  height: 200,
+                  width: MediaQuery.of(context).size.width * 0.7,
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    gradient: LinearGradient(
+                      begin: Alignment(-1.00, 0.08),
+                      end: Alignment(1, -0.08),
+                      colors: [Color(0xFFA192FD), Color(0xFF9DCEFF)],
+                    ),
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  child: Image.asset(
+                    'assets/images/wsg.png',
+                    width: 10.0,
+                    height: 10.0,
+                    fit: BoxFit.scaleDown,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(48.0, 10.0, 48.0, 30.0),
+                child: Container(
+                  width: double.infinity,
+                  height: 60.0,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).white,
                     boxShadow: [
                       BoxShadow(
-                        blurRadius: 4.0,
-                        color: Color(0x34090F13),
-                        offset: Offset(0.0, 2.0),
+                        blurRadius: 12.0,
+                        color: Color(0x0D000000),
+                        offset: Offset(0.0, 0.0),
                       )
                     ],
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(12.0),
                   ),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 12.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(50.0),
-                          child: Image.asset(
-                            'assets/images/icons8-wifi-96.png',
-                            width: 86.0,
-                            height: 101.0,
-                            fit: BoxFit.cover,
-                          ),
+                  alignment: AlignmentDirectional(0.0, 0.0),
+                  child: TextFormField(
+                    controller: _model.textController1,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      hintText: '熱點 Wi-Fi 名稱',
+                      hintStyle:
+                          FlutterFlowTheme.of(context).bodyMedium.override(
+                                fontFamily: 'Rubik',
+                                color: Colors.grey,
+                                fontWeight: FontWeight.normal,
+                              ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1.0,
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16.0, 10.0, 16.0, 30.0),
-                child: TextFormField(
-                  controller: _model.textController1,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    labelText: '坐墊要連的wifi名稱',
-                    hintText: 'Enter cushion\'s serial number...',
-                    hintStyle: FlutterFlowTheme.of(context).bodyLarge,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primary,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                  style: FlutterFlowTheme.of(context).bodyMedium,
-                  validator:
-                      _model.textController1Validator.asValidator(context),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16.0, 10.0, 16.0, 30.0),
-                child: TextFormField(
-                  controller: _model.textController2,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    labelText: '坐墊要連的wifi密碼',
-                    hintText: 'Enter cushion\'s serial number...',
-                    hintStyle: FlutterFlowTheme.of(context).bodyLarge,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primary,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                  style: FlutterFlowTheme.of(context).bodyMedium,
-                  validator:
-                      _model.textController2Validator.asValidator(context),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(72.0, 0.0, 72.0, 60.0),
-                child: FFButtonWidget(
-                  onPressed: () async {
-                    context.pushNamed(
-                      'Connect',
-                      extra: <String, dynamic>{
-                        'wifiName': _model.textController1.text,
-                        'wifiPassword': _model.textController2.text,
-                        kTransitionInfoKey: TransitionInfo(
-                          hasTransition: true,
-                          transitionType: PageTransitionType.fade,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(4.0),
+                          topRight: Radius.circular(4.0),
                         ),
-                      },
-                    );
-                  },
-                  text: 'Continue',
-                  options: FFButtonOptions(
-                    width: double.infinity,
-                    height: 54.0,
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: FlutterFlowTheme.of(context).primary,
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 2.0,
+                        ),
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(4.0),
+                          topRight: Radius.circular(4.0),
+                        ),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1.0,
+                        ),
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(4.0),
+                          topRight: Radius.circular(4.0),
+                        ),
+                      ),
+                      contentPadding:
+                          EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                    ),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Rubik',
-                          color: Colors.white,
-                          fontSize: 14.0,
+                          color: FlutterFlowTheme.of(context).secondaryText,
                           fontWeight: FontWeight.normal,
                         ),
-                    elevation: 0.0,
-                    borderSide: BorderSide(
-                      color: Colors.transparent,
-                      width: 1.0,
+                    validator:
+                        _model.textController1Validator.asValidator(context),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(48.0, 10.0, 48.0, 30.0),
+                child: Container(
+                  width: double.infinity,
+                  height: 60.0,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).white,
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 12.0,
+                        color: Color(0x0D000000),
+                        offset: Offset(0.0, 0.0),
+                      )
+                    ],
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  alignment: AlignmentDirectional(0.0, 0.0),
+                  child: TextFormField(
+                    controller: _model.textController2,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      hintText: '熱點 Wi-Fi 密碼',
+                      hintStyle:
+                          FlutterFlowTheme.of(context).bodyMedium.override(
+                                fontFamily: 'Rubik',
+                                color: Colors.grey,
+                                fontWeight: FontWeight.normal,
+                              ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1.0,
+                        ),
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(4.0),
+                          topRight: Radius.circular(4.0),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1.0,
+                        ),
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(4.0),
+                          topRight: Radius.circular(4.0),
+                        ),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1.0,
+                        ),
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(4.0),
+                          topRight: Radius.circular(4.0),
+                        ),
+                      ),
+                      contentPadding:
+                          EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                     ),
-                    borderRadius: BorderRadius.circular(16.0),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Rubik',
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                          fontWeight: FontWeight.normal,
+                        ),
+                    validator:
+                        _model.textController1Validator.asValidator(context),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(72.0, 20.0, 72.0, 90.0),
+                child: Container(
+                  width: 200,
+                  height: 60.0,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment(-1.00, 0.08),
+                      end: Alignment(1, -0.08),
+                      colors: [Color(0xFFA192FD), Color(0xFF9DCEFF)],
+                    ),
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: FFButtonWidget(
+                    onPressed: () async {
+                      context.pushNamed(
+                        'Connect',
+                        extra: <String, dynamic>{
+                          'wifiName': _model.textController1.text,
+                          'wifiPassword': _model.textController2.text,
+                          kTransitionInfoKey: TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                          ),
+                        },
+                      );
+                    },
+                    text: '繼續',
+                    options: FFButtonOptions(
+                      width: double.infinity,
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: Colors.transparent,
+                      textStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w600,
+                      ),
+                      elevation: 0.0,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
                   ),
                 ),
               ),
             ],
-          )
-          ),
+          )),
         ),
       ),
     );

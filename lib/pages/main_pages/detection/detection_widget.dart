@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:web_socket_channel/io.dart';
 
 import '../../../manager/AnalyzationManager.dart';
@@ -34,6 +35,8 @@ class _DetectionWidgetState extends State<DetectionWidget>
     with TickerProviderStateMixin {
   late DetectionModel _model;
   String currentPostureName = '坐姿端正'; // 初始文字
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+  FlutterLocalNotificationsPlugin();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -105,14 +108,20 @@ class _DetectionWidgetState extends State<DetectionWidget>
     final userProfileProvider =
     Provider.of<UserProfileProvider>(context, listen: false);
     // 監聽WebSocket消息
-    final channel = IOWebSocketChannel.connect('ws://https://spineinspectorbackend-production.up.railway.app//inspect/',headers: {'token': userProfileProvider.userProfile?.token},);
+    sendNotification();
+    final channel = IOWebSocketChannel.connect(
+      'ws://https://spineinspectorbackend-production.up.railway.app//inspect/',
+      headers: {'token': userProfileProvider.userProfile?.token},);
     channel.stream.listen((message) {
       // 當接收到新消息時，更新文字
       setState(() {
         currentPostureName = message;
-        if(currentPostureName==""){
-          currentPostureName='坐姿端正';
+        if (currentPostureName == "") {
+          currentPostureName = '坐姿端正';
         }
+
+        sendNotification();
+
         //fetch資料，將資料整理到dataItem裡
         fetchDataList(userProfileProvider.userProfile?.token);
       });
@@ -139,11 +148,32 @@ class _DetectionWidgetState extends State<DetectionWidget>
   //     });
   //   }
   // }
+  Future<void> sendNotification() async {
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+    AndroidNotificationDetails(
+      'your_channel_id',
+      'your_channel_name',
+      importance: Importance.max,
+      channelDescription: 'your_channel_description',
+    );
+
+    const NotificationDetails platformChannelSpecifics =
+    NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    await flutterLocalNotificationsPlugin.show(
+      0, // 通知的唯一 ID
+      '正常坐姿', // 通知的標題
+      '您的坐姿是正常的', // 通知的内容
+      platformChannelSpecifics,
+      payload: 'Custom_Sound',
+    );
+  }
   Future<void> fetchDataList(String? token) async {
     final DateTime now = DateTime.now();
     final String formattedDate = DateFormat('yyyy-M-d').format(now);
 
-    final response = await AnalyzationManager.getSitRecord(token, formattedDate, formattedDate);
+    final response = await AnalyzationManager.getSitRecord(
+        token, formattedDate, formattedDate);
 
     if (response.isSuccess && response.data is List<dynamic>) {
       final List<dynamic> responseData = response.data;
@@ -156,8 +186,6 @@ class _DetectionWidgetState extends State<DetectionWidget>
       });
     }
   }
-
-
 
 
   @override
@@ -175,12 +203,12 @@ class _DetectionWidgetState extends State<DetectionWidget>
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Colors.white,
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(24.0, 48.0, 24.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(24.0, 60.0, 24.0, 0.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -192,7 +220,7 @@ class _DetectionWidgetState extends State<DetectionWidget>
                     buttonSize: 60.0,
                     icon: Icon(
                       Icons.keyboard_arrow_left,
-                      color: FlutterFlowTheme.of(context).gray600,
+                      color: Colors.grey,
                       size: 30.0,
                     ),
                     onPressed: () async {
@@ -202,20 +230,20 @@ class _DetectionWidgetState extends State<DetectionWidget>
                   Text(
                     '即時監控',
                     style: FlutterFlowTheme.of(context).displaySmall.override(
-                          fontFamily: 'Outfit',
-                          color: Color(0xFF15161E),
-                          fontSize: 36.0,
-                          fontWeight: FontWeight.w600,
-                        ),
+                      fontFamily: 'Outfit',
+                      color: Colors.grey,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   FlutterFlowIconButton(
                     borderColor: Colors.transparent,
                     borderRadius: 30.0,
                     borderWidth: 1.0,
-                    buttonSize: 40.0,
+                    buttonSize: 48.0,
                     icon: Icon(
                       Icons.more_vert_outlined,
-                      color: Colors.white,
+                      color: Colors.grey,
                       size: 24.0,
                     ),
                     onPressed: () {
@@ -231,54 +259,95 @@ class _DetectionWidgetState extends State<DetectionWidget>
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(
-                    ' ',
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Rubik',
-                          color: FlutterFlowTheme.of(context).primary,
-                          fontSize: 14.0,
-                          letterSpacing: 1.0,
-                          fontWeight: FontWeight.w500,
-                        ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(60.0, 12.0, 60.0, 20.0),
-                    child: RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: '目前您',
-                            style: TextStyle(),
-                          ),
-                          TextSpan(
-                            text: currentPostureName,
-                            style: TextStyle(),
-                          ),
-                        ],
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Rubik',
-                              fontSize: 24.0,
-                              fontWeight: FontWeight.w500,
-                            ),
+                  Container(
+                    width: 275,
+                    height: 450,
+                    decoration: ShapeDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment(-1.00, 0.08),
+                        end: Alignment(1, -0.08),
+                        colors: [Color(0xFFA192FD), Color(0xFF9DCEFF)],
                       ),
-                      textAlign: TextAlign.center,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(22),
+                      ),
+                      shadows: [
+                        BoxShadow(
+                          color: Color(0x4CC58BF2),
+                          blurRadius: 22,
+                          offset: Offset(0, 10),
+                          spreadRadius: 0,
+                        )
+                      ],
+
+                    ),
+                    child: Column(
+
+                      children: [
+                        Padding(padding:
+                        EdgeInsetsDirectional.fromSTEB(60.0, 40.0, 60.0, 20.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image.asset(
+                                  callPostureImage(currentPostureName),
+                                  width: 180.0,
+                                  height: 235.0,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding:
+                          EdgeInsetsDirectional.fromSTEB(
+                              60.0, 12.0, 60.0, 20.0),
+                          child: RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: '目前您',
+                                  style: TextStyle(),
+                                ),
+                                TextSpan(
+                                  text: currentPostureName,
+                                  style: TextStyle(),
+                                ),
+                              ],
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w600,
+                                height: 0.11,
+                              ),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        // Text(
+                        //   ' ',
+                        //   style: FlutterFlowTheme
+                        //       .of(context)
+                        //       .bodyMedium
+                        //       .override(
+                        //     fontFamily: 'Rubik',
+                        //     color: FlutterFlowTheme
+                        //         .of(context)
+                        //         .primary,
+                        //     fontSize: 14.0,
+                        //     letterSpacing: 1.0,
+                        //     fontWeight: FontWeight.w500,
+                        //   ),
+                        // ),
+
+                      ],
                     ),
                   ),
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Image.asset(
-                          callPostureImage(currentPostureName),
-                          width: 180.0,
-                          height: 235.0,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ],
-                  ),
+
                 ],
               ),
             ),
@@ -290,11 +359,13 @@ class _DetectionWidgetState extends State<DetectionWidget>
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(36.0, 0.0, 36.0, 0.0),
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            36.0, 0.0, 36.0, 0.0),
                         child: SingleChildScrollView(
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
-                            children: List.generate(yourItemList.length, (index) {
+                            children: List.generate(
+                                yourItemList.length, (index) {
                               final currentItem = yourItemList[index];
 
                               return Column(
@@ -302,12 +373,15 @@ class _DetectionWidgetState extends State<DetectionWidget>
                                 children: [
                                   Row(
                                     mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .spaceBetween,
                                     children: [
                                       ClipRRect(
-                                        borderRadius: BorderRadius.circular(8.0),
+                                        borderRadius: BorderRadius.circular(
+                                            8.0),
                                         child: Image.asset(
-                                          callPostureImage(currentItem.position),
+                                          callPostureImage(
+                                              currentItem.position),
                                           width: 40.0,
                                           height: 40.0,
                                           fit: BoxFit.contain,
@@ -315,14 +389,21 @@ class _DetectionWidgetState extends State<DetectionWidget>
                                       ),
                                       Text(
                                         currentItem.position,
-                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                        style: FlutterFlowTheme
+                                            .of(context)
+                                            .bodyMedium
+                                            .override(
                                           fontFamily: 'Rubik',
                                           fontWeight: FontWeight.normal,
                                         ),
                                       ),
                                       Text(
-                                        '${(currentItem.second/60).toStringAsFixed(1)} 分鐘',
-                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                        '${(currentItem.second / 60)
+                                            .toStringAsFixed(1)} 分鐘',
+                                        style: FlutterFlowTheme
+                                            .of(context)
+                                            .bodyMedium
+                                            .override(
                                           fontFamily: 'Rubik',
                                           fontWeight: FontWeight.normal,
                                         ),
@@ -344,32 +425,48 @@ class _DetectionWidgetState extends State<DetectionWidget>
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(72.0, 20.0, 72.0, 60.0),
-                      child: FFButtonWidget(
-                        onPressed: () async {
-                          context.pushNamed('analyzation');
-                        },
-                        text: '觀看統計資料',
-                        options: FFButtonOptions(
-                          width: double.infinity,
-                          height: 54.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                          color: FlutterFlowTheme.of(context).primary,
-                          textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                            fontFamily: 'Rubik',
-                            color: Colors.white,
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.normal,
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            72.0, 20.0, 72.0, 60.0),
+                        child: Container(
+                          width: 200,
+                          height: 60.0,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment(-1.00, 0.08),
+                              end: Alignment(1, -0.08),
+                              colors: [Color(0xFFA192FD), Color(0xFF9DCEFF)],
+                            ),
+                            borderRadius: BorderRadius.circular(30.0),
                           ),
-                          elevation: 2.0,
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                            width: 1.0,
+                          child: FFButtonWidget(
+                            onPressed: () async {
+                              context.pushNamed('analyzation');
+                            },
+                            text: '觀看統計資料',
+                            options: FFButtonOptions(
+                              width: double.infinity,
+                              padding:
+                              EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              iconPadding:
+                              EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: Colors.transparent,
+                              textStyle: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w600,
+                              ),
+                              elevation: 0.0,
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
                           ),
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
-                      ),
+                        )
                     ),
                   ],
                 ),
