@@ -278,14 +278,15 @@ class _HomePageWidgetState extends State<HomePageWidget>
     fetch7dayData();
     fetchTodayDataList(userProfileProvider.userProfile?.token);
     // 監聽WebSocket消息
-    final channel = IOWebSocketChannel.connect('ws://https://spineinspectorbackend-production.up.railway.app//inspect/',headers: {'token': userProfileProvider.userProfile?.token},);
+    /*final channel = IOWebSocketChannel.connect(Uri.parse('wss://spineinspectorbackend-production.up.railway.app/inspect/'),headers: {'token': userProfileProvider.userProfile?.token},);
+
     channel.stream.listen((message) {
       // 當接收到新消息時，更新文字
       setState(() async {
         currentPostureName = message;
         fetchTodayDataList(userProfileProvider.userProfile?.token);
       });
-    });
+    });*/
   }
 
   Future<void> fetch7dayData() async {

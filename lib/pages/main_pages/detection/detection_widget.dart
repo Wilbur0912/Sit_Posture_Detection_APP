@@ -1,9 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:web_socket_channel/io.dart';
 
 import '../../../manager/AnalyzationManager.dart';
+import '../../../model/userModel.dart';
 import '../../../userProfileProvider.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -108,22 +111,64 @@ class _DetectionWidgetState extends State<DetectionWidget>
     final userProfileProvider =
     Provider.of<UserProfileProvider>(context, listen: false);
     // 監聽WebSocket消息
-    sendNotification();
+    //sendNotification();
+    //connectToSocket(userProfileProvider.userProfile);
     final channel = IOWebSocketChannel.connect(
-      'ws://https://spineinspectorbackend-production.up.railway.app//inspect/',
-      headers: {'token': userProfileProvider.userProfile?.token},);
+      'ws://spineinspectorbackend-production.up.railway.app/inspect/',
+      headers: {'token': userProfileProvider.userProfile?.token, 'Deviceid': '1'});
     channel.stream.listen((message) {
       // 當接收到新消息時，更新文字
       setState(() {
         currentPostureName = message;
         if (currentPostureName == "") {
           currentPostureName = '坐姿端正';
+        } else {
+          print("socket received: " + message);
         }
 
-        sendNotification();
+        //sendNotification();
 
         //fetch資料，將資料整理到dataItem裡
         fetchDataList(userProfileProvider.userProfile?.token);
+      });
+    });
+
+    /*
+     */
+  }
+
+  Future<void> connectToSocket(UserProfile? userProfile) async {
+    Random r = new Random();
+    String key = base64.encode(List<int>.generate(16, (_) => r.nextInt(255)));
+
+    HttpClient client = HttpClient();
+    HttpClientRequest request = await client.getUrl(Uri.parse('https://spineinspectorbackend-production.up.railway.app/inspect/'));
+    request.headers.add('connection', 'Upgrade');
+    request.headers.add('upgrade', 'websocket');
+    request.headers.add('Sec-WebSocket-Version', '13');
+    request.headers.add('Sec-WebSocket-Key', key);
+    request.headers.add('token', userProfile?.token as Object);
+    request.headers.add('Deviceid', '1');
+    HttpClientResponse response = await request.close();
+
+    Socket socket = await response.detachSocket();
+
+    WebSocket ws = WebSocket.fromUpgradedSocket(socket, serverSide: false);
+
+    ws.listen((message) {
+      // 當接收到新消息時，更新文字
+      setState(() {
+        currentPostureName = message;
+        if (currentPostureName == "") {
+          currentPostureName = '坐姿端正';
+        } else {
+          print("socket received: " + message);
+        }
+
+        //sendNotification();
+
+        //fetch資料，將資料整理到dataItem裡
+        //fetchDataList(userProfileProvider.userProfile?.token);
       });
     });
   }
