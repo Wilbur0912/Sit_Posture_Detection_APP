@@ -152,7 +152,8 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
 
   Future<void> _fetchSitRecordData() async {
     String eDate = DateFormat("yyyy-MM-dd").format(endDate);
-    String sDate = DateFormat("yyyy-MM-dd").format(DateTime.now().subtract(const Duration(days: 6)));
+    String sDate = DateFormat("yyyy-MM-dd")
+        .format(DateTime.now().subtract(const Duration(days: 6)));
     if (startDate != null) {
       DateTime tmp = startDate!;
       sDate = DateFormat("yyyy-MM-dd").format(tmp);
@@ -173,15 +174,14 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
     for (var record in records) {
       print(record.second);
       String date = DateFormat('yyyy-MM-dd').format(record.time);
-      totalMinutesMap[date] = (totalMinutesMap[date] ?? 0) + (record.second/60);
+      totalMinutesMap[date] =
+          (totalMinutesMap[date] ?? 0) + (record.second / 60);
     }
     return totalMinutesMap;
   }
 
   @override
   Widget build(BuildContext context) {
-
-
     context.watch<FFAppState>();
     double totalMinutes = double.parse(((sitRecordList.fold<int>(
                 0,
@@ -244,20 +244,20 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                         },
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            0.0, 0.0, 0.0, 0.0),
-                        child: Center(child:Text(
-                          '資料統計',
-                          textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context)
-                              .bodyLarge
-                              .override(
-                                fontFamily: 'Roboto',
-                                fontSize: 20.0,
-                                letterSpacing: 0.2,
-                                fontWeight: FontWeight.w600,
-                              ),
-                        ),
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        child: Center(
+                          child: Text(
+                            '資料統計',
+                            textAlign: TextAlign.center,
+                            style:
+                                FlutterFlowTheme.of(context).bodyLarge.override(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 20.0,
+                                      letterSpacing: 0.2,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                          ),
                         ),
                       ),
                       FlutterFlowIconButton(
@@ -362,16 +362,16 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           2.0, 0.0, 0.0, 5.0),
-                                    child:Text(
-                                      '${averageMinutes >= 1 ? "" : "低於 "}',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                        fontFamily: 'Roboto',
-                                        color: Colors.white,
-                                        fontSize: 25.0,
+                                      child: Text(
+                                        '${averageMinutes >= 1 ? "" : "低於 "}',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Roboto',
+                                              color: Colors.white,
+                                              fontSize: 25.0,
+                                            ),
                                       ),
-                                    ),
                                     ),
                                     Text(
                                       '${averageMinutes >= 1 ? averageMinutes : "1"}',
@@ -483,11 +483,10 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                               if (newValue != null) {
                                                 print('a');
 
-                                                  _onTabClick(newValue);
-                                                  _fetchSitRecordData();
-                                                  print(
-                                                      '$startDate and $endDate');
-
+                                                _onTabClick(newValue);
+                                                _fetchSitRecordData();
+                                                print(
+                                                    '$startDate and $endDate');
                                               }
                                             },
                                             items: <String>['日', '周', '月', '年']
@@ -555,9 +554,8 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                         .override(
                                           fontFamily: 'Roboto',
                                           fontSize: 16.0,
-                                      color: Colors.grey,
+                                          color: Colors.grey,
                                         ),
-
                                   ),
                                   Icon(
                                     Icons.keyboard_control_outlined,

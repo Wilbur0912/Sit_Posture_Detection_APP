@@ -6,6 +6,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:web_socket_channel/io.dart';
 
 import '../../../manager/AnalyzationManager.dart';
+import '../../../model/sitRecordModel.dart';
 import '../../../model/userModel.dart';
 import '../../../userProfileProvider.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -38,6 +39,7 @@ class _DetectionWidgetState extends State<DetectionWidget>
     with TickerProviderStateMixin {
   late DetectionModel _model;
   String currentPostureName = '坐姿端正'; // 初始文字
+  List<SitRecord> sitRecordList = [];
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
   FlutterLocalNotificationsPlugin();
 
@@ -106,10 +108,12 @@ class _DetectionWidgetState extends State<DetectionWidget>
   @override
   void initState() {
     super.initState();
+
     _model = createModel(context, () => DetectionModel());
     sortAndMoveToTop(yourItemList, currentPostureName);
     final userProfileProvider =
     Provider.of<UserProfileProvider>(context, listen: false);
+    fetchDataList(userProfileProvider.userProfile?.token);
     // 監聽WebSocket消息
     //sendNotification();
     //connectToSocket(userProfileProvider.userProfile);
@@ -119,6 +123,7 @@ class _DetectionWidgetState extends State<DetectionWidget>
     channel.stream.listen((message) {
       // 當接收到新消息時，更新文字
       setState(() {
+        fetchDataList(userProfileProvider.userProfile?.token);
         currentPostureName = message;
         if (currentPostureName == "") {
           currentPostureName = '坐姿端正';
@@ -127,9 +132,9 @@ class _DetectionWidgetState extends State<DetectionWidget>
         }
 
         //sendNotification();
-
-        //fetch資料，將資料整理到dataItem裡
         fetchDataList(userProfileProvider.userProfile?.token);
+        //fetch資料，將資料整理到dataItem裡
+
       });
     });
 
@@ -219,15 +224,11 @@ class _DetectionWidgetState extends State<DetectionWidget>
 
     final response = await AnalyzationManager.getSitRecord(
         token, formattedDate, formattedDate);
-
-    if (response.isSuccess && response.data is List<dynamic>) {
-      final List<dynamic> responseData = response.data;
-
+    print(formattedDate);
+    if (response.isSuccess) {
+      final List<SitRecord> fetchedSitRecordList = SitRecordFromResponse(response.data);
       setState(() {
-        yourItemList = responseData.map((itemData) {
-          return YourDataItem(itemData['position'], itemData['second']);
-        }).toList();
-        sortAndMoveToTop(yourItemList, currentPostureName);
+        sitRecordList = fetchedSitRecordList;
       });
     }
   }
@@ -410,8 +411,8 @@ class _DetectionWidgetState extends State<DetectionWidget>
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: List.generate(
-                                yourItemList.length, (index) {
-                              final currentItem = yourItemList[index];
+                                sitRecordList.length, (index) {
+                              final currentItem = sitRecordList[index];
 
                               return Column(
                                 mainAxisSize: MainAxisSize.max,
@@ -430,6 +431,8 @@ class _DetectionWidgetState extends State<DetectionWidget>
                                           width: 40.0,
                                           height: 40.0,
                                           fit: BoxFit.contain,
+                                          errorBuilder: (context, error, stackTrace) =>
+                                              Text('Error loading image: ${error.toString()}'),
                                         ),
                                       ),
                                       Text(
