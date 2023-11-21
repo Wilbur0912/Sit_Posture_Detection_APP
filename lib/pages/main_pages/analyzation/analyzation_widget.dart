@@ -1,5 +1,6 @@
 // import 'dart:convert';
 
+import '../../../generated/l10n.dart';
 import '../../../manager/AnalyzationManager.dart';
 import '../../../model/sitRecordModel.dart';
 import '../../../userProfileProvider.dart';
@@ -89,7 +90,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
   };
   DateTime endDate = DateTime.now();
   DateTime? startDate;
-  String selectedType = '日';
+  String selectedType = S.current.day;
   Map<String, double> totalMinutesByDate = {};
 
   void changeDateAndChartType(
@@ -129,30 +130,26 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
     DateTime? s;
     final DateTime today = DateTime.now();
 
-    switch (type) {
-      case "日":
-        s = today.subtract(const Duration(days: 6));
-        e = today;
-        break;
-      case '周':
-        s = today.subtract(const Duration(days: 27));
-        e = today;
-        break;
-      case '月':
-        s = today.subtract(const Duration(days: 364));
-        e = today;
-        break;
-      case '年':
-        s = today.subtract(const Duration(days: 3649));
-        e = today;
-        break;
+    if (type == S.of(context).day) {
+      s = DateTime.now().subtract(const Duration(days: 6));
+      e = DateTime.now();
+    } else if (type == S.of(context).week) {
+      s = DateTime.now().subtract(const Duration(days: 27));
+      e = DateTime.now();
+    } else if (type == S.of(context).month) {
+      s = DateTime.now().subtract(const Duration(days: 364));
+      e = DateTime.now();
+    } else if (type == S.of(context).year) {
+      s = DateTime.now().subtract(const Duration(days: 3649));
+      e = DateTime.now();
     }
     changeDateAndChartType(start: s, end: e, type: type);
   }
 
   Future<void> _fetchSitRecordData() async {
     String eDate = DateFormat("yyyy-MM-dd").format(endDate);
-    String sDate = DateFormat("yyyy-MM-dd").format(DateTime.now().subtract(const Duration(days: 6)));
+    String sDate = DateFormat("yyyy-MM-dd")
+        .format(DateTime.now().subtract(const Duration(days: 6)));
     if (startDate != null) {
       DateTime tmp = startDate!;
       sDate = DateFormat("yyyy-MM-dd").format(tmp);
@@ -164,7 +161,8 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
         SitRecordFromResponse(res.data);
     setState(() {
       totalMinutesByDate = calculateTotalMinutesByDate(fetchedSitRecordList);
-      sitRecordList = fetchedSitRecordList; // 賦值給 SitRecordList 變數
+      sitRecordList = fetchedSitRecordList;
+      // 賦值給 SitRecordList 變數
     });
   }
 
@@ -173,15 +171,14 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
     for (var record in records) {
       print(record.second);
       String date = DateFormat('yyyy-MM-dd').format(record.time);
-      totalMinutesMap[date] = (totalMinutesMap[date] ?? 0) + (record.second/60);
+      totalMinutesMap[date] =
+          (totalMinutesMap[date] ?? 0) + (record.second / 60);
     }
     return totalMinutesMap;
   }
 
   @override
   Widget build(BuildContext context) {
-
-
     context.watch<FFAppState>();
     double totalMinutes = double.parse(((sitRecordList.fold<int>(
                 0,
@@ -244,20 +241,20 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                         },
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            0.0, 0.0, 0.0, 0.0),
-                        child: Center(child:Text(
-                          '資料統計',
-                          textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context)
-                              .bodyLarge
-                              .override(
-                                fontFamily: 'Roboto',
-                                fontSize: 20.0,
-                                letterSpacing: 0.2,
-                                fontWeight: FontWeight.w600,
-                              ),
-                        ),
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        child: Center(
+                          child: Text(
+                            '${S.of(context).total_time}',
+                            textAlign: TextAlign.center,
+                            style:
+                                FlutterFlowTheme.of(context).bodyLarge.override(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 20.0,
+                                      letterSpacing: 0.2,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                          ),
                         ),
                       ),
                       FlutterFlowIconButton(
@@ -295,7 +292,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '統計總共',
+                                  '${S.of(context).total_static}',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -324,7 +321,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           2.0, 0.0, 0.0, 6.0),
                                       child: Text(
-                                        '小時',
+                                        '${S.of(context).hour}',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -344,7 +341,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '總計平均',
+                                  '${S.of(context).total_av}',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -362,16 +359,16 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           2.0, 0.0, 0.0, 5.0),
-                                    child:Text(
-                                      '${averageMinutes >= 1 ? "" : "低於 "}',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                        fontFamily: 'Roboto',
-                                        color: Colors.white,
-                                        fontSize: 25.0,
+                                      child: Text(
+                                        '${averageMinutes >= 1 ? "" : "${S.of(context).low_than} "}',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Roboto',
+                                              color: Colors.white,
+                                              fontSize: 25.0,
+                                            ),
                                       ),
-                                    ),
                                     ),
                                     Text(
                                       '${averageMinutes >= 1 ? averageMinutes : "1"}',
@@ -387,7 +384,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           2.0, 0.0, 0.0, 6.0),
                                       child: Text(
-                                        '小時',
+                                        '${S.of(context).hour}',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -437,7 +434,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    '每$selectedType不良姿勢統計',
+                                    '${S.of(context).every_awful(selectedType)}',
                                     style: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 16,
@@ -483,14 +480,13 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                               if (newValue != null) {
                                                 print('a');
 
-                                                  _onTabClick(newValue);
-                                                  _fetchSitRecordData();
-                                                  print(
-                                                      '$startDate and $endDate');
-
+                                                _onTabClick(newValue);
+                                                _fetchSitRecordData();
+                                                print(
+                                                    '$startDate and $endDate');
                                               }
                                             },
-                                            items: <String>['日', '周', '月', '年']
+                                            items: <String>['${S.of(context).day}', '${S.of(context).week}', '${S.of(context).month}', '${S.of(context).year}']
                                                 .map<DropdownMenuItem<String>>(
                                                     (String value) {
                                               return DropdownMenuItem<String>(
@@ -549,15 +545,14 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    '詳細記錄',
+                                    '${S.of(context).detail_record}',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Roboto',
                                           fontSize: 16.0,
-                                      color: Colors.grey,
+                                          color: Colors.grey,
                                         ),
-
                                   ),
                                   Icon(
                                     Icons.keyboard_control_outlined,
@@ -649,7 +644,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                                                         0.0,
                                                                         2.0),
                                                             child: Text(
-                                                              '小時',
+                                                              '${S.of(context).hour}',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -673,7 +668,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                                       ),
                                                       Text(
                                                         DateFormat(
-                                                                'yyyy MM月dd日 ')
+                                                                'yyyy MM/dd ')
                                                             .format(
                                                                 DateTime.parse(
                                                                     date)),
@@ -699,7 +694,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                                   Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
-                                                            .fromSTEB(25.0, 0.0,
+                                                            .fromSTEB(40.0, 0.0,
                                                                 0.0, .0),
                                                     child: Column(
                                                       crossAxisAlignment:
@@ -708,14 +703,14 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                                       children: recordsForDate
                                                           .map((record) {
                                                         return Text(
-                                                          '${record.position} : ${(record.second / 3600).toStringAsFixed(2)}小時',
+                                                          '${record.position} : ${(record.second / 3600).toStringAsFixed(2)}${S.of(context).hour}',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .displayMedium
                                                               .override(
                                                                 fontFamily:
                                                                     'Roboto',
-                                                                fontSize: 15.0,
+                                                                fontSize: 12.0,
                                                                 letterSpacing:
                                                                     0.2,
                                                                 color:

@@ -25,6 +25,7 @@ class AnalyzationManager {
       if (start != null) 'start': '$start',
       'end': '$end',
     };
+    print(end);
     try {
       final res = await http.get(
         Uri.parse(url),
@@ -35,7 +36,7 @@ class AnalyzationManager {
     } catch (e) {
       throw Exception("失敗：$e ");
     }
-
+    print("成功");
     return responseData;
   }
 }

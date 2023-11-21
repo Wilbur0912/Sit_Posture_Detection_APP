@@ -1,3 +1,4 @@
+import '../../../generated/l10n.dart';
 import '../../../model/userModel.dart';
 import '../../../userProfileProvider.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -92,20 +93,6 @@ class _MobileSignInWidgetState extends State<MobileSignInWidget>
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // FlutterFlowIconButton(
-                        //   borderColor: Colors.transparent,
-                        //   borderRadius: 30.0,
-                        //   borderWidth: 1.0,
-                        //   buttonSize: 48.0,
-                        //   icon: Icon(
-                        //     Icons.arrow_back_ios_rounded,
-                        //     color: FlutterFlowTheme.of(context).primaryText,
-                        //     size: 24.0,
-                        //   ),
-                        //   onPressed: () async {
-                        //     context.pop();
-                        //   },
-                        // ),
                         LinearPercentIndicator(
                           percent: 0.11,
                           width: 120.0,
@@ -128,7 +115,7 @@ class _MobileSignInWidgetState extends State<MobileSignInWidget>
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: '步驟 ',
+                                text: '${S.of(context).step}',
                                 style: GoogleFonts.getFont(
                                   'Rubik',
                                   color: FlutterFlowTheme.of(context).primary,
@@ -161,7 +148,7 @@ class _MobileSignInWidgetState extends State<MobileSignInWidget>
                           padding:
                           EdgeInsetsDirectional.fromSTEB(96.0, 12.0, 96.0, 0.0),
                           child: Text(
-                            '輸入帳號名稱',
+                            '${S.of(context).en_account_name}',
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Rubik',
@@ -174,7 +161,7 @@ class _MobileSignInWidgetState extends State<MobileSignInWidget>
                           padding:
                           EdgeInsetsDirectional.fromSTEB(84.0, 12.0, 84.0, 0.0),
                           child: Text(
-                            '請輸入帳號名稱\n繼續下一步',
+                            '${S.of(context).in_a}',
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Rubik',
@@ -221,7 +208,7 @@ class _MobileSignInWidgetState extends State<MobileSignInWidget>
                                 controller: _model.textController,
                                 obscureText: false,
                                 decoration: InputDecoration(
-                                  hintText: '輸入帳號名稱',
+                                  hintText: '${S.of(context).en_account_name}',
                                   hintStyle: FlutterFlowTheme.of(context)
                                       .bodySmall
                                       .override(
@@ -327,7 +314,7 @@ class _MobileSignInWidgetState extends State<MobileSignInWidget>
                             },
                           );
                         },
-                        text: '下一步',
+                        text: '${S.of(context).next_step}',
                         options: FFButtonOptions(
                           width: double.infinity,
                           padding:

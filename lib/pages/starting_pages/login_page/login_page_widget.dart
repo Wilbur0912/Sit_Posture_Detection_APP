@@ -1,3 +1,4 @@
+import '../../../generated/l10n.dart';
 import '../../../manager/userProfileManager.dart';
 import '../../../model/userModel.dart';
 import '../../../userProfileProvider.dart';
@@ -45,7 +46,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
         alignment: Alignment.topCenter,
         children: [
           Text(
-            '你好,',
+            '${S.of(context).hi}',
             style: TextStyle(
               color: Color(0xFF1D1517),
               fontSize: 16,
@@ -57,7 +58,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
           Positioned(
             top: 29,
             child: Text(
-              '歡迎回來',
+              '${S.of(context).welcome}',
               style: TextStyle(
                 color: Color(0xFF1D1517),
                 fontSize: 20,
@@ -91,7 +92,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
           child: TextField(
             keyboardType: TextInputType.emailAddress,
             controller:
-                labelText == '帳號名稱' ? _accountController : _passwordController,
+                labelText == '${S.of(context).name}' ? _accountController : _passwordController,
             style: TextStyle(
               color: Colors.black38,
               fontFamily: 'OpenSans',
@@ -103,7 +104,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                 iconData,
                 color: Colors.blueGrey,
               ),
-              hintText: labelText == '帳號名稱' ? '輸入帳號名稱' : '輸入您的密碼',
+              hintText: labelText == '${S.of(context).name}' ? '${S.of(context).en_account_name}' : '${S.of(context).en_pass}',
               hintStyle: TextStyle(
                 color: Color(0xFFADA9BB),
                 fontFamily: 'OpenSans',
@@ -161,7 +162,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
           );
         },
         iconData: Icons.login,
-        text: '登入',
+        text: '${S.of(context).login}',
         options: FFButtonOptions(
           width: double.infinity,
           padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
@@ -215,9 +216,9 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                   children: <Widget>[
                     _buildHeader(),
                     SizedBox(height: 30.0),
-                    _buildInputField('帳號名稱', Icons.email),
+                    _buildInputField('${S.of(context).name}', Icons.email),
                     SizedBox(height: 30.0),
-                    _buildInputField('密碼', Icons.lock),
+                    _buildInputField('${S.of(context).password}', Icons.lock),
                     SizedBox(height: 80.0),
                     _buildLoginButton(),
                     SizedBox(height: 40.0),
@@ -237,7 +238,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text: '還沒有帳號 ?  ',
+                              text: '${S.of(context).hn_account}',
                               style: TextStyle(
                                 color: Colors.grey,
                                 fontSize: 14.0,
@@ -245,7 +246,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               ),
                             ),
                             TextSpan(
-                              text: '註冊',
+                              text: ' ${S.of(context).reg}',
                               style: TextStyle(
                                 color: Color(0xFFC58BF2),
                                 fontSize: 14.0,

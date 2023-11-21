@@ -1,3 +1,4 @@
+import '../../../../generated/l10n.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -73,7 +74,7 @@ class _CushionWifiSettingWidgetState extends State<CushionWifiSettingWidget> {
                     },
                   ),
                   Text(
-                    '坐墊 Wi-Fi 設定',
+                    '${S.of(context).WIFI}',
                     style: FlutterFlowTheme.of(context).displaySmall.override(
                           fontFamily: 'Outfit',
                           color: Colors.grey,
@@ -164,7 +165,7 @@ class _CushionWifiSettingWidgetState extends State<CushionWifiSettingWidget> {
                     controller: _model.textController1,
                     obscureText: false,
                     decoration: InputDecoration(
-                      hintText: '熱點 Wi-Fi 名稱',
+                      hintText: '${S.of(context).wifi_name}',
                       hintStyle:
                           FlutterFlowTheme.of(context).bodyMedium.override(
                                 fontFamily: 'Rubik',
@@ -242,7 +243,7 @@ class _CushionWifiSettingWidgetState extends State<CushionWifiSettingWidget> {
                     controller: _model.textController2,
                     obscureText: false,
                     decoration: InputDecoration(
-                      hintText: '熱點 Wi-Fi 密碼',
+                      hintText: '${S.of(context).wifi_password}',
                       hintStyle:
                           FlutterFlowTheme.of(context).bodyMedium.override(
                                 fontFamily: 'Rubik',
@@ -326,7 +327,7 @@ class _CushionWifiSettingWidgetState extends State<CushionWifiSettingWidget> {
                         },
                       );
                     },
-                    text: '繼續',
+                    text: '${S.of(context).con}',
                     options: FFButtonOptions(
                       width: double.infinity,
                       padding:

@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import '../../../flutter_flow/flutter_flow_charts.dart';
 import '../../../flutter_flow/flutter_flow_theme.dart';
 
+import '../../../generated/l10n.dart';
 import 'analyzationUtil.dart';
 
 class AnalysisChart extends StatefulWidget {
@@ -74,38 +75,32 @@ class _AnalysisChartState extends State<AnalysisChart> {
     for (int i = 0; i < SitRecordList.length; i++) {
       String interval = ''; // 用於儲存時間區間
       DateTime sitTime = SitRecordList[i].time; // 取得 SitRecord 的時間
+      if (widget.type == S.of(context).day) {
+        interval = DateFormat("MM/dd").format(sitTime);
+      } else if (widget.type == S.of(context).week) {
+        DateTime p1 = widget.end; // 開始時間
+        DateTime p2 = p1.add(const Duration(days: 7)); // 加7天得到下一個時間點
+        DateTime p3 = p2.add(const Duration(days: 7));
+        DateTime p4 = p3.add(const Duration(days: 7));
+        DateTime p5 = p4.add(const Duration(days: 7));
 
-      switch (widget.type) {
-        case '年':
-          interval = DateFormat("yyyy").format(sitTime); // 格式化為年份
-          break;
-        case '月':
-          interval = DateFormat("MM").format(sitTime); // 格式化為月
-          break;
-        case '日':
-          interval = DateFormat("MM/dd").format(sitTime); // 格式化為月/日
-          break;
-        case '周':
-          DateTime p1 = widget.end; // 開始時間
-          DateTime p2 = p1.add(const Duration(days: 7)); // 加7天得到下一個時間點
-          DateTime p3 = p2.add(const Duration(days: 7));
-          DateTime p4 = p3.add(const Duration(days: 7));
-          DateTime p5 = p4.add(const Duration(days: 7));
-
-          if (isDateInRange(sitTime, p1, p2)) {
-            interval =
-                "${DateFormat("MM/dd").format(p1)}~${DateFormat("dd").format(p2)}";
-          } else if (isDateInRange(sitTime, p2, p3)) {
-            interval =
-                "${DateFormat("MM/dd").format(p2)}~${DateFormat("dd").format(p3)}";
-          } else if (isDateInRange(sitTime, p3, p4)) {
-            interval =
-                "${DateFormat("MM/dd").format(p3)}~${DateFormat("dd").format(p4)}";
-          } else if (isDateInRange(sitTime, p4, p5)) {
-            interval =
-                "${DateFormat("MM/dd").format(p4)}~${DateFormat("dd").format(p5)}";
-          }
-          break;
+        if (isDateInRange(sitTime, p1, p2)) {
+          interval =
+          "${DateFormat("MM/dd").format(p1)}~${DateFormat("dd").format(p2)}";
+        } else if (isDateInRange(sitTime, p2, p3)) {
+          interval =
+          "${DateFormat("MM/dd").format(p2)}~${DateFormat("dd").format(p3)}";
+        } else if (isDateInRange(sitTime, p3, p4)) {
+          interval =
+          "${DateFormat("MM/dd").format(p3)}~${DateFormat("dd").format(p4)}";
+        } else if (isDateInRange(sitTime, p4, p5)) {
+          interval =
+          "${DateFormat("MM/dd").format(p4)}~${DateFormat("dd").format(p5)}";
+        }
+      } else if (widget.type == S.of(context).month) {
+        interval = DateFormat("MM").format(sitTime);
+      } else if (widget.type == S.of(context).year) {
+        interval = DateFormat("yyyy").format(sitTime);
       }
 
       if (dateCounter.containsKey(interval)) {
@@ -121,10 +116,10 @@ class _AnalysisChartState extends State<AnalysisChart> {
     if (dateKey.isEmpty) return Container();
     String text = dateKey[value.toInt()];
 
-    if (widget.type == "月") {
-      text += "月";
-    } else if (widget.type == "年") {
-      text += "年";
+    if (widget.type == S.of(context).month) {
+      text += "${S.of(context).month}";
+    } else if (widget.type == S.of(context).year) {
+      text += "${S.of(context).year}";
     }
     return SideTitleWidget(
       axisSide: AxisSide.bottom,
