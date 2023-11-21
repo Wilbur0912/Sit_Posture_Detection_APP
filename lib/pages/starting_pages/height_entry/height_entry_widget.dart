@@ -1,3 +1,4 @@
+import '../../../generated/l10n.dart';
 import '../../../manager/userProfileManager.dart';
 import '../../../userProfileProvider.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -149,7 +150,7 @@ class _HeightEntryWidgetState extends State<HeightEntryWidget>
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: '步驟 ',
+                            text: '${S.of(context).step}',
                             style: GoogleFonts.getFont(
                               'Rubik',
                               color: FlutterFlowTheme.of(context).primary,
@@ -182,7 +183,7 @@ class _HeightEntryWidgetState extends State<HeightEntryWidget>
                       padding:
                           EdgeInsetsDirectional.fromSTEB(84.0, 12.0, 84.0, 0.0),
                       child: Text(
-                        '您的身高是?',
+                        '${S.of(context).your_height}',
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Rubik',
@@ -328,7 +329,7 @@ class _HeightEntryWidgetState extends State<HeightEntryWidget>
                         print("註冊失敗,$e");
                       }
                     },
-                    text: '註冊',
+                    text: '${S.of(context).reg}',
                     options: FFButtonOptions(
                       width: double.infinity,
                       padding:

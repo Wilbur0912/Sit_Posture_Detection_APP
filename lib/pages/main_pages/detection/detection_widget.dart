@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:web_socket_channel/io.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../manager/AnalyzationManager.dart';
 import '../../../model/sitRecordModel.dart';
 import '../../../model/userModel.dart';
@@ -38,7 +39,7 @@ class DetectionWidget extends StatefulWidget {
 class _DetectionWidgetState extends State<DetectionWidget>
     with TickerProviderStateMixin {
   late DetectionModel _model;
-  String currentPostureName = '坐姿端正'; // 初始文字
+  String currentPostureName = '${S.current.Sit}'; // 初始文字
   List<SitRecord> sitRecordList = [];
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
   FlutterLocalNotificationsPlugin();
@@ -126,7 +127,7 @@ class _DetectionWidgetState extends State<DetectionWidget>
         fetchDataList(userProfileProvider.userProfile?.token);
         currentPostureName = message;
         if (currentPostureName == "") {
-          currentPostureName = '坐姿端正';
+          currentPostureName = '${S.current.Sit}';
         } else {
           print("socket received: " + message);
         }
@@ -165,7 +166,7 @@ class _DetectionWidgetState extends State<DetectionWidget>
       setState(() {
         currentPostureName = message;
         if (currentPostureName == "") {
-          currentPostureName = '坐姿端正';
+          currentPostureName = '${S.current.Sit}';
         } else {
           print("socket received: " + message);
         }
@@ -274,7 +275,7 @@ class _DetectionWidgetState extends State<DetectionWidget>
                     },
                   ),
                   Text(
-                    '即時監控',
+                    '${S.of(context).realtime}',
                     style: FlutterFlowTheme.of(context).displaySmall.override(
                       fontFamily: 'Outfit',
                       color: Colors.grey,
@@ -307,7 +308,7 @@ class _DetectionWidgetState extends State<DetectionWidget>
                 children: [
                   Container(
                     width: 275,
-                    height: 450,
+                    height: 250,
                     decoration: ShapeDecoration(
                       gradient: LinearGradient(
                         begin: Alignment(-1.00, 0.08),
@@ -339,8 +340,8 @@ class _DetectionWidgetState extends State<DetectionWidget>
                                 borderRadius: BorderRadius.circular(8.0),
                                 child: Image.asset(
                                   callPostureImage(currentPostureName),
-                                  width: 180.0,
-                                  height: 235.0,
+                                  width: 70.0,
+                                  height: 100.0,
                                   fit: BoxFit.contain,
                                 ),
                               ),
@@ -351,28 +352,37 @@ class _DetectionWidgetState extends State<DetectionWidget>
                           padding:
                           EdgeInsetsDirectional.fromSTEB(
                               60.0, 12.0, 60.0, 20.0),
-                          child: RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: '目前您',
-                                  style: TextStyle(),
-                                ),
-                                TextSpan(
-                                  text: currentPostureName,
-                                  style: TextStyle(),
-                                ),
-                              ],
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w600,
-                                height: 0.11,
-                              ),
+                          child:
+
+                          Text(
+                            '${S.of(context).now}',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w600,
+                              height: 0.11,
                             ),
-                            textAlign: TextAlign.center,
                           ),
+
+                        ),
+                        Padding(
+                          padding:
+                          EdgeInsetsDirectional.fromSTEB(
+                              60.0, 12.0, 60.0, 20.0),
+                          child:
+
+                          Text(
+                            currentPostureName,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w600,
+                              height: 0.11,
+                            ),
+                          ),
+
                         ),
                         // Text(
                         //   ' ',
@@ -428,11 +438,12 @@ class _DetectionWidgetState extends State<DetectionWidget>
                                         child: Image.asset(
                                           callPostureImage(
                                               currentItem.position),
-                                          width: 40.0,
-                                          height: 40.0,
+                                          width: 30.0,
+                                          height: 30.0,
                                           fit: BoxFit.contain,
                                           errorBuilder: (context, error, stackTrace) =>
-                                              Text('Error loading image: ${error.toString()}'),
+                                              Text(''),
+                                          // Text('Error loading image: ${error.toString()}'),
                                         ),
                                       ),
                                       Text(
@@ -447,7 +458,7 @@ class _DetectionWidgetState extends State<DetectionWidget>
                                       ),
                                       Text(
                                         '${(currentItem.second / 60)
-                                            .toStringAsFixed(1)} 分鐘',
+                                            .toStringAsFixed(1)} ${S.of(context).min}',
                                         style: FlutterFlowTheme
                                             .of(context)
                                             .bodyMedium
@@ -490,7 +501,7 @@ class _DetectionWidgetState extends State<DetectionWidget>
                             onPressed: () async {
                               context.pushNamed('analyzation');
                             },
-                            text: '觀看統計資料',
+                            text: '${S.of(context).see_static}',
                             options: FFButtonOptions(
                               width: double.infinity,
                               padding:

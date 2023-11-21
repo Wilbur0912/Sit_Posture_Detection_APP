@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import '../../../generated/l10n.dart';
 import '../../../manager/AnalyzationManager.dart';
 import '../../../userProfileProvider.dart';
 import '../detection/dataItem.dart';
@@ -43,7 +44,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
   // final channel = IOWebSocketChannel.connect('ws://172.20.10.2:8080/$userId');
   int averageMinutesMain = 0;
   int averageMinutesMainReturn = 0;
-  String currentPostureName = '坐姿端正'; // 初始文字
+  String currentPostureName = 'Sit up straight'; // 初始文字
   int minutesOfCurrentPostureName = 0;
   String currentDate = "";
   Future<void> fetchTodayDataList(String? token) async {
@@ -426,7 +427,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: '你好, ',
+                                      text: '${S.of(context).hi}',
                                       style: TextStyle(),
                                     ),
                                     TextSpan(
@@ -494,7 +495,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          '每日建議',
+                                          '${S.of(context).ever_ad}',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -507,7 +508,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 6.0, 0.0, 6.0),
                                           child: Text(
-                                            '您最近的不良姿勢大多為向右傾斜，建議您參考以下復健動作',
+                                            '${S.of(context).ad}',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -518,7 +519,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           ),
                                         ),
                                         Text(
-                                          '詳細資料',
+                                          '${S.of(context).detail}',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -550,7 +551,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              '功能庫',
+                              '${S.of(context).fun}',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -620,7 +621,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Text(
-                                              '即時監測',
+                                              '${S.of(context).realtime}',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -673,7 +674,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       CrossAxisAlignment.end,
                                                   children: [
                                                     Text(
-                                                      '今天已這樣${(minutesOfCurrentPostureName / 60.0).toStringAsFixed(1)}分鐘了',
+                                                      '${S.of(context).Today_min((minutesOfCurrentPostureName / 60.0).toStringAsFixed(1))}',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -735,7 +736,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Text(
-                                              '資料統計',
+                                              '${S.of(context).total_time}',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -807,7 +808,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       .fromSTEB(
                                                           2.0, 0.0, 0.0, 2.0),
                                                   child: Text(
-                                                    '分鐘平均',
+                                                    '${S.of(context).min_av}',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -823,7 +824,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               ],
                                             ),
                                             Text(
-                                              '每天不良坐姿時長',
+                                              '${S.of(context).av_sit}',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -880,7 +881,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Text(
-                                              '連接坐墊',
+                                              '${S.of(context).connect_sit}',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -912,7 +913,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   CrossAxisAlignment.end,
                                               children: [
                                                 Text(
-                                                  '連線中',
+                                                  '${S.of(context).connect}',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -927,7 +928,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               ],
                                             ),
                                             Text(
-                                              '低延遲',
+                                              '${S.of(context).low}',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -984,7 +985,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Text(
-                                              '設定',
+                                              '${S.of(context).setting}',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium

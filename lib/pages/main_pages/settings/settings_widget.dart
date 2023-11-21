@@ -4,6 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../userProfileProvider.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -243,7 +244,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                 },
               ),
               Text(
-                '設定',
+                '${S.of(context).setting}',
                 style: FlutterFlowTheme.of(context).displaySmall.override(
                   fontFamily: 'Outfit',
                   color: Colors.grey,
@@ -369,21 +370,21 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             buildUserProfileItem(
-                              label: '身高',
+                              label: '${S.of(context).height}',
                               value: (userProfileProvider.userProfile?.height)
                                   .toString(),
                             ),
                             buildUserProfileItem(
-                              label: '體重',
+                              label: '${S.of(context).weight}',
                               value: (userProfileProvider.userProfile?.weight)
                                   .toString(),
                             ),
                             buildUserProfileItem(
-                              label: '性別',
+                              label: '${S.of(context).gender}',
                               value: userProfileProvider.userProfile?.gender ==
                                       'Male'
-                                  ? '男'
-                                  : '女',
+                                  ? '${S.of(context).male}'
+                                  : '${S.of(context).female}',
                             ),
                           ],
                         ),
@@ -414,7 +415,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         20.0, 40.0, 0.0, 20.0),
                                     child: Text(
-                                      '修改資料',
+                                      '${S.of(context).re_d}',
                                       style: TextStyle(
                                         color: Color(0xFF1D1517),
                                         fontSize: 20,
@@ -425,35 +426,35 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                     )),
                                 buildUpdateItem(
                                     context: context,
-                                    label: '帳號名稱',
+                                    label: '${S.of(context).name}',
                                     value: (userProfileProvider
                                             .userProfile?.height)
                                         .toString(),
                                     userProfileProvider: userProfileProvider),
                                 buildUpdateItem(
                                     context: context,
-                                    label: '密碼',
+                                    label: '${S.of(context).password}',
                                     value: (userProfileProvider
                                             .userProfile?.weight)
                                         .toString(),
                                     userProfileProvider: userProfileProvider),
                                 buildUpdateItem(
                                     context: context,
-                                    label: '身高',
+                                    label: '${S.of(context).height}',
                                     value: (userProfileProvider
                                             .userProfile?.height)
                                         .toString(),
                                     userProfileProvider: userProfileProvider),
                                 buildUpdateItem(
                                     context: context,
-                                    label: '體重',
+                                    label: '${S.of(context).weight}',
                                     value: (userProfileProvider
                                             .userProfile?.weight)
                                         .toString(),
                                     userProfileProvider: userProfileProvider),
                                 buildUpdateItem(
                                     context: context,
-                                    label: '性別',
+                                    label: '${S.of(context).gender}',
                                     value: (userProfileProvider
                                             .userProfile?.gender)
                                         .toString(),
@@ -901,11 +902,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                   children: [
                     FFButtonWidget(
                       onPressed: () async {
+                        Navigator.popUntil(context, (route) => route.isFirst);
                         userProfileProvider
                             .clearUserProfileFromSharedPreferences();
-                        context.pushNamed('LoginPage');
+                        context.pushReplacementNamed('LoginPage');
                       },
-                      text: '登出',
+                      text: '${S.current.logout}',
                       options: FFButtonOptions(
                         width: 130.0,
                         height: 50.0,
@@ -999,15 +1001,15 @@ Widget buildUpdateItem({
 }) {
   String imagePath = ''; // 图像文件路径
 
-  if (label == '帳號名稱') {
+  if (label == '${S.of(context).name}') {
     imagePath = 'assets/images/Icon-Profile.svg';
-  } else if (label == '密碼') {
+  } else if (label == '${S.of(context).password}') {
     imagePath = 'assets/images/Password.svg';
-  } else if (label == '身高') {
+  } else if (label == '${S.of(context).height}') {
     imagePath = 'assets/images/Icon-Height.svg';
-  } else if (label == '體重') {
+  } else if (label == '${S.of(context).weight}') {
     imagePath = 'assets/images/Icon-Weight.svg';
-  } else if (label == '性別') {
+  } else if (label == '${S.of(context).gender}') {
     imagePath = 'assets/images/Icon-Gender.svg';
   }
   return Padding(

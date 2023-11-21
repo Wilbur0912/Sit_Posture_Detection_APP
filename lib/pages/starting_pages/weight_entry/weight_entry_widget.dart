@@ -1,3 +1,4 @@
+import '../../../generated/l10n.dart';
 import '../../../userProfileProvider.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 
@@ -146,7 +147,7 @@ class _WeightEntryWidgetState extends State<WeightEntryWidget>
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: '步驟 ',
+                            text: '${S.of(context).step}',
                             style: GoogleFonts.getFont(
                               'Rubik',
                               color: FlutterFlowTheme.of(context).primary,
@@ -179,7 +180,7 @@ class _WeightEntryWidgetState extends State<WeightEntryWidget>
                       padding:
                           EdgeInsetsDirectional.fromSTEB(84.0, 12.0, 84.0, 0.0),
                       child: Text(
-                        '您的體重是?',
+                        '${S.of(context).your_weight}',
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Rubik',
@@ -310,7 +311,7 @@ class _WeightEntryWidgetState extends State<WeightEntryWidget>
                         },
                       );
                     },
-                    text: '下一步',
+                    text: '${S.of(context).next_step}',
                     options: FFButtonOptions(
                       width: double.infinity,
                       padding:

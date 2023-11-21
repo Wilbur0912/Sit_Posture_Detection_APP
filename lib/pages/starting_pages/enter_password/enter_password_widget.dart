@@ -1,3 +1,4 @@
+import '../../../generated/l10n.dart';
 import '../../../userProfileProvider.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -121,7 +122,7 @@ class _EnterPasswordWidgetState extends State<EnterPasswordWidget>
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: '步驟 ',
+                            text: '${S.of(context).step}',
                             style: GoogleFonts.getFont(
                               'Rubik',
                               color: FlutterFlowTheme.of(context).primary,
@@ -154,7 +155,7 @@ class _EnterPasswordWidgetState extends State<EnterPasswordWidget>
                       padding:
                           EdgeInsetsDirectional.fromSTEB(96.0, 12.0, 96.0, 0.0),
                       child: Text(
-                        '設定你的密碼',
+                        '${S.of(context).set_pass}',
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Rubik',
@@ -167,7 +168,7 @@ class _EnterPasswordWidgetState extends State<EnterPasswordWidget>
                       padding:
                           EdgeInsetsDirectional.fromSTEB(84.0, 12.0, 84.0, 0.0),
                       child: Text(
-                        '輸入足夠保護你帳號的\n強大密碼',
+                        '${S.of(context).st_pass}',
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Rubik',
@@ -215,7 +216,7 @@ class _EnterPasswordWidgetState extends State<EnterPasswordWidget>
                             controller: _model.textController,
                             obscureText: !_model.passwordVisibility,
                             decoration: InputDecoration(
-                              hintText: '輸入密碼',
+                              hintText: '${S.of(context).en_pass}',
                               hintStyle: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -331,7 +332,7 @@ class _EnterPasswordWidgetState extends State<EnterPasswordWidget>
                         },
                       );
                     },
-                    text: '下一步',
+                    text: '${S.of(context).next_step}',
                     options: FFButtonOptions(
                       width: double.infinity,
                       padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),

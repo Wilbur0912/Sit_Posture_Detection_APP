@@ -25,6 +25,7 @@ class AnalyzationManager {
       if (start != null) 'start': '$start',
       'end': '$end',
     };
+    print(end);
     try {
       final res = await http.get(
         Uri.parse(url),

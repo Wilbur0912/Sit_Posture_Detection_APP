@@ -1,3 +1,4 @@
+import '../../../generated/l10n.dart';
 import '../../../userProfileProvider.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 
@@ -83,20 +84,6 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // FlutterFlowIconButton(
-                    //   borderColor: Colors.transparent,
-                    //   borderRadius: 30.0,
-                    //   borderWidth: 1.0,
-                    //   buttonSize: 48.0,
-                    //   icon: Icon(
-                    //     Icons.arrow_back_ios_rounded,
-                    //     color: FlutterFlowTheme.of(context).primaryText,
-                    //     size: 24.0,
-                    //   ),
-                    //   onPressed: () {
-                    //     print('IconButton pressed ...');
-                    //   },
-                    // ),
                     LinearPercentIndicator(
                       percent: 0.66,
                       width: 120.0,
@@ -119,7 +106,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: '步驟 ',
+                            text: '${S.of(context).step}',
                             style: GoogleFonts.getFont(
                               'Rubik',
                               color: FlutterFlowTheme.of(context).primary,
@@ -152,7 +139,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                       padding:
                           EdgeInsetsDirectional.fromSTEB(96.0, 12.0, 96.0, 0.0),
                       child: Text(
-                        '你的性別是?',
+                        '${S.of(context).you_gender}',
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Rubik',
@@ -215,7 +202,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            '男',
+                                            '${S.of(context).male}',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -268,7 +255,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            '女',
+                                            '${S.of(context).female}',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -331,7 +318,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
               // ),
               Padding(
                 padding:
-                    EdgeInsetsDirectional.fromSTEB(72.0, 120.0, 72.0, 50.0),
+                    EdgeInsetsDirectional.fromSTEB(72.0, 100.0, 72.0, 50.0),
                 child: Container(
                   width: 200,
                   height: 60.0,
@@ -356,7 +343,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget>
                         },
                       );
                     },
-                    text: '下一步',
+                    text: '${S.of(context).next_step}',
                     options: FFButtonOptions(
                       width: double.infinity,
                       padding:

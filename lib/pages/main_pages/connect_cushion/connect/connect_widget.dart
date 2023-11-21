@@ -1,5 +1,6 @@
 import 'package:appp3/pages/main_pages/connect_cushion/connect/sendInfoToAP.dart';
 
+import '../../../../generated/l10n.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -114,7 +115,7 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                     },
                   ),
                   Text(
-                    '連接坐墊',
+                    '${S.of(context).connect_sit}',
                     style: FlutterFlowTheme.of(context).displaySmall.override(
                           fontFamily: 'Outfit',
                           color: Colors.grey,
@@ -178,10 +179,10 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                         children: [
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                12.0, 12.0, 12.0, 12.0),
+                                12.0, 12.0, 12.0, 20.0),
                             child: Container(
                               width: 282.0,
-                              height: 291.0,
+                              height: 320.0,
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .primaryBackground,
@@ -214,16 +215,16 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 4.0, 0.0, 0.0),
                                       child: Text(
-                                        '坐墊序號: dwxsfexdzy',
+                                        '${S.of(context).sit_ID_code}',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium,
                                       ),
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 4.0, 0.0, 0.0),
+                                          0.0, 4.0, 0.0, 4.0),
                                       child: Text(
-                                        '坐墊已連線',
+                                        '${S.of(context).already_connect}',
                                         style: FlutterFlowTheme.of(context)
                                             .labelSmall
                                             .override(
@@ -273,7 +274,7 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                   controller: _model.textController,
                   obscureText: false,
                   decoration: InputDecoration(
-                    hintText: '坐墊序號',
+                    hintText: '${S.of(context).sit_ID}',
                     hintStyle:
                     FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Rubik',
@@ -356,7 +357,7 @@ class _ConnectWidgetState extends State<ConnectWidget> {
                         },
                       );
                     },
-                    text: '確認',
+                    text: '${S.of(context).OK}',
                     options: FFButtonOptions(
                       width: double.infinity,
                       padding:
