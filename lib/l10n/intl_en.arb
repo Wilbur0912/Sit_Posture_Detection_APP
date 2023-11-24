@@ -79,6 +79,7 @@
   "Hunchback": "Hunched",
   "half_lying":"Half-Lying Half-Sitting",
   "Sit":"Normal Sitting",
-  "Cross_Legged": "Cross-Legged"
-
+  "Cross_Legged": "Cross-Legged",
+  "no_sit": "No-Sit",
+  "current_sit": "Current-Sit"
 }

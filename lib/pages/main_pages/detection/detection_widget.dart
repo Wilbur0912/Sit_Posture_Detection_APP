@@ -314,6 +314,35 @@ class _DetectionWidgetState extends State<DetectionWidget>
 
     super.dispose();
   }
+  String translatepose(String pose){
+    String word = "";
+    if(pose == '翹左腳'){
+      word = S.current.Left_foot;
+    }else if(pose == '翹右腳'){
+      word = S.current.right_foot;
+    }else if(pose == "三分之一坐姿"){
+      word = S.current.One_third;
+    }else if(pose == "上半身右傾"){
+      word = S.current.Upper_right;
+    }else if(pose == "上半身左傾"){
+      word = S.current.Upper_left;
+    }else if(pose == "駝背"){
+      word = S.current.Hunchback;
+    }else if(pose == "半躺半坐"){
+      word = S.current.half_lying;
+    }else if(pose == "坐姿端正"){
+      word = S.current.Sit;
+    }else if(pose == "盤腿"){
+      word = S.current.Cross_Legged;
+    }else if(pose == "沒人坐"){
+      word = S.current.no_sit;
+    }else if(pose == '正常坐姿'){
+      word = S.current.Sit;
+    }else{
+      word = pose;
+    }
+      return word;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -520,7 +549,7 @@ class _DetectionWidgetState extends State<DetectionWidget>
                                         ),
                                       ),
                                       Text(
-                                        currentItem.position,
+                                        translatepose(currentItem.position),
                                         style: FlutterFlowTheme
                                             .of(context)
                                             .bodyMedium

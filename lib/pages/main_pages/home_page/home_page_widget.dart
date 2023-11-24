@@ -44,7 +44,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
   // final channel = IOWebSocketChannel.connect('ws://172.20.10.2:8080/$userId');
   int averageMinutesMain = 0;
   int averageMinutesMainReturn = 0;
-  String currentPostureName = '目前坐姿'; // 初始文字
+  String currentPostureName = '${S.current.current_sit}'; // 初始文字
   int minutesOfCurrentPostureName = 0;
   String currentDate = "";
   Future<void> fetchTodayDataList(String? token) async {
@@ -522,16 +522,16 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 ),
                                           ),
                                         ),
-                                        Text(
-                                          '${S.of(context).detail}',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Rubik',
-                                                color: Color(0xFF8B80F8),
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                        ),
+                                        // Text(
+                                        //   '${S.of(context).detail}',
+                                        //   style: FlutterFlowTheme.of(context)
+                                        //       .bodyMedium
+                                        //       .override(
+                                        //         fontFamily: 'Rubik',
+                                        //         color: Color(0xFF8B80F8),
+                                        //         fontWeight: FontWeight.w600,
+                                        //       ),
+                                        // ),
                                       ],
                                     ),
                                   ),
@@ -656,7 +656,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               .override(
                                             fontFamily: 'Rubik',
                                             color: Colors.white,
-                                            fontSize: 24.0,
+                                            fontSize: 18.0,
                                             letterSpacing: 1.0,
                                             fontWeight:
                                             FontWeight.w500,
