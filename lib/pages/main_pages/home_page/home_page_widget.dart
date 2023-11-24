@@ -59,11 +59,15 @@ class _HomePageWidgetState extends State<HomePageWidget>
           return YourDataItem(itemData['position'], itemData['second']);
         }).toList();
         sortAndMoveToTop(yourItemList, currentPostureName);
+        minutesOfCurrentPostureName = yourItemList
+            .map((item) => item.second)
+            .reduce((sum, item) => sum + item);
       });
 
-      minutesOfCurrentPostureName = yourItemList
-          .firstWhere((item) => item.position == currentPostureName, orElse: () => YourDataItem("", 0))
-          .second;
+      // minutesOfCurrentPostureName = yourItemList
+      //     .firstWhere((item) => item.position == currentPostureName, orElse: () => YourDataItem("", 0))
+      //     .second;
+
     }
   }
 
@@ -346,9 +350,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 focusColor: Colors.transparent,
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
-                                // onTap: () async {
-                                //   context.pushNamed('ProfilePage');
-                                // },
+                                onTap: () async {
+                                  context.pushNamed('settings');
+                                 },
                                 child: Container(
                                   width: 48.0,
                                   height: 48.0,
@@ -922,7 +926,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       .override(
                                                         fontFamily: 'Rubik',
                                                         color: Colors.white,
-                                                        fontSize: 24.0,
+                                                        fontSize: 22.0,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                       ),

@@ -370,16 +370,22 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             buildUserProfileItem(
+                        userProfileProvider: userProfileProvider,
+                              context: context,
                               label: '${S.of(context).height}',
                               value: (userProfileProvider.userProfile?.height)
                                   .toString(),
                             ),
                             buildUserProfileItem(
+                              userProfileProvider: userProfileProvider,
+                              context: context,
                               label: '${S.of(context).weight}',
                               value: (userProfileProvider.userProfile?.weight)
                                   .toString(),
                             ),
                             buildUserProfileItem(
+                              userProfileProvider: userProfileProvider,
+                              context: context,
                               label: '${S.of(context).gender}',
                               value: userProfileProvider.userProfile?.gender ==
                                       'Male'
@@ -943,8 +949,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   }
 }
 
-Widget buildUserProfileItem({required String label, required String value}) {
-  return Container(
+Widget buildUserProfileItem({ required BuildContext context,
+  required String label,
+  required String value,
+  required UserProfileProvider userProfileProvider,}) {
+  return InkWell(
+    child: Container(
     width: 85,
     height: 70,
     decoration: BoxDecoration(
@@ -990,6 +1000,16 @@ Widget buildUserProfileItem({required String label, required String value}) {
         ),
       ],
     ),
+
+  ),
+  onTap: () async {
+    final String? inputData = await inputDialog(
+      context,
+      label,
+      userProfileProvider,
+    );
+    print("你輸入：$inputData");
+  },
   );
 }
 

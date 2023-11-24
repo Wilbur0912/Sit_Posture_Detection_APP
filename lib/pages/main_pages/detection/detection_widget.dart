@@ -170,7 +170,7 @@ class _DetectionWidgetState extends State<DetectionWidget>
         } else {
           print("socket received: " + message);
         }
-        sendNotification(currentPostureName);
+        // sendNotification(currentPostureName);
         //fetch資料，將資料整理到dataItem裡
         //fetchDataList(userProfileProvider.userProfile?.token);
       });

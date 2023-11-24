@@ -71,7 +71,7 @@ class _AnalysisChartState extends State<AnalysisChart> {
     else if(widget.type == S.of(context).week){
       for (int i = 42; i > 0; i=i-7) {
         String interval =
-            "${DateFormat("MM/dd").format(widget.end.subtract(Duration(days: i)))}周";
+            "${DateFormat("MM/dd").format(widget.end.subtract(Duration(days: i)))} ${S.current.week}";
         dateCounter[interval] = 0;
         dateKey.add(interval);
       }
@@ -122,22 +122,22 @@ class _AnalysisChartState extends State<AnalysisChart> {
 
         if (isDateInRange(sitTime, p2, p1)) {
           interval =
-          "${DateFormat("MM/dd").format(p2)}周";
+          "${DateFormat("MM/dd").format(p2)} ${S.current.week}";
         } else if (isDateInRange(sitTime, p3, p2)) {
           interval =
-          "${DateFormat("MM/dd").format(p3)}周";
+          "${DateFormat("MM/dd").format(p3)} ${S.current.week}";
         } else if (isDateInRange(sitTime, p4, p3)) {
           interval =
-          "${DateFormat("MM/dd").format(p4)}周";
+          "${DateFormat("MM/dd").format(p4)} ${S.current.week}";
         } else if (isDateInRange(sitTime, p5, p4)) {
           interval =
-          "${DateFormat("MM/dd").format(p5)}周";
+          "${DateFormat("MM/dd").format(p5)} ${S.current.week}";
         }else if (isDateInRange(sitTime, p6, p5)) {
           interval =
-          "${DateFormat("MM/dd").format(p6)}周";
+          "${DateFormat("MM/dd").format(p6)} ${S.current.week}";
         }else if (isDateInRange(sitTime, p7, p6)) {
           interval =
-          "${DateFormat("MM/dd").format(p7)}周";
+          "${DateFormat("MM/dd").format(p7)} ${S.current.week}";
         }
       } else if (widget.type == S.of(context).month) {
         interval = DateFormat("MM").format(sitTime);
@@ -159,9 +159,9 @@ class _AnalysisChartState extends State<AnalysisChart> {
     String text = dateKey[value.toInt()];
 
     if (widget.type == S.of(context).month) {
-      text += "${S.of(context).month}";
+      text += " ${S.of(context).month}";
     } else if (widget.type == S.of(context).year) {
-      text += "${S.of(context).year}";
+      text += " ${S.of(context).year}";
     }
     return SideTitleWidget(
       axisSide: AxisSide.bottom,
