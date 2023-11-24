@@ -1,5 +1,7 @@
 // import 'dart:convert';
 
+import 'package:auto_size_text/auto_size_text.dart';
+
 import '../../../generated/l10n.dart';
 import '../../../manager/AnalyzationManager.dart';
 import '../../../model/sitRecordModel.dart';
@@ -461,11 +463,13 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
+                                  AutoSizeText(
                                     '${S.of(context).every_awful(selectedType)}',
+                                    minFontSize: 12,
+                                    maxFontSize: 16,
                                     style: TextStyle(
                                       color: Colors.grey,
-                                      fontSize: 16,
+                                      // fontSize: 16,
                                       fontFamily: 'Roboto',
                                       fontWeight: FontWeight.w600,
                                       height: 0.09,
@@ -616,6 +620,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                               .toList();
 
                                       return Container(
+                                        width:MediaQuery.sizeOf(context).width * 0.8,
                                         margin: EdgeInsets.symmetric(
                                             vertical: 12.0),
                                         decoration: BoxDecoration(
@@ -722,7 +727,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                                   Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
-                                                            .fromSTEB(40.0, 0.0,
+                                                            .fromSTEB(80.0, 0.0,
                                                                 0.0, .0),
                                                     child: Column(
                                                       crossAxisAlignment:
@@ -730,15 +735,18 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                                               .end,
                                                       children: recordsForDate
                                                           .map((record) {
-                                                        return Text(
+                                                        return AutoSizeText(
                                                           '${translatepose(record.position)} : ${(record.second / 3600).toStringAsFixed(2)}${S.of(context).hour}',
+                                                          minFontSize: 8,
+                                                          maxFontSize: 10,
+                                                          overflow: TextOverflow.ellipsis,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .displayMedium
                                                               .override(
                                                                 fontFamily:
                                                                     'Roboto',
-                                                                fontSize: 10.0,
+                                                                // fontSize: 10.0,
                                                                 letterSpacing:
                                                                     0.2,
                                                                 color:

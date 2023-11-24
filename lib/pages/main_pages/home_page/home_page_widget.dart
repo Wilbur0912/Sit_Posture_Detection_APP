@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:auto_size_text/auto_size_text.dart';
+
 import '../../../generated/l10n.dart';
 import '../../../manager/AnalyzationManager.dart';
 import '../../../userProfileProvider.dart';
@@ -624,15 +626,17 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            Text(
+                                            AutoSizeText(
                                               '${S.of(context).realtime}',
+                                              minFontSize: 12,
+                                              maxFontSize: 22,
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Roboto',
                                                         color: Colors.white,
-                                                        fontSize: 24.0,
+                                                        // fontSize: 22.0,
                                                         letterSpacing: 1.0,
                                                         fontWeight:
                                                             FontWeight.w500,
@@ -886,15 +890,17 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            Text(
+                                            AutoSizeText(
                                               '${S.of(context).connect_sit}',
+                                              minFontSize: 12,
+                                              maxFontSize: 24,
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Rubik',
                                                         color: Colors.white,
-                                                        fontSize: 24.0,
+                                                        // fontSize: 24.0,
                                                         letterSpacing: 1.0,
                                                         fontWeight:
                                                             FontWeight.w500,
