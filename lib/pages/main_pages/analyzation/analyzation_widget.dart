@@ -134,7 +134,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
       s = DateTime.now().subtract(const Duration(days: 6));
       e = DateTime.now();
     } else if (type == S.of(context).week) {
-      s = DateTime.now().subtract(const Duration(days: 27));
+      s = DateTime.now().subtract(const Duration(days: 42));
       e = DateTime.now();
     } else if (type == S.of(context).month) {
       s = DateTime.now().subtract(const Duration(days: 364));

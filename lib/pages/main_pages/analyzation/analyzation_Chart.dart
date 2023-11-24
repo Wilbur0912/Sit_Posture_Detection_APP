@@ -61,6 +61,40 @@ class _AnalysisChartState extends State<AnalysisChart> {
     dateKey = [];
     dateCounter = {};
     lineChartData = [];
+    if (widget.type == S.of(context).day) {
+      for (int i = 6; i > 0; i--) {
+        String interval = DateFormat("MM/dd").format(DateTime.now().subtract(Duration(days: i)));
+        dateCounter[interval] = 0;
+        dateKey.add(interval);
+      }
+    }
+    else if(widget.type == S.of(context).week){
+      for (int i = 42; i > 0; i=i-7) {
+        String interval =
+            "${DateFormat("MM/dd").format(widget.end.subtract(Duration(days: i)))}周";
+        dateCounter[interval] = 0;
+        dateKey.add(interval);
+      }
+    }else if(widget.type == S.of(context).year){
+      for (int i = 1825; i > 0; i=i-365) {
+        String interval =
+            "${DateFormat("yyyy").format(widget.end.subtract(Duration(days: i)))}";
+        dateCounter[interval] = 0;
+        dateKey.add(interval);
+      }}else if(widget.type == S.of(context).month){
+      for (int i = 1; i < 12; i=i+1) {
+        String interval="";
+        if(i<10){
+           interval =
+              "0$i";
+        }else{
+           interval =
+              "$i";
+        }
+        print(i);
+        dateCounter[interval] = 0;
+        dateKey.add(interval);
+      }}
 
     setState(() {
       _setDateCounter(SitRecordList);
@@ -79,23 +113,31 @@ class _AnalysisChartState extends State<AnalysisChart> {
         interval = DateFormat("MM/dd").format(sitTime);
       } else if (widget.type == S.of(context).week) {
         DateTime p1 = widget.end; // 開始時間
-        DateTime p2 = p1.add(const Duration(days: 7)); // 加7天得到下一個時間點
-        DateTime p3 = p2.add(const Duration(days: 7));
-        DateTime p4 = p3.add(const Duration(days: 7));
-        DateTime p5 = p4.add(const Duration(days: 7));
+        DateTime p2 = p1.subtract(const Duration(days: 7)); // 加7天得到下一個時間點
+        DateTime p3 = p2.subtract(const Duration(days: 7));
+        DateTime p4 = p3.subtract(const Duration(days: 7));
+        DateTime p5 = p4.subtract(const Duration(days: 7));
+        DateTime p6 = p5.subtract(const Duration(days: 7));
+        DateTime p7 = p6.subtract(const Duration(days: 7));
 
-        if (isDateInRange(sitTime, p1, p2)) {
+        if (isDateInRange(sitTime, p2, p1)) {
           interval =
-          "${DateFormat("MM/dd").format(p1)}~${DateFormat("dd").format(p2)}";
-        } else if (isDateInRange(sitTime, p2, p3)) {
+          "${DateFormat("MM/dd").format(p2)}周";
+        } else if (isDateInRange(sitTime, p3, p2)) {
           interval =
-          "${DateFormat("MM/dd").format(p2)}~${DateFormat("dd").format(p3)}";
-        } else if (isDateInRange(sitTime, p3, p4)) {
+          "${DateFormat("MM/dd").format(p3)}周";
+        } else if (isDateInRange(sitTime, p4, p3)) {
           interval =
-          "${DateFormat("MM/dd").format(p3)}~${DateFormat("dd").format(p4)}";
-        } else if (isDateInRange(sitTime, p4, p5)) {
+          "${DateFormat("MM/dd").format(p4)}周";
+        } else if (isDateInRange(sitTime, p5, p4)) {
           interval =
-          "${DateFormat("MM/dd").format(p4)}~${DateFormat("dd").format(p5)}";
+          "${DateFormat("MM/dd").format(p5)}周";
+        }else if (isDateInRange(sitTime, p6, p5)) {
+          interval =
+          "${DateFormat("MM/dd").format(p6)}周";
+        }else if (isDateInRange(sitTime, p7, p6)) {
+          interval =
+          "${DateFormat("MM/dd").format(p7)}周";
         }
       } else if (widget.type == S.of(context).month) {
         interval = DateFormat("MM").format(sitTime);
@@ -104,9 +146,9 @@ class _AnalysisChartState extends State<AnalysisChart> {
       }
 
       if (dateCounter.containsKey(interval)) {
-        dateCounter[interval] = (dateCounter[interval] ?? 0) + (SitRecordList[i].second/60);
+        dateCounter[interval] = (dateCounter[interval] ?? 0) + (SitRecordList[i].second/3600);
       } else {
-        dateCounter[interval] = SitRecordList[i].second/60;
+        dateCounter[interval] = SitRecordList[i].second/3600;
         dateKey.add(interval);
       }
     }
@@ -134,7 +176,7 @@ class _AnalysisChartState extends State<AnalysisChart> {
       color: Color(
         0xff6a6f88,
       ),
-      fontSize: 12,
+      fontSize: 10,
     );
     return SideTitleWidget(
       axisSide: meta.axisSide,

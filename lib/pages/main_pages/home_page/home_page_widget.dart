@@ -44,7 +44,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
   // final channel = IOWebSocketChannel.connect('ws://172.20.10.2:8080/$userId');
   int averageMinutesMain = 0;
   int averageMinutesMainReturn = 0;
-  String currentPostureName = 'Sit up straight'; // 初始文字
+  String currentPostureName = '目前坐姿'; // 初始文字
   int minutesOfCurrentPostureName = 0;
   String currentDate = "";
   Future<void> fetchTodayDataList(String? token) async {
@@ -650,11 +650,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily: 'Rubik',
-                                                color: Colors.white,
-                                                fontSize: 20.0,
-                                                fontWeight: FontWeight.normal,
-                                              ),
+                                            fontFamily: 'Rubik',
+                                            color: Colors.white,
+                                            fontSize: 24.0,
+                                            letterSpacing: 1.0,
+                                            fontWeight:
+                                            FontWeight.w500,
+                                          ),
                                         ),
                                         Column(
                                           mainAxisSize: MainAxisSize.max,

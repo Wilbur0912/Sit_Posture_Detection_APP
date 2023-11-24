@@ -170,9 +170,7 @@ class _DetectionWidgetState extends State<DetectionWidget>
         } else {
           print("socket received: " + message);
         }
-
-        //sendNotification();
-
+        sendNotification(currentPostureName);
         //fetch資料，將資料整理到dataItem裡
         //fetchDataList(userProfileProvider.userProfile?.token);
       });
@@ -199,7 +197,82 @@ class _DetectionWidgetState extends State<DetectionWidget>
   //     });
   //   }
   // }
-  Future<void> sendNotification() async {
+
+
+  // Future<void> sendNotification() async {
+  //   const AndroidNotificationDetails androidPlatformChannelSpecifics =
+  //   AndroidNotificationDetails(
+  //     'your_channel_id',
+  //     'your_channel_name',
+  //     importance: Importance.max,
+  //     channelDescription: 'your_channel_description',
+  //   );
+  //
+  //   const NotificationDetails platformChannelSpecifics =
+  //   NotificationDetails(android: androidPlatformChannelSpecifics);
+  //
+  //   await flutterLocalNotificationsPlugin.show(
+  //     0, // 通知的唯一 ID
+  //     '正常坐姿', // 通知的標題
+  //     '您的坐姿是正常的', // 通知的内容
+  //     platformChannelSpecifics,
+  //     payload: 'Custom_Sound',
+  //   );
+  // }
+  Future<void> sendNotification(String sittingPosture) async {
+    // 獲取當前坐姿
+
+    // 根據坐姿修改通知的標題和內容
+    String title = "";
+    String body = "";
+    switch (sittingPosture) {
+      case "坐姿端正":
+        title = sittingPosture;
+        body = "您的坐姿是正確的";
+        break;
+      case "翹左腳":
+        title = "不正確坐姿";
+        body = "您的坐姿不正確，請注意避免翹左腳";
+        break;
+      case "翹右腳":
+        title = "不正確坐姿";
+        body = "您的坐姿不正確，請注意避免翹右腳";
+        break;
+      case "三分之一坐姿":
+        title = "不正確坐姿";
+        body = "您的坐姿不正確，請往後坐，確保身體不會造成損傷";
+        break;
+      case "上半身左傾":
+        title = "不正確坐姿";
+        body = "您的坐姿不正確，請將上半身往右，請注意保持背部挺直";
+        break;
+      case "上半身右傾":
+        title = "不正確坐姿";
+        body = "您的坐姿不正確，請將上半身往左，注意保持背部挺直";
+        break;
+      case "駝背":
+        title = "不正確坐姿";
+        body = "您的坐姿不正確，請注意保持挺直";
+        break;
+      case "半躺半坐":
+        title = "不正確坐姿";
+        body = "您的坐姿不正確，請注意保持坐姿";
+        break;
+      case "盤腿":
+        title = "不正確坐姿";
+        body = "您的坐姿不正確，請注意避免盤腿";
+        break;
+      case "沒人坐":
+        title = "未知坐姿";
+        body = "未能識別坐姿";
+        break;
+      // default:
+      //   title = "未知坐姿";
+      //   body = "未知坐姿";
+      //   break;
+    }
+
+    // 發送通知
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
     AndroidNotificationDetails(
       'your_channel_id',
@@ -213,8 +286,8 @@ class _DetectionWidgetState extends State<DetectionWidget>
 
     await flutterLocalNotificationsPlugin.show(
       0, // 通知的唯一 ID
-      '正常坐姿', // 通知的標題
-      '您的坐姿是正常的', // 通知的内容
+      title, // 通知的標題
+      body, // 通知的内容
       platformChannelSpecifics,
       payload: 'Custom_Sound',
     );

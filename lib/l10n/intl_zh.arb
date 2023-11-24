@@ -7,10 +7,10 @@
  "welcome": "歡迎回來",
  "en_account_name": "輸入帳號名稱",
  "next_step": "下一步",
- "in_a": "請輸入帳號名稱\\n繼續下一步",
+ "in_a": "請輸入帳號名稱\n繼續下一步",
  "set_pass": "設定您的密碼",
  "en_pass": "輸入密碼",
- "st_pass": "輸入足夠保護你帳號的\\n強大密碼",
+ "st_pass": "輸入足夠保護你帳號的\n強大密碼",
  "you_gender": "你的性別是?",
  "fun": "功能庫",
  "male": "男",
@@ -25,7 +25,7 @@
  "realtime": "即時監測",
  "detail": "詳細資料",
  "min_av": "分鐘平均",
- "Today_min": "今天已這樣{a}分鐘了",
+ "Today_min": "今天已偵測{a}分鐘了",
  "@Today_min": {
   "placeholders": {
    "a": {}
@@ -78,6 +78,6 @@
  "Hunchback": "駝背",
  "half_lying":"半躺半坐",
  "Sit":"坐姿端正",
- "Cross_Legged": "Cross-Legged",
+ "Cross_Legged": "盤腿",
  "no_sit": "沒人坐"
 }
