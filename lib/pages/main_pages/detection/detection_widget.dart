@@ -39,7 +39,8 @@ class DetectionWidget extends StatefulWidget {
 class _DetectionWidgetState extends State<DetectionWidget>
     with TickerProviderStateMixin {
   late DetectionModel _model;
-  String currentPostureName = '${S.current.Sit}'; // 初始文字
+  String currentPostureName = '${S.current.Left_foot}'; // 初始文字
+  String debugData = '';
   List<SitRecord> sitRecordList = [];
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
   FlutterLocalNotificationsPlugin();
@@ -116,18 +117,23 @@ class _DetectionWidgetState extends State<DetectionWidget>
     Provider.of<UserProfileProvider>(context, listen: false);
     fetchDataList(userProfileProvider.userProfile?.token);
     // 監聽WebSocket消息
-    //sendNotification();
+    sendNotification(currentPostureName);
     //connectToSocket(userProfileProvider.userProfile);
     final channel = IOWebSocketChannel.connect(
       'ws://spineinspectorbackend-production.up.railway.app/inspect/',
       headers: {'token': userProfileProvider.userProfile?.token, 'Deviceid': '1'});
+    var counter = 0;
     channel.stream.listen((message) {
+      counter++;
+      counter %= 100;
       // 當接收到新消息時，更新文字
       setState(() {
+        debugData = counter.toString();
         fetchDataList(userProfileProvider.userProfile?.token);
         currentPostureName = message;
+        //currentPostureName = message + ':' + counter;
         if (currentPostureName == "") {
-          currentPostureName = '${S.current.Sit}';
+          currentPostureName = '${S.current.Sit}:$counter';
         } else {
           print("socket received: " + message);
         }
@@ -160,13 +166,16 @@ class _DetectionWidgetState extends State<DetectionWidget>
     Socket socket = await response.detachSocket();
 
     WebSocket ws = WebSocket.fromUpgradedSocket(socket, serverSide: false);
+    var counter = 0;
 
     ws.listen((message) {
+      counter++;
+      counter %= 100;
       // 當接收到新消息時，更新文字
       setState(() {
-        currentPostureName = message;
+        currentPostureName = message + ':' + counter;
         if (currentPostureName == "") {
-          currentPostureName = '${S.current.Sit}';
+          currentPostureName = '${S.current.Sit}:$counter';
         } else {
           print("socket received: " + message);
         }
@@ -486,6 +495,12 @@ class _DetectionWidgetState extends State<DetectionWidget>
                           ),
 
                         ),
+                        Padding(padding: EdgeInsetsDirectional.fromSTEB(
+                            60.0, 1, 60.0, 1),
+                          child:
+                            Text(debugData),
+
+                        )
                         // Text(
                         //   ' ',
                         //   style: FlutterFlowTheme
