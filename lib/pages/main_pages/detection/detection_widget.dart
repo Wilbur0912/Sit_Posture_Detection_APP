@@ -39,7 +39,7 @@ class DetectionWidget extends StatefulWidget {
 class _DetectionWidgetState extends State<DetectionWidget>
     with TickerProviderStateMixin {
   late DetectionModel _model;
-  String currentPostureName = '${S.current.Left_foot}'; // 初始文字
+  String currentPostureName = '${S.current.no_sit}'; // 初始文字
   String debugData = '';
   List<SitRecord> sitRecordList = [];
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -117,7 +117,7 @@ class _DetectionWidgetState extends State<DetectionWidget>
     Provider.of<UserProfileProvider>(context, listen: false);
     fetchDataList(userProfileProvider.userProfile?.token);
     // 監聽WebSocket消息
-    sendNotification(currentPostureName);
+
     //connectToSocket(userProfileProvider.userProfile);
     final channel = IOWebSocketChannel.connect(
       'ws://spineinspectorbackend-production.up.railway.app/inspect/',
@@ -128,8 +128,12 @@ class _DetectionWidgetState extends State<DetectionWidget>
       counter %= 100;
       // 當接收到新消息時，更新文字
       setState(() {
+
         debugData = counter.toString();
         fetchDataList(userProfileProvider.userProfile?.token);
+        if(currentPostureName != message) {
+          sendNotification(message);
+        }
         currentPostureName = message;
         //currentPostureName = message + ':' + counter;
         if (currentPostureName == "") {
