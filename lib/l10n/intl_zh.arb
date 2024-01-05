@@ -7,10 +7,10 @@
  "welcome": "歡迎回來",
  "en_account_name": "輸入帳號名稱",
  "next_step": "下一步",
- "in_a": "請輸入帳號名稱\\n繼續下一步",
+ "in_a": "請輸入帳號名稱\n繼續下一步",
  "set_pass": "設定您的密碼",
  "en_pass": "輸入密碼",
- "st_pass": "輸入足夠保護你帳號的\\n強大密碼",
+ "st_pass": "輸入足夠保護你帳號的\n強大密碼",
  "you_gender": "你的性別是?",
  "fun": "功能庫",
  "male": "男",
@@ -21,11 +21,11 @@
  "reg": "註冊",
  "hi": "你好, ",
  "ever_ad": "每日建議",
- "ad": "您最近的不良姿勢大多為向右傾斜，建議您參考以下復健動作",
+ "ad": "您最近的不良姿勢大多為向右傾斜，建議您每隔 20-30 分鐘，就起身活動一下，伸展一下肌肉，避免長時間保持同一姿勢",
  "realtime": "即時監測",
  "detail": "詳細資料",
  "min_av": "分鐘平均",
- "Today_min": "今天已這樣{a}分鐘了",
+ "Today_min": "今天已偵測{a}分鐘了",
  "@Today_min": {
   "placeholders": {
    "a": {}
@@ -78,6 +78,7 @@
  "Hunchback": "駝背",
  "half_lying":"半躺半坐",
  "Sit":"坐姿端正",
- "Cross_Legged": "Cross-Legged",
- "no_sit": "沒人坐"
+ "Cross_Legged": "盤腿",
+ "no_sit": "沒人坐",
+ "current_sit": "目前坐姿"
 }

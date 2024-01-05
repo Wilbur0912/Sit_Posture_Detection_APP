@@ -1,5 +1,7 @@
 // import 'dart:convert';
 
+import 'package:auto_size_text/auto_size_text.dart';
+
 import '../../../generated/l10n.dart';
 import '../../../manager/AnalyzationManager.dart';
 import '../../../model/sitRecordModel.dart';
@@ -124,7 +126,35 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
 
     super.dispose();
   }
-
+  String translatepose(String pose){
+    String word = "";
+    if(pose == '翹左腳'){
+      word = S.current.Left_foot;
+    }else if(pose == '翹右腳'){
+      word = S.current.right_foot;
+    }else if(pose == "三分之一坐姿"){
+      word = S.current.One_third;
+    }else if(pose == "上半身右傾"){
+      word = S.current.Upper_right;
+    }else if(pose == "上半身左傾"){
+      word = S.current.Upper_left;
+    }else if(pose == "駝背"){
+      word = S.current.Hunchback;
+    }else if(pose == "半躺半坐"){
+      word = S.current.half_lying;
+    }else if(pose == "坐姿端正"){
+      word = S.current.Sit;
+    }else if(pose == "盤腿"){
+      word = S.current.Cross_Legged;
+    }else if(pose == "沒人坐"){
+      word = S.current.no_sit;
+    }else if(pose == '正常坐姿'){
+      word = S.current.Sit;
+    }else{
+      word = pose;
+    }
+    return word;
+  }
   void _onTabClick(String type) {
     DateTime e = DateTime.now();
     DateTime? s;
@@ -134,7 +164,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
       s = DateTime.now().subtract(const Duration(days: 6));
       e = DateTime.now();
     } else if (type == S.of(context).week) {
-      s = DateTime.now().subtract(const Duration(days: 27));
+      s = DateTime.now().subtract(const Duration(days: 42));
       e = DateTime.now();
     } else if (type == S.of(context).month) {
       s = DateTime.now().subtract(const Duration(days: 364));
@@ -433,11 +463,13 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
+                                  AutoSizeText(
                                     '${S.of(context).every_awful(selectedType)}',
+                                    minFontSize: 12,
+                                    maxFontSize: 16,
                                     style: TextStyle(
                                       color: Colors.grey,
-                                      fontSize: 16,
+                                      // fontSize: 16,
                                       fontFamily: 'Roboto',
                                       fontWeight: FontWeight.w600,
                                       height: 0.09,
@@ -588,6 +620,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                               .toList();
 
                                       return Container(
+                                        width:MediaQuery.sizeOf(context).width * 0.8,
                                         margin: EdgeInsets.symmetric(
                                             vertical: 12.0),
                                         decoration: BoxDecoration(
@@ -694,7 +727,7 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                                   Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
-                                                            .fromSTEB(40.0, 0.0,
+                                                            .fromSTEB(80.0, 0.0,
                                                                 0.0, .0),
                                                     child: Column(
                                                       crossAxisAlignment:
@@ -702,15 +735,18 @@ class _AnalyzationWidgetState extends State<AnalyzationWidget>
                                                               .end,
                                                       children: recordsForDate
                                                           .map((record) {
-                                                        return Text(
-                                                          '${record.position} : ${(record.second / 3600).toStringAsFixed(2)}${S.of(context).hour}',
+                                                        return AutoSizeText(
+                                                          '${translatepose(record.position)} : ${(record.second / 3600).toStringAsFixed(2)}${S.of(context).hour}',
+                                                          minFontSize: 8,
+                                                          maxFontSize: 10,
+                                                          overflow: TextOverflow.ellipsis,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .displayMedium
                                                               .override(
                                                                 fontFamily:
                                                                     'Roboto',
-                                                                fontSize: 12.0,
+                                                                // fontSize: 10.0,
                                                                 letterSpacing:
                                                                     0.2,
                                                                 color:

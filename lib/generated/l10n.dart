@@ -739,6 +739,26 @@ class S {
       args: [],
     );
   }
+
+  /// `No-Sit`
+  String get no_sit {
+    return Intl.message(
+      'No-Sit',
+      name: 'no_sit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current-Sit`
+  String get current_sit {
+    return Intl.message(
+      'Current-Sit',
+      name: 'current_sit',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -747,6 +767,8 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'vi'),
+      Locale.fromSubtags(languageCode: 'zh'),
     ];
   }
 

@@ -49,6 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "con": MessageLookupByLibrary.simpleMessage("Continue"),
         "connect": MessageLookupByLibrary.simpleMessage("Connecting"),
         "connect_sit": MessageLookupByLibrary.simpleMessage("Connect"),
+        "current_sit": MessageLookupByLibrary.simpleMessage("Current-Sit"),
         "day": MessageLookupByLibrary.simpleMessage("Day"),
         "detail": MessageLookupByLibrary.simpleMessage("Detailed data"),
         "detail_record":
@@ -82,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "month": MessageLookupByLibrary.simpleMessage("Month"),
         "name": MessageLookupByLibrary.simpleMessage("Account name"),
         "next_step": MessageLookupByLibrary.simpleMessage("Next step"),
+        "no_sit": MessageLookupByLibrary.simpleMessage("No-Sit"),
         "now": MessageLookupByLibrary.simpleMessage("Currently, you\n"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "re_d": MessageLookupByLibrary.simpleMessage("Modify information"),

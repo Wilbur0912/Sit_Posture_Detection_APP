@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:auto_size_text/auto_size_text.dart';
+
 import '../../../generated/l10n.dart';
 import '../../../manager/AnalyzationManager.dart';
 import '../../../userProfileProvider.dart';
@@ -44,7 +46,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
   // final channel = IOWebSocketChannel.connect('ws://172.20.10.2:8080/$userId');
   int averageMinutesMain = 0;
   int averageMinutesMainReturn = 0;
-  String currentPostureName = 'Sit up straight'; // 初始文字
+  String currentPostureName = '${S.current.current_sit}'; // 初始文字
   int minutesOfCurrentPostureName = 0;
   String currentDate = "";
   Future<void> fetchTodayDataList(String? token) async {
@@ -59,11 +61,15 @@ class _HomePageWidgetState extends State<HomePageWidget>
           return YourDataItem(itemData['position'], itemData['second']);
         }).toList();
         sortAndMoveToTop(yourItemList, currentPostureName);
+        minutesOfCurrentPostureName = yourItemList
+            .map((item) => item.second)
+            .reduce((sum, item) => sum + item);
       });
 
-      minutesOfCurrentPostureName = yourItemList
-          .firstWhere((item) => item.position == currentPostureName, orElse: () => YourDataItem("", 0))
-          .second;
+      // minutesOfCurrentPostureName = yourItemList
+      //     .firstWhere((item) => item.position == currentPostureName, orElse: () => YourDataItem("", 0))
+      //     .second;
+
     }
   }
 
@@ -346,9 +352,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 focusColor: Colors.transparent,
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
-                                // onTap: () async {
-                                //   context.pushNamed('ProfilePage');
-                                // },
+                                onTap: () async {
+                                  context.pushNamed('settings');
+                                 },
                                 child: Container(
                                   width: 48.0,
                                   height: 48.0,
@@ -518,16 +524,16 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 ),
                                           ),
                                         ),
-                                        Text(
-                                          '${S.of(context).detail}',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Rubik',
-                                                color: Color(0xFF8B80F8),
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                        ),
+                                        // Text(
+                                        //   '${S.of(context).detail}',
+                                        //   style: FlutterFlowTheme.of(context)
+                                        //       .bodyMedium
+                                        //       .override(
+                                        //         fontFamily: 'Rubik',
+                                        //         color: Color(0xFF8B80F8),
+                                        //         fontWeight: FontWeight.w600,
+                                        //       ),
+                                        // ),
                                       ],
                                     ),
                                   ),
@@ -620,15 +626,17 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            Text(
+                                            AutoSizeText(
                                               '${S.of(context).realtime}',
+                                              minFontSize: 12,
+                                              maxFontSize: 22,
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Roboto',
                                                         color: Colors.white,
-                                                        fontSize: 24.0,
+                                                        // fontSize: 22.0,
                                                         letterSpacing: 1.0,
                                                         fontWeight:
                                                             FontWeight.w500,
@@ -650,11 +658,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily: 'Rubik',
-                                                color: Colors.white,
-                                                fontSize: 20.0,
-                                                fontWeight: FontWeight.normal,
-                                              ),
+                                            fontFamily: 'Rubik',
+                                            color: Colors.white,
+                                            fontSize: 18.0,
+                                            letterSpacing: 1.0,
+                                            fontWeight:
+                                            FontWeight.w500,
+                                          ),
                                         ),
                                         Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -880,15 +890,17 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            Text(
+                                            AutoSizeText(
                                               '${S.of(context).connect_sit}',
+                                              minFontSize: 12,
+                                              maxFontSize: 24,
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Rubik',
                                                         color: Colors.white,
-                                                        fontSize: 24.0,
+                                                        // fontSize: 24.0,
                                                         letterSpacing: 1.0,
                                                         fontWeight:
                                                             FontWeight.w500,
@@ -920,7 +932,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       .override(
                                                         fontFamily: 'Rubik',
                                                         color: Colors.white,
-                                                        fontSize: 24.0,
+                                                        fontSize: 22.0,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                       ),

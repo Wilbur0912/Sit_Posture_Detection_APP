@@ -90,6 +90,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
           alignment: Alignment.centerLeft,
           height: 60.0,
           child: TextField(
+            obscureText: labelText == '${S.of(context).name}' ? false : true,
             keyboardType: TextInputType.emailAddress,
             controller:
                 labelText == '${S.of(context).name}' ? _accountController : _passwordController,

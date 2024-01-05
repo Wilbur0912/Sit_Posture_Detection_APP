@@ -39,7 +39,8 @@ class DetectionWidget extends StatefulWidget {
 class _DetectionWidgetState extends State<DetectionWidget>
     with TickerProviderStateMixin {
   late DetectionModel _model;
-  String currentPostureName = '${S.current.Sit}'; // 初始文字
+  String currentPostureName = '${S.current.no_sit}'; // 初始文字
+  String debugData = '';
   List<SitRecord> sitRecordList = [];
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
   FlutterLocalNotificationsPlugin();
@@ -116,18 +117,27 @@ class _DetectionWidgetState extends State<DetectionWidget>
     Provider.of<UserProfileProvider>(context, listen: false);
     fetchDataList(userProfileProvider.userProfile?.token);
     // 監聽WebSocket消息
-    //sendNotification();
+
     //connectToSocket(userProfileProvider.userProfile);
     final channel = IOWebSocketChannel.connect(
       'ws://spineinspectorbackend-production.up.railway.app/inspect/',
       headers: {'token': userProfileProvider.userProfile?.token, 'Deviceid': '1'});
+    var counter = 0;
     channel.stream.listen((message) {
+      counter++;
+      counter %= 100;
       // 當接收到新消息時，更新文字
       setState(() {
+
+        debugData = counter.toString();
         fetchDataList(userProfileProvider.userProfile?.token);
+        if(currentPostureName != message) {
+          sendNotification(message);
+        }
         currentPostureName = message;
+        //currentPostureName = message + ':' + counter;
         if (currentPostureName == "") {
-          currentPostureName = '${S.current.Sit}';
+          currentPostureName = '${S.current.Sit}:$counter';
         } else {
           print("socket received: " + message);
         }
@@ -160,19 +170,20 @@ class _DetectionWidgetState extends State<DetectionWidget>
     Socket socket = await response.detachSocket();
 
     WebSocket ws = WebSocket.fromUpgradedSocket(socket, serverSide: false);
+    var counter = 0;
 
     ws.listen((message) {
+      counter++;
+      counter %= 100;
       // 當接收到新消息時，更新文字
       setState(() {
-        currentPostureName = message;
+        currentPostureName = message + ':' + counter;
         if (currentPostureName == "") {
-          currentPostureName = '${S.current.Sit}';
+          currentPostureName = '${S.current.Sit}:$counter';
         } else {
           print("socket received: " + message);
         }
-
-        //sendNotification();
-
+        // sendNotification(currentPostureName);
         //fetch資料，將資料整理到dataItem裡
         //fetchDataList(userProfileProvider.userProfile?.token);
       });
@@ -199,7 +210,82 @@ class _DetectionWidgetState extends State<DetectionWidget>
   //     });
   //   }
   // }
-  Future<void> sendNotification() async {
+
+
+  // Future<void> sendNotification() async {
+  //   const AndroidNotificationDetails androidPlatformChannelSpecifics =
+  //   AndroidNotificationDetails(
+  //     'your_channel_id',
+  //     'your_channel_name',
+  //     importance: Importance.max,
+  //     channelDescription: 'your_channel_description',
+  //   );
+  //
+  //   const NotificationDetails platformChannelSpecifics =
+  //   NotificationDetails(android: androidPlatformChannelSpecifics);
+  //
+  //   await flutterLocalNotificationsPlugin.show(
+  //     0, // 通知的唯一 ID
+  //     '正常坐姿', // 通知的標題
+  //     '您的坐姿是正常的', // 通知的内容
+  //     platformChannelSpecifics,
+  //     payload: 'Custom_Sound',
+  //   );
+  // }
+  Future<void> sendNotification(String sittingPosture) async {
+    // 獲取當前坐姿
+
+    // 根據坐姿修改通知的標題和內容
+    String title = "";
+    String body = "";
+    switch (sittingPosture) {
+      case "坐姿端正":
+        title = sittingPosture;
+        body = "您的坐姿是正確的";
+        break;
+      case "翹左腳":
+        title = "不正確坐姿";
+        body = "您的坐姿不正確，請注意避免翹左腳";
+        break;
+      case "翹右腳":
+        title = "不正確坐姿";
+        body = "您的坐姿不正確，請注意避免翹右腳";
+        break;
+      case "三分之一坐姿":
+        title = "不正確坐姿";
+        body = "您的坐姿不正確，請往後坐，確保身體不會造成損傷";
+        break;
+      case "上半身左傾":
+        title = "不正確坐姿";
+        body = "您的坐姿不正確，請將上半身往右，請注意保持背部挺直";
+        break;
+      case "上半身右傾":
+        title = "不正確坐姿";
+        body = "您的坐姿不正確，請將上半身往左，注意保持背部挺直";
+        break;
+      case "駝背":
+        title = "不正確坐姿";
+        body = "您的坐姿不正確，請注意保持挺直";
+        break;
+      case "半躺半坐":
+        title = "不正確坐姿";
+        body = "您的坐姿不正確，請注意保持坐姿";
+        break;
+      case "盤腿":
+        title = "不正確坐姿";
+        body = "您的坐姿不正確，請注意避免盤腿";
+        break;
+      case "沒人坐":
+        title = "未知坐姿";
+        body = "未能識別坐姿";
+        break;
+      // default:
+      //   title = "未知坐姿";
+      //   body = "未知坐姿";
+      //   break;
+    }
+
+    // 發送通知
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
     AndroidNotificationDetails(
       'your_channel_id',
@@ -213,8 +299,8 @@ class _DetectionWidgetState extends State<DetectionWidget>
 
     await flutterLocalNotificationsPlugin.show(
       0, // 通知的唯一 ID
-      '正常坐姿', // 通知的標題
-      '您的坐姿是正常的', // 通知的内容
+      title, // 通知的標題
+      body, // 通知的内容
       platformChannelSpecifics,
       payload: 'Custom_Sound',
     );
@@ -240,6 +326,35 @@ class _DetectionWidgetState extends State<DetectionWidget>
     _model.dispose();
 
     super.dispose();
+  }
+  String translatepose(String pose){
+    String word = "";
+    if(pose == '翹左腳'){
+      word = S.current.Left_foot;
+    }else if(pose == '翹右腳'){
+      word = S.current.right_foot;
+    }else if(pose == "三分之一坐姿"){
+      word = S.current.One_third;
+    }else if(pose == "上半身右傾"){
+      word = S.current.Upper_right;
+    }else if(pose == "上半身左傾"){
+      word = S.current.Upper_left;
+    }else if(pose == "駝背"){
+      word = S.current.Hunchback;
+    }else if(pose == "半躺半坐"){
+      word = S.current.half_lying;
+    }else if(pose == "坐姿端正"){
+      word = S.current.Sit;
+    }else if(pose == "盤腿"){
+      word = S.current.Cross_Legged;
+    }else if(pose == "沒人坐"){
+      word = S.current.no_sit;
+    }else if(pose == '正常坐姿'){
+      word = S.current.Sit;
+    }else{
+      word = pose;
+    }
+      return word;
   }
 
   @override
@@ -384,6 +499,12 @@ class _DetectionWidgetState extends State<DetectionWidget>
                           ),
 
                         ),
+                        Padding(padding: EdgeInsetsDirectional.fromSTEB(
+                            60.0, 1, 60.0, 1),
+                          child:
+                            Text(debugData),
+
+                        )
                         // Text(
                         //   ' ',
                         //   style: FlutterFlowTheme
@@ -447,7 +568,7 @@ class _DetectionWidgetState extends State<DetectionWidget>
                                         ),
                                       ),
                                       Text(
-                                        currentItem.position,
+                                        translatepose(currentItem.position),
                                         style: FlutterFlowTheme
                                             .of(context)
                                             .bodyMedium

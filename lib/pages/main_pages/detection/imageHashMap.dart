@@ -30,6 +30,7 @@ String callPostureImage(String key) {
     '駝背': 'assets/images/駝背.png',
     '半躺半坐': 'assets/images/半躺半坐.jpg',
     '坐姿端正': 'assets/images/正常坐姿.png',
+    '${S.current.no_sit}': 'assets/images/dining.png',
   };
   if (imageMap.containsKey(key)) {
     return imageMap[key]!;
