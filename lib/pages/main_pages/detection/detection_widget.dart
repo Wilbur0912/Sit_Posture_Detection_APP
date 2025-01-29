@@ -120,7 +120,7 @@ class _DetectionWidgetState extends State<DetectionWidget>
 
     //connectToSocket(userProfileProvider.userProfile);
     final channel = IOWebSocketChannel.connect(
-      'ws://spineinspectorbackend-production.up.railway.app/inspect/',
+      'wss://spineinspectorbackend-production.up.railway.app/inspect/',
       headers: {'token': userProfileProvider.userProfile?.token, 'Deviceid': '1'});
     var counter = 0;
     channel.stream.listen((message) {
